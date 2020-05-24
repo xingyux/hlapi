@@ -1,0 +1,58 @@
+<extend name="mobile/Layout/base" />
+<block name="title">域名注册人管理-</block>
+<block name="style">
+	<style>
+        #form input{
+            width: 70%;
+            border: none;
+            border-bottom: 1px solid #DDD;
+        }
+        #form{
+            padding: 10px;
+        }
+        #form button{
+            display: block;
+            border: none;
+            background: none;
+            border-radius: 5px;
+            background-color: #03b3ff;
+            width: 90%;
+            text-align: center;
+            color: #FFF;
+            line-height: 30px;
+            margin-top: 10px;
+        }
+        #form label{
+            color: #5F5F5F;
+        }
+	</style>
+</block>
+<block name="content">
+	<a name="top"></a>
+    <div class="table">
+        <table>
+            <tr>
+                <th>编号</th>
+                <th>用户</th>
+                <th>所有人</th>
+                <th>联系人</th>
+                <th>官方ID</th>
+            </tr>
+            <foreach name="res['list']" item="vo">
+                <tr>
+                    <td>{$vo.id} </td>
+                    <td>{$vo.username}</td>
+                    <td>{$vo.suoyouren} </th>
+                    <td>{$vo.lxrxing}{$vo.lxrming}</td>
+                    <td>{$vo.agent_id}</td>
+                </tr>
+            </foreach>
+        </table>
+    </div>
+    <include file="mobile/Common/ui-page" />
+	<a href="#top" name="top" id="go-top"><i class="iconfont">&#xe61e;</i></a>
+</block>
+<block name="script">
+	<script>
+	</script>
+</block>

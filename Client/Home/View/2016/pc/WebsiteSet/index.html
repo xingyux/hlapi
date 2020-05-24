@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>管理中心-{$sitename}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="description" itemprop="description" content="">
+	<meta name="keywords" itemprop="keywords" content="">
+	<include file="Common/head" />
+	<link rel="stylesheet" href="__PUBLIC__/web/css/simple-web-plug.css">
+	<style>
+		.form input{
+			width: 200px;
+			height: 40px;
+			line-height: 40px;
+			border: none;
+			border-bottom: 1px solid #DDD;
+			padding: 0 10px;
+			color: #5F5F5F;
+		}
+		.content .form{
+			width: auto;
+			float: none;
+		}
+		.form button,.but{
+			opacity: 1;
+			border:none;
+			border-radius: 5px;
+			color: #FFF;
+			background-color: #03a1e5;
+			cursor: pointer;
+			padding: 5px 10px;
+			-webkit-transition: all 0.2s  linear;
+			   -moz-transition: all 0.2s  linear;
+			    -ms-transition: all 0.2s  linear;
+			     -o-transition: all 0.2s  linear;
+			        transition: all 0.2s  linear;
+		}
+		.form button,.but{
+			opacity: 0;
+		}
+		.form:hover button,.form:hover .but{
+			opacity: 1;
+		}
+		.group{
+			margin-bottom: 10px;
+		}
+		.group .title{
+			font-size: 20px;
+			clear: both;
+			color: #5F5F5F;
+			font-weight: bolder;
+			display: block;
+			background-color: #FFF;
+			border-bottom: 1px solid #DDD;
+			padding: 5px 10px;
+		}
+		.group .title>a.del{
+			float: right;
+			font-size: 14px;
+			cursor: pointer;
+			color: red;
+		}
+		#static-set td,#theme-set td{
+			border: 1px solid #DDD;
+			padding: 10px;
+			color: #5F5F5F;
+		}
+		.simple-upload{
+			display: inline-block;
+			padding: 5px 10px;
+			color: #FFF;
+			background-color: #03a1e5;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<include file="User/nav" />
+	<section class="main clear">
+		<include file="Common/menu" />
+		<div class="content">
+			<div style="background-color: #FFF;max-width: 800px;">
+				<form id="theme-set" action="{:U('setTheme')}" method="POST">
+					<table cellpadding="0" cellspacing="0">
+						<tr>
+							<td>选择模版：</td>
+							<td>
+							<select name="theme">
+								<foreach name="ThemeList" item="vo">
+									<option value="{$vo.path}" <eq name="Theme" value="$vo['path']">selected</eq> >{$vo.info.name}开发者:{$vo.info.author}更新时间：{$vo.info.lastdate}</option >
+								</foreach>
+							</select>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="2">
+								<button type="submit" class="but" style="width:100%;border-radius: 0;opacity: 1;">保存</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+				<form id="static-set" action="{:U('setStatic')}" method="POST">
+					<table cellpadding="0" cellspacing="0">
+						<tr>
+							<td>网站logo：</td>
+							<td colspan="3">
+								<img id="web-logo" src="__PUBLIC__/web/images/logo.png" style="background-color: #DDD;">
+								<span class="simple-upload" id="logo-upload" name="image">更换logo</span></td>
+						</tr>
+						<tr>
+							<td>网站二维码：</td>
+							<td colspan="3">
+								<img id="qrcode" style="max-width: 100px;max-height: 100px;" src="__PUBLIC__/web/images/qrcode.png" style="background-color: #DDD;">
+								<span class="simple-upload" id="qrcode-upload" name="image">更换二维码</span></td>
+						</tr>
+						<tr>
+							<td>电话：</td>
+							<td><input type="text" name="telephone" value="{:getWebsiteSet('telephone')}" placeholder="请输入电话号码"></td>
+							<td>邮箱：</td>
+							<td><input type="text" name="email" value="{:getWebsiteSet('email')}" placeholder="请输入邮箱"></td>
+						</tr>
+						<tr>
+							<td>版权：</td>
+							<td colspan="3">
+								<input type="text" name="copyright" value="{:getWebsiteSet('copyright')}" style="width:100%;" placeholder="请输入版权声明">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<button type="submit" class="but" style="width:100%;border-radius: 0;opacity: 1;">保存</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+				<div id="set-list">
+					<volist name="list" id="group">
+						<div class="group">
+							<div class="title">{$group->title} <a href="{:U('delGroup',array('groupId'=>$key))}" class="del confirm">删除</a></div>
+							<php>
+								foreach($group->child as $k=>$set){
+							</php>
+								<form action="{:U('setList')}" method="POST" class="form set">
+									<input type="text" name="title" value="{$set->title}">
+									<input type="text" name="value" value="{$set->value}">
+									<input type="hidden" name="group-id" value="{$key}">
+									<input type="hidden" name="set-id" value="{$k}">
+									<button type="submit">保存</button>
+									<a href="{:U('del',array('groupId'=>$key,'setId'=>$k))}" class="but confirm">删除</a>
+								</form>
+							<php>}</php>
+							<form action="{:U('addList',array('groupId'=>$key))}" method="POST" class="form">
+								<input type="text" name="title" placeholder="添加新的链接名称">
+								<input type="text" name="value" placeholder="添加新的链接地址">
+								<button type="submit">添加</button>
+							</form>
+						</div>
+					</volist>
+				</div>
+				<form class="form group" action="{:U('addGroup')}" method="POST">
+					<div class="title" style="background-color: #03a1e5;color: #FFF;">添加新的分组</div>
+					<input type="text" name="title" placeholder="添加新的分组">
+					<button type="submit" style="opacity: 1;">确定添加</button>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<script src="__PUBLIC__/web/js/simple-web-plug.js"></script>
+	<script>
+		$(function(){
+			
+
+			new SimpleUpload("#logo-upload", {
+		        multiple: false,
+		        url: '{:U("upload_logo")}',
+		        done: function(data) {
+		        	data=JSON.parse(data);
+		        	if(data.code==1){
+		        		alert('更换成功');
+		        		$("#web-logo").attr('src','__PUBLIC__/web/images/logo.png?'+Math.random());
+		        	}else{
+		        		alert(data.msg);
+		        	}
+		        },
+		        error: function(data, status) {
+		        	alert(data)
+		        }
+		    });
+		    
+			new SimpleUpload("#qrcode-upload", {
+		        multiple: false,
+		        url: '{:U("upload_qr")}',
+		        done: function(data) {
+		        	data=JSON.parse(data);
+		        	if(data.code==1){
+		        		alert('更换成功');
+		        		$("#qrcode").attr('src','__PUBLIC__/web/images/qrcode.png?'+Math.random());
+		        	}else{
+		        		alert(data.msg);
+		        	}
+		        },
+		        error: function(data, status) {
+		        	alert(data)
+		        }
+		    });
+
+		    $(".confirm").click(function(){
+		    	return confirm('确定删除么？');
+		    });
+
+			$(function(){
+				$('.nav li').hover(
+					function(){
+						$(this).find('.dropmenu').stop().slideDown()
+			
+					},
+					function(){
+						$(this).find('.dropmenu').stop().slideUp('fast')
+					}
+				)
+				
+			});
+			$('.menu li div').click(function(){
+				$(this).parents('ul').find('li').removeClass('active')
+				$(this).parent().addClass('active')
+				$(this).parents('ul').find('p').slideUp()
+				if($(this).parent().find('p').length){
+					
+					$(this).parent().find('p').slideDown()
+				}
+			})
+			
+
+		})
+	</script>
+</body>
+</html>
+

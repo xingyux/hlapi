@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>退款管理-{$sitename}</title>
+<include file="Common/head" />
+<link href="//cache-code-ui.html5ui.org/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="//cache-code-ui.html5ui.org/tablecloth/tablecloth.js"></script>
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="Common/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+           			<div class="bootstrap">
+		
+        <ul  class="nav nav-pills">
+		<li class=""><a>订单管理</a></li>
+          <li><a href="{:U('order')}" >全部订单</a></li>
+		  <li><a href="{:U('order',array('state'=>1))}" >未完成订单</a></li>
+		  <li class="active"><a href="{:U('refun')}" >退款状态</a></li>
+        </ul>	
+		
+	</div>
+            <div class="select_choose">
+			<form id="form" action="{:U('Search/index')}" method="post">
+			
+               <label>
+                    机房：<select name="search_keyword[servers]">
+                            <option value="">全部</option>
+							<foreach name="servers" item="servers">
+							<option value="{$servers['flag']}"<eq name="res['search_keyword']['servers']" value="$servers['flag']"> selected</eq>>{$servers['name']}</option>
+							</foreach>
+                         </select>
+                </label>
+              
+                <label>
+                     操作人：<input type="text" name="search_keyword[username]" value="{$res['search_keyword']['username']}">
+                </label>
+                <label>
+                     交易号：<input type="text" name="search_keyword[pkey]" value="{$res['search_keyword']['pkey']}">
+                </label>
+                <label>
+                     域名//IP：<input type="text" name="search_keyword[ip]" value="{$res['search_keyword']['ip']}">
+                </label>
+                <label>
+                      状态：<select name="search_keyword[state]">
+                            <option value="">订单状态</option>
+							
+                            <option value="999"<eq name="res['search_keyword']['state']" value="999"> selected</eq>>正常</option>
+                            <option value="2"<eq name="res['search_keyword']['state']" value="2"> selected</eq>>过期</option>
+                            <option value="998"<eq name="res['search_keyword']['state']" value="998"> selected</eq>>已取消</option>
+                            <option value="0"<eq name="res['search_keyword']['state']" value="0"> selected</eq>>待付款</option>
+							<option value="0"<eq name="res['search_keyword']['state']" value="997"> selected</eq>>等待退款</option>
+                         </select>
+                </label>
+          <input type="hidden" name="search_keyword[model_name]" value="{$Think.const.MODULE_NAME}">
+		  <input type="hidden" name="search_keyword[controller_name]" value="{$Think.const.CONTROLLER_NAME}">
+		  <input type="hidden" name="search_keyword[action_name]" value="{$Think.const.ACTION_NAME}">
+		  <input type="hidden" name="show" value="{$show}">
+                <button type="submit">查询</button>
+				</form>
+            </div>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>交易号</th>
+						
+                        <th>申请用户<br>订单用户<br>产品用户</th>
+			
+                        <th>产品名称</th>
+                        <th>提交时间<br>处理时间</th>
+                        <th>订单时间</th>
+						<th>产品标志</th>
+						<th>处理结果</th>
+                        <th>处理状态</th>
+				
+						<th>处理人</th>
+                    </tr>
+                    <foreach name="res['product']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+                        <td>{$vo.username}<br>{$vo.c_username}<br>{$vo.a_username}</td>
+		
+						<td>{$vo.serversname}  </th>
+                        <td>{$vo.tim|date='Y-m-d H:i',###}<br>{$vo.refuntime|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.order_starttime|date='Y-m-d H:i',###}<br>{$vo.order_endtime|date='Y-m-d H:i',###}</td>
+						<td>{$vo.domain}<br />{$vo.domainname}</td>
+                        <td>{$vo.refun_info}</td>
+                        <td>	<if condition="$vo['state'] eq 1">
+								<span class="label label-sm label-success">等待处理</span>
+							<elseif condition="$vo['state'] eq 2" />
+								<span class="label label-sm label-warning">已处理</span>
+							<else /> 
+								<span class="label label-sm label-warning">驳回</span>
+								
+							</if></td><td>{$vo.refunuser}</td></tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 <include file="Common/ui-page" />
+            </div>
+        </div>
+    </section>
+   
+<include file="UI/order" />
+	
+</body>
+</html>

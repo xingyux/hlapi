@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>产品管理-{$sitename}</title>
+    <include file="Common/head"/>
+    <link href="__RESOURE__/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="__PUBLIC__/home/css/style.css">
+    <link rel="stylesheet" href="__PUBLIC__/home/css/css/iconfont.css">
+   
+
+    <script>
+        $(function () {
+
+
+            $('.menu').css('minHeight', $('.content').height() + 20);
+            $(function () {
+                $('.nav li').hover(
+                        function () {
+                            $(this).find('.dropmenu').stop().slideDown()
+
+                        },
+                        function () {
+                            $(this).find('.dropmenu').stop().slideUp('fast')
+                        }
+                )
+
+            })
+            $('.menu li div').click(function () {
+                $(this).parents('ul').find('li').removeClass('active')
+                $(this).parent().addClass('active')
+                $(this).parents('ul').find('p').slideUp()
+                if ($(this).parent().find('p').length) {
+
+                    $(this).parent().find('p').slideDown()
+                }
+            })
+
+        })
+
+
+    </script>
+	<style>
+                        .paid{
+                            text-align: center;
+                        }
+                        .paid  p{
+                            font-size: 20px;
+                        }
+                        .paid  input,.paid form select{
+                            font-family: "Microsoft YaHei";
+                            border: 1px solid #EEEEEE;
+                            height: 50px;
+                            width: 60%;
+                            border-radius: 4px;
+                            font-size: 20px;
+                            padding: 0 10px;
+                        }
+
+                        .paid  .sub{
+                            font-family: "Microsoft YaHei";
+                            isplay: block;
+                            margin: 0 auto;
+                            width: 240px;
+                            height: 44px;
+                            background: #d9534f;
+                            color: #fff;
+                            text-align: center;
+                            line-height: 44px;
+                            border-radius: 4px;
+                            font-size: 20px;
+                        }
+						form td.active{background-color:#000;color:#FFF;font-weight:bold;}
+                    </style>
+</head>
+
+<body>
+<include file="User/nav"/>
+
+<section class="main clear">
+    <include file="Common/menu"/>
+
+    <script>
+        $(function () {
+            $('.nav li').hover(
+                    function () {
+                        $(this).find('.dropmenu').stop().slideDown()
+
+                    },
+                    function () {
+                        $(this).find('.dropmenu').stop().slideUp('fast')
+                    }
+            )
+        })
+    </script>
+
+    <style>
+        .server_list {
+            margin: 20px 0;
+        }
+
+        .server_list a {
+            background: #2086ee;
+            color: #fff;
+            font-size: 14px;
+            padding: 10px;
+            margin-left: 20px;
+        }
+    </style>
+
+    <div class="content">
+        <p class="posion">商品代付</p>
+        <div class="server_list">
+            <a href="javascript:;" class="btnn-checkbox">全选/反选</a>
+            
+        </div>
+		<form method="post" class="paidadd" action="{:U('paid/add')}">
+        <div class="table">
+            <table>
+                <tr>
+                    <th>选择</th>
+					<th>订单号</th>
+                    <th>配置</th>
+                    <th>官方价格</th>
+                    <th>购买价格</th>
+					
+                    <th>订单时间</th>
+                </tr>
+                <notempty name="lists">
+                    <volist name="lists.result" id="vo">
+                        <tr>
+                            <td><neq name="vo.ispay" value="n"><input type="checkbox" name="paid_allsn[{$vo.orderid}]" value="{$vo.orderid}" <eq name="vo.checked" value="y">checked</eq>><else />-</neq></td>
+							<td>{$vo.orderid}</td>
+                            <td>{$vo.info}</td>
+                            <td>{$vo.price}</td>
+                            <td class="buyprice">{$vo.buyprice}</td>
+							
+                            <td>{$vo.time|date='Y-m-d H:i:s',###}</td>
+                        </tr>
+                    </volist>
+                </notempty>
+
+            </table><div class="paid">
+			<p>
+                                服务商：<input type="text" readonly name="server_name" value="{$lists.server_name}">
+                            </p>
+                            <br>
+                            
+                            <br>
+                            <p>
+                                Q Q号：<input type="text" readonly name="paid_qq" value="{$lists.paid_qq}">
+                            </p>
+							<p>
+                                总价（元）：<input type="text" readonly name="sum_money" value="0">
+                            </p>
+							<p><input type="hidden" name="pay" value="y">
+							<input type="hidden" name="paid_version" value="201700703">
+							<input type="hidden" name="token" value="{$paidtoken}">
+                                <input type="submit" class="sub" value="立即代付">
+                            </p></div>
+        </div>
+        </form>
+    </div>
+
+</section>
+
+
+<script>
+
+var isPay=false;
+
+var _sum=function(){
+var money = 0;
+$("input[type='checkbox']:checked").each( function(k,v){
+var buyprice = $(this).closest("tr").find("td.buyprice").html();
+	money += parseInt(buyprice);
+} )
+$("input[name='sum_money']").val(money);
+}
+$( function(){
+
+$("input[type='checkbox']").on( "click" , function(){
+
+if( $(this).prop("checked") ){
+	$(this).closest("tr").find("td").addClass("active");
+}else{
+	$(this).closest("tr").find("td").removeClass("active");
+}
+_sum();
+} );
+
+$("input[type='checkbox']:checked").closest("tr").find("td").addClass("active");
+$("input[type='checkbox']:checked").closest("tr").find("td").removeClass("selected");
+_sum();
+
+$("a.btnn-checkbox").on("click" , function(){
+
+$("input[type='checkbox']").each( function(k,v){
+var _checked=$(this).prop( "checked" );
+$(this).prop( "checked" , !_checked );
+
+if( !_checked ){
+	$(this).closest("tr").find("td").addClass("active");
+}else{
+	$(this).closest("tr").find("td").removeClass("active");
+}
+
+} );
+
+_sum();
+
+return false;
+} );
+
+$("form.paidadd").on( "submit" , function(){
+if( isPay ){
+	alert("订单正在支付，请不要重复提交");return false;
+}
+if( !confirm("您确认要支付此订单，如果这是第二次弹出请点取消防止重复扣款") ){
+return false;
+}
+isPay=true;
+return true;
+
+} );
+
+} )
+
+</script>
+
+</body>
+</html>

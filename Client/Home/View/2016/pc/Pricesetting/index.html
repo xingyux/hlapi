@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>机房管理-{$sitename}</title>
+<include file="Common/head" />
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">机房管理</p>
+            <div class="select_choose">
+               <a href="{:U('index',array('action'=>'update'))}"><button>同步机房</button></a>
+			   <a href="{:U('index',array('action'=>'clearcache'))}"><button>更新缓存</button></a>
+			   <a href="{:U('batch')}" target="_bank"><button>批量设置价格</button></a>
+            </div>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>ID</th>
+                        <th>机房名称</th>
+						<th>机房标志</th>
+                       <th>序列</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="servers" item="vo">
+					<form id="form{$vo.id}" action="" method="post">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						
+                        <td>
+						<input type="text" name="name" value="{$vo.name}" placeholder="请输入新的名称" style=" border:1px solid #000;">
+						<td>{$vo.flag} </td>
+						<input type="hidden" name="flag" value="{$vo.flag}">
+						</td>
+                        <td>{$vo.ord} </td>
+                        <td class="cz">
+                        	
+                            <button type="submit">改名</button>
+                            <a href="{:U('agentprice',array('agent'=>$vo['flag']))}"><button type="button">设置代理价格</button></a>
+                            <a href="{:U('sellprice',array('agent'=>$vo['flag']))}"><button type="button">设置销售价格</button></a>
+							<a href="{:U('apiset',array('agent'=>$vo['flag']))}"><button type="button">API设置</button></a>
+							<a href="{:U('product',array('agent'=>$vo['flag']))}"><button type="button">产品列表</button></a>
+                        </td></tr></form>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

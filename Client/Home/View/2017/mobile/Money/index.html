@@ -1,0 +1,95 @@
+<extend name="mobile/Layout/base" />
+<block name="title">财务管理-</block>
+<block name="style">
+	<style>
+        #form input{
+            width: 70%;
+            border: none;
+            border-bottom: 1px solid #DDD;
+        }
+        #form{
+            padding: 10px;
+        }
+        #form button{
+            display: block;
+            border: none;
+            background: none;
+            border-radius: 5px;
+            background-color: #03b3ff;
+            width: 90%;
+            text-align: center;
+            color: #FFF;
+            line-height: 30px;
+            margin-top: 10px;
+        }
+        #form label{
+            color: #5F5F5F;
+        }
+        .top-nav{
+            text-align: center;
+            background-color: #524F4F;
+        }
+        .top-nav a{
+            line-height: 30px;
+            display: inline-block;
+            padding: 0 5px;
+            color: #FFF;
+        }
+        .top-nav a.activi{
+            background-color: #03b3ff;
+            color: #FFF;
+        }
+	</style>
+</block>
+<block name="content">
+	<a name="top"></a>
+    <nav class="top-nav">
+        <a class="activi">财务信息</a>
+        <a href="{:U('paylog')}">充值记录</a>
+        <a href="{:U('buy')}">消费记录</a>
+        <a href="{:U('refun')}">退款记录</a>
+        <a href="{:U('pay')}">在线充值</a>
+    </nav>
+	<form id="form" action="{:U('Search/index')}" method="post">
+        <label>
+            任务ID：
+            <input type="number" name="search_keyword[pid]" value="{$res['search_keyword']['pid']}">
+        </label>
+        <input type="hidden" name="search_keyword[model_name]" value="{$Think.const.MODULE_NAME}">
+        <input type="hidden" name="search_keyword[controller_name]" value="{$Think.const.CONTROLLER_NAME}">
+        <input type="hidden" name="search_keyword[action_name]" value="{$Think.const.ACTION_NAME}">
+        <button type="submit">查询</button>
+    </form>
+    <div class="table">
+        <table cellpadding="0">
+            <tr>
+                <th>编号</th>
+                <th>操作时间</th>
+                <th>金额</th>
+                <th>结余余额</th>
+                <th>预存金额</th>
+                <th>结余预存余额</th>
+                <th>说明</th>
+                <th>操作人</th>
+            </tr>
+            <foreach name="res['Log']" item="vo">
+                <tr>
+                    <td>{$vo.id} </td>
+                    <td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                    <td>{$vo.money}</td>
+                    <td>{$vo.usermoney} </td>
+                    <td>{$vo.paymoney} </td>
+                    <td>{$vo.userpaymoney} </td>
+                    <td style="word-wrap: break-word;word-break:break-all;width:300px;" class="_tip" data-html="true" title="{$vo.title}">{$vo.infos}</td>
+                    <td>{$vo.opuser}</td>
+                </tr>
+            </foreach>
+        </table>
+        <include file="mobile/Common/ui-page" />
+    </div>
+	<a href="#top" name="top" id="go-top"><i class="iconfont">&#xe61e;</i></a>
+</block>
+<block name="script">
+	<script>
+	</script>
+</block>

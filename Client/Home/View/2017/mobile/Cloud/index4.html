@@ -1,0 +1,44 @@
+<html>
+
+<head>
+	<title>云主机选购-{$sitename}</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- 引入旧样式 -->
+	<link href="__PUBLIC__/web/css/style.css" type="text/css" rel="stylesheet">
+	<link href="__PUBLIC__/web/css/iconfont.css" type="text/css" rel="stylesheet">
+
+	<!-- 引入新样式 -->
+	<link rel="stylesheet" href="https://at.alicdn.com/t/font_304767_v460whehcjo47vi.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.3.9/lib/theme-chalk/index.css">
+</head>
+
+<body>
+	<include file="Common/nav" />
+	<div id="app">
+	</div>
+
+	<!-- 引入组件库 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/element-ui@2.3.7/lib/index.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data: function () {
+				return { visible: false }
+			},
+			mounted () {
+				axios.post('/Cloud/index', {})
+				.then(function (response) {
+					console.log(response);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+			}
+		})
+	</script>
+</body>
+
+</html>

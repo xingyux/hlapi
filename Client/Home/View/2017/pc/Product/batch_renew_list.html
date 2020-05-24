@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品管理-{$sitename}</title>
+<include file="Common/head" />
+<link href="//cache-code-ui.html5ui.org/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="//cache-code-ui.html5ui.org/tablecloth/tablecloth.js"></script>
+
+<script>
+$(function(){
+
+
+
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+
+        <div class="content">
+
+            <div class="table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th><input id="all" name="all" type="checkbox" value="all"/></th>
+                        <th>交易号</th>
+                        <th>名称</th>
+                        <th>机房</th>
+                        <th>用户</th>
+                        <th>类型</th>
+                        <th>价格</th>
+                        <th>续费结果</th>
+                    </tr>
+                    </thead>
+                <tbody>
+                    <foreach name="res['domain_list']" item="vo">
+                        <empty name="vo.price">
+                        <tr>
+                            <td><input name="_domain" type="checkbox" value="{$vo.id}" disabled/></td>
+                            <td>{$vo.id} </td>
+                            <td>{$vo.domainname} </td>
+                            <td>{$vo.agent|ReadServersCache='name'} </td>
+                            <td>{$vo.username}</td>
+                            <td>{$vo.domain}  </th>
+                            <td><i style="color: #ff4135;font-size: 15px;">不支持此项续费规则</i></td>
+                            <td>无</td>
+                        </tr>
+                        </empty>
+                    </foreach>
+
+                    <foreach name="res['domain_list']" item="vo">
+                        <notempty name="vo.price">
+                            <tr>
+                                <td><input name="domain" type="checkbox" value="{$vo.id}"/></td>
+                                <td>{$vo.id} </td>
+                                <td>{$vo.domainname} </td>
+                                <td>{$vo.agent|ReadServersCache='name'} </td>
+                                <td>{$vo.username}</td>
+                                <td>{$vo.domain}  </th>
+                                <td><i style="color: #ff4135;font-size: 17px;">{$vo.price.price}</i>&nbsp;&nbsp;元/{$vo.price.name}</td>
+                                <td id="result_{$vo.id}"><i  style="color: orange;font-size: 15px;"></i></td>
+                            </tr>
+                        </notempty>
+                    </foreach>
+
+                </tbody>
+                </table>
+                <button id="renew_btn" style="width: 100px;height: 37px;font-size: 15px;">点击续费</button>
+            </div>
+
+        </div>
+    </section>
+
+<script>
+    var flag = 1;
+    var index = 0;
+	var isclick=false;
+    $(function(){
+
+        $("#all").change(function(){
+            if(flag == 0){
+                $(":checkbox[name = domain]").prop("checked", false);
+                flag = 1;
+            }else{
+                $(":checkbox[name = domain]").prop("checked", true);
+                flag = 0;
+            }
+        });
+
+        $("#renew_btn").click(function(){
+            var obj=document.getElementsByName('domain');
+            var renew=[];
+            for(var i=0; i<obj.length; i++){
+                if(obj[i].checked) renew.push(obj[i].value);
+            }
+
+            if(renew.length <= 0){
+                alert('请至少选择支持续费规则的数据');
+                return;
+            }
+			
+			if(isclick){alert("此按钮已点过，请不要重复续费");return false;}
+			isclick=true;
+            renew_(renew);
+        });
+
+
+        $(".rbtn").click(function () {
+            var product_id = $(this).attr('data-id');
+            $.ajax({
+                url: "{:U('Shop/renew')}",
+                type: 'POST', //GET
+                async: true,    //或false,是否异步
+                data: {
+                    buy_choose: 1,
+                    time_choose:"{$res['time_choose']}",
+                    product_id:product_id,
+					json:1
+                },
+                timeout: 30000,    //超时时间
+                dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                success: function (data, textStatus, jqXHR) {
+                    if(data.GPC.post.product_id>0){
+                        $("#result_"+data.GPC.post.product_id+" i").html(data.message);
+                    }else{
+                        $str = '<button class="rbtn" data-id="'+data.GPC.post.product_id+'">重试</button>';
+                        $("#result_"+data.GPC.post.product_id+" i").html($str);
+                    }
+
+                },
+                error: function (xhr, textStatus) {
+                    console.log(xhr)
+                    console.log(textStatus)
+                }
+            });
+        });
+    });
+    
+    function renew_(renew) {
+        $.ajax({
+            url: "{:U('Shop/renew')}",
+            type: 'POST', //GET
+            async: true,    //或false,是否异步
+            data: {
+                buy_choose: 1,
+                time_choose:"{$res['time_choose']}",
+                product_id:renew[index],
+				json:1
+            },
+            timeout: 30000,    //超时时间
+            dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success: function (data, textStatus, jqXHR) {
+                if(data.GPC.post.product_id>0){
+                    $("#result_"+data.GPC.post.product_id+" i").html(data.message);
+                }else{
+                    $str = '<button class="rbtn" data-id="'+data.GPC.post.product_id+'">重试</button>';
+                    $("#result_"+data.GPC.post.product_id+" i").html($str);
+                }
+                index++;
+
+                if(index < renew.length){
+                    renew_(renew);
+                }
+
+            },
+            error: function (xhr, textStatus) {
+                console.log(xhr)
+                console.log(textStatus)
+            }
+
+        });
+    }
+</script>
+</body>
+</html>

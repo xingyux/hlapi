@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title><block name="title"></block>{$sitename}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="description" itemprop="description" content="">
+	<meta name="keywords" itemprop="keywords" content="">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/mobile_common.css">
+	<style>
+		.cls{clear: both;}
+	</style>
+	<block name="style"></block>
+</head>
+<body>
+	<header id="com_header">
+		<a href="/"><img src="__PUBLIC__/web/images/logo.png" class="logo"></a>
+		<span id="com-header-nav-but" class="iconfont">&#xe602;</span>
+		<nav id="com-header-nav">
+			<ul>
+				<li><a href="{:U('/index')}">首页</a></li>
+				<li><a href="{:U('Domain/index')}">域名注册</a></li>
+				<li><a href="{:U('Host/index')}">虚拟主机</a></li>
+				<li><a href="{:U('Vps/index')}">VPS</a></li>
+				<li><a href="{:U('Cloud/index')}">弹性云</a></li>
+				<li><a href="{:U('Adsl/index')}">ADSL</a></li>
+				<li><a href="{:U('Server/index')}">服务器</a></li>
+				<li><a href="{:U('Seo/index')}">营销推广</a></li>
+				<li><a href="#">网站建设</a></li>
+				<li><a href="{:U('Join/index')}">代理加盟</a></li>
+				<li>
+					<label>
+						<span class="child-nav">其他</span>
+						<input type="checkbox" unchecked>
+						<ul>
+							<li><a href="{:U('Article/index',array('type'=>'网站公告'))}">网站公告</a></li>
+							<li><a href="{:U('Article/index',array('type'=>'最新促销'))}">最新促销</a></li>
+							<li><a href="{:U('Article/index',array('type'=>'技术文章'))}">技术文章</a></li>
+						</ul>
+					</label>
+				</li>
+			</ul>
+		</nav>
+		<div class="mark" id="nav-mark"></div>
+		<label id="user_enter">
+			<span class="iconfont">&#xe61a;</span>
+			<input type="checkbox" unchecked>
+			<div>
+				<notempty name="islogin">
+					<a href="{:U('User/index')}" class="login-but">管理中心</a>
+					<a href="{:U('Money/pay')}" class="register-but">在线充值</a>
+					<else />
+					<a href="{:U('User/login')}" class="login-but">登录</a>
+					<a href="{:U('User/reg')}" class="register-but">注册</a>
+				</notempty>
+			</div>
+		</label>
+	</header>
+	<div class="main">
+		<block name="content"></block>
+	</div>
+	<script src="__PUBLIC__/wap/js/jquery.1.9.js"></script>
+	<script src="__PUBLIC__/wap/js/layer.js"></script>
+	<script src='//cache-code-ui.html5ui.org/ajax/ajax.js'></script>
+	<script>
+		(function(){
+			function showNav(){
+				document.getElementById('com-header-nav').classList.toggle('show');
+			}
+			document.getElementById('com-header-nav-but').onclick=showNav;
+			document.getElementById('nav-mark').onclick=showNav;
+		})();
+		function show_error(msg,title){
+			title=typeof title==='undefined'?'错误提示':title;
+			  layer.open({
+			    title: [
+			      title,
+			      'background-color: #FF4351; color:#fff;'
+			    ]
+			    ,content: msg
+			  });
+		}
+		function show_msg(msg,title){
+			title=typeof title==='undefined'?'提示':title;
+			  layer.open({
+			    title: [
+			      title,
+			      'background-color: #03b3ff; color:#fff;'
+			    ]
+			    ,content: msg
+			  });
+		}
+		function Template(tpl,data){
+			for(var i in data){
+				tpl=tpl.replace(new RegExp('__'+i+'__','g'),data[i]);
+			}
+			return tpl;
+		}
+		function re_serialize(data, isre) {
+		    var result;
+		    if (isre === true) {
+		        result = [];
+		        for (var i in data)
+		            result.push({ name: i, value: data[i] });
+		    } else {
+		        result = {};
+		        for (var i = 0; i < data.length; i++) {
+		            var l = data[i];
+		            result[l.name] = $.trim(l.value);
+		        }
+		    }
+		    return result;
+		}
+	</script>
+	<block name="script"></block>
+</body>
+</html>
+

@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户管理-{$sitename}</title>
+<include file="Common/head" />
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+<style>
+  .ui-tooltip, .arrow:after {
+    background: black;
+    border: 2px solid white;
+  }
+  .ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    font: bold 14px "Helvetica Neue", Sans-Serif;
+    text-transform: uppercase;
+    box-shadow: 0 0 7px black;
+  }
+  .arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+  }
+  .arrow.top {
+    top: -16px;
+    bottom: auto;
+  }
+  .arrow.left {
+    left: 20%;
+  }
+  .arrow:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -20px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 6px 5px 9px -9px black;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .arrow.top:after {
+    bottom: -20px;
+    top: auto;
+  }
+  </style>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">会员管理</p><form id="form" action="{:U('Search/index')}" method="post">
+<div class="select_choose">
+         
+                <label>
+                     用户名/手机号：<input type="text" name="search_keyword[username]" value="{$res['search_keyword']['username']}" class="input-username">
+                </label>
+                <label>
+                      状态：<select name="search_keyword[agentlv]">
+                            <option value="">代理/会员</option>
+						
+                            <option value="1"<eq name="res['search_keyword']['agentlv']" value="1"> selected</eq>>代理</option>
+                            <option value="2"<eq name="res['search_keyword']['agentlv']" value="2"> selected</eq>>会员</option>
+                        
+                            
+                         </select>
+                </label>				
+
+                <label>
+                      状态：<select name="search_keyword[order]">
+                            <option value="">标准排序</option>
+							
+                            <option value="1"<eq name="res['search_keyword']['order']" value="1"> selected</eq>>余额大到小</option>
+                            <option value="2"<eq name="res['search_keyword']['order']" value="2"> selected</eq>>最新登录</option>
+                        
+                            
+                         </select>
+                </label>	
+               <label>
+                      员工帐号：<select name="search_keyword[personnel]">
+                            <option value="">全部</option>
+							
+                            <option value="1"<eq name="res['search_keyword']['personnel']" value="1"> selected</eq>>员工帐号</option>
+                            
+                        
+                            
+                         </select>
+                </label>					
+                          <input type="hidden" name="search_keyword[model_name]" value="{$Think.const.MODULE_NAME}">
+		  <input type="hidden" name="search_keyword[controller_name]" value="{$Think.const.CONTROLLER_NAME}">
+		  <input type="hidden" name="search_keyword[action_name]" value="{$Think.const.ACTION_NAME}">
+          
+                <button type="submit">查询</button>
+				<button type="button" class="change-user">切换帐号</button>
+            </div></form>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>ID</th>
+                        <th>用户名</th>
+						<th>真实姓名</th>
+						<th>手机号</th>
+						<th>帐号余额</th>
+						<th>预存余额</th>
+						<th>代理/会员</th>
+						<th>代理级别</th>
+						<th>最后登录时间</th>
+						<th>员工帐号</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="res['myuserlist']" item="vo">
+					
+                         <tr>
+                    	<td>{$vo.id} </td>
+                        <td><div class="_mark_tooltip" title="{$vo.bzinfo|htmlspecialchars}">{$vo.username}</a></td>
+						<td>{$vo.truename}</td>
+						<td>{$vo.moblie}</td>
+						<td>{$vo.usermoney}</td>
+						<td>{$vo.userpaymoney}</td>
+						<td><gt name="vo.agentlv" value="0">代理<else />会员</gt></td>
+						<td>{:getSelect($res['pricetype'],$vo['pricetype'],'name')}</td>
+                        
+						<td>{$vo.lastuse} </td>
+						<td><a class="personnel" data-id="{$vo.id}"><eq name='vo.personnel' value="1">是，点此取消<else />否，设为员工</eq></a></td>
+                        <td class="cz">
+                        	<a href="#" data-id="{$vo.id}" data-username="{$vo.username}：{$vo.truename}" data-lv="{$vo['pricetype']}" class="change_lv">调整代理级别</a>
+							<a href="#" data-id="{$vo.id}" data-username="{$vo.username}：{$vo.truename}"  class="change_money">调整金额</a>
+                            <a href="{:U('product/index',array('username'=>$vo['username']))}">查看机器列表</a>
+                            <a href="#" data-id="{$vo.id}" data-domain="{$vo.username}" class="_mark" title="{$vo.bzinfo|htmlspecialchars}" data-content="{$vo.bzinfo|urlencode}">备注</a>
+                        </td></tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			$("._mark_tooltip,._mark").tooltip({
+      position: {
+        my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      }
+    });	
+
+$("a.personnel").click(function(){
+	var id=$(this).data("id");
+	var obj=$(this);
+	getPost(
+		window.location.href,
+		{"id":id,"submit":"personnel"},
+		function(data){
+			if(data.code==0)
+			{
+				obj.html(data.message);
+			}else{
+				alert(data.message);
+			}
+		},"","json",function(e){
+			alert("未知错误");
+		}
+	);
+	return false;
+});
+	
+		})
+    </script>
+            <div class="table_foot clear">
+            <include file="Common/ui-page" />
+                 
+            </div>
+        </div>
+    </section>
+  
+
+<include file="ui" />
+  <include file="ui-money" />
+    <include file="ui-chang-user" />
+	<include file="ui_mark" />
+</body>
+</html>

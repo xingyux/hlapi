@@ -1,0 +1,262 @@
+<extend name="mobile/Layout/base" />
+<block name="title">管理中心-</block>
+<block name="style">
+	<style>
+		#tabs-but{padding: 5px;padding-top: 10px;text-align: center;border-bottom: 1px solid #DDD;}
+		#tabs-but>li{
+			line-height: 30px;
+			display: inline-block;
+			border: 1px solid #DDD;
+			border-radius: 5px;
+			padding: 0 10px;
+			margin-bottom: 10px;
+		}
+		.tabs-block{
+			padding: 10px;
+		}
+		.tabs-block h3{
+			text-align: center;
+			font-weight: 500;
+			font-size: 1.3em;
+			line-height: 40px;
+			background-color: #03b3ff;
+			color: #FFF;
+		}
+		.tabs-block h4{
+			line-height: 30px;
+			color: #000;
+		}
+		.list-group-item{
+			display: block;
+			margin-bottom: 10px;
+		}
+		#tabs-1 *{
+			color: #FFF;
+			text-align: center;
+		}
+		#tabs-1 li{
+			display: inline-block;
+			width: 40vw;
+			margin-top: 10px;
+		}
+		.p_name{
+			font-size: 1.4em;
+		}
+		td,th{
+			border: 1px solid #DDD;
+		}
+        .tab-show-box{
+            display: none;
+        }
+        .tab-selected{
+            display: block;
+        }
+	</style>
+</block>
+<block name="content">
+	<a name="top"></a>
+	<div id="tabs">
+        <ul id="tabs-but">
+            <li><a href="javascript:;" class="tab-show-but" tab-name="account-info">基本信息</a></li>
+            <li><a href="javascript:;" class="tab-show-but" tab-name="sys-notice">系统公告</a></li>
+            <li><a href="javascript:;" class="tab-show-but" tab-name="charge-info">消费信息</a></li>
+            <li><a href="javascript:;" class="tab-show-but" tab-name="default">常用功能</a></li>
+            <notempty name="checkWebUser">
+                <li><a href="javascript:;" class="tab-show-but" tab-name="sys-versions">系统版本</a></li>
+            </notempty>
+            <li><a href="javascript:;" class="tab-show-but" tab-name="host-count">主机数量</a></li>
+            <li><a href="javascript:;" class="tab-show-but" tab-name="charge-log">财务日志</a></li>
+            <li><a href="javascript:;" class="tab-show-but" tab-name="login-log">登录日志</a></li>
+            <li><a href="{:U('LoginLog/addr')}">信任地区</a></li>
+            <notempty name="checkWebUser">
+                <li><a href="{:U('clearcache')}">清除缓存</a></li>
+            </notempty>
+        </ul>
+        <div class="tabs-block" id="tabs-4">
+            <div class="row clearfix">
+                <!-- 帐号信息 -->
+                <div class="col-md-3 column tab-show-box tab-account-info">
+                    <h3>帐号信息</h3>
+                    <h4>我的资料</h4>
+                    <list class="list-group-item"> 网站帐号： {$res["userinfo"]["username"]}
+                        <eq name="res['userinfo']['personnel']" value="1">&nbsp;&nbsp;<a href="{:U('changepersonnel')}"><small class="text-danger">切换公司帐号</small></a></eq>
+                    </list>
+                    <list class="list-group-item"> 代理级别： {$res["userinfo"]["pricetypename"]}</list>
+                    <list class="list-group-item"> 手机号码： {$res["userinfo"]["moblie"]}</list>
+                    <list class="list-group-item"> 平台金额： {$res["userinfo"]["usermoney"]}&nbsp;&nbsp;<a href="{:U('Money/pay')}"><small class="text-danger">在线充值</small></a></list>
+                    <list class="list-group-item"> 预存金额： {$res["userinfo"]["userpaymoney"]}&nbsp;&nbsp;<a href="{:U('check',array('bind'=>'tx'))}"><small class="text-danger">余额提现</small></a></list>
+                    <list class="list-group-item"> ＱＱ绑定：
+                        <abbr title="头像"><img src="{:getqqwechatinfo($res['userinfo']['qqinfo']," figureurl_qq_1 ","img ")}" style="max-height:20px;"></abbr>&nbsp;&nbsp;
+                        <abbr title="QQ昵称">{:getqqwechatinfo($res['userinfo']['qqinfo'],"nickname","text")}</abbr>&nbsp;&nbsp;<a href="{:U('User/index',array('bind'=>'qq'))}"><small class="text-danger">修改绑定</small></a></list>
+                    <list class="list-group-item"> 微信绑定：
+                        <abbr title="头像"><img src="{:getqqwechatinfo($res['userinfo']['wechatinfo']," headimgurl ","img ")}" style="max-height:20px;"></abbr>&nbsp;&nbsp;
+                        <abbr title="昵称">{:getqqwechatinfo($res['userinfo']['wechatinfo'],"nickname","text")}</abbr>&nbsp;&nbsp;<a href="{:U('User/wechat')}"><small class="text-danger">修改绑定</small></a></list>
+                    <list class="list-group-item"> <strong>上级代理商</strong></list>
+                    <list class="list-group-item"> 网站名称： {$res["userinfo_agent"]["webname"]}</list>
+                    <list class="list-group-item">手机号码： {$res["userinfo_agent"]["moblie"]}</list>
+                </div>
+                <!-- 系统公告 -->
+                <div class="col-md-4 column tab-show-box tab-sys-notice">
+                    <h3>系统公告</h3>
+                    <foreach name="res['Notice']" item="vo">
+                        <a href="#" class="list-group-item notice-info" data-title="{$vo.title|urlencode}" data-time="{$vo.tim|date='Y-m-d H:i',###}" data-content="{$vo.content|urlencode}" <eq name="vo.istop" value="1"> style="color:#FF0000"</eq>>[{$vo.tim|date='m-d',###}]{$vo.title|mb_substr=0,10,"UTF-8"}</a>
+                    </foreach>
+                </div>
+                <!-- 消费信息 -->
+                <div class="col-md-3 column tab-show-box tab-charge-info">
+                    <h3>消费信息</h3>
+                    <foreach name="res['financial_table']" item="vo" key="key">
+                        <list class="list-group-item">{$key}消费：{$vo.consume}</list>
+                        <list class="list-group-item">{$key}退款：{$vo.refun}</list>
+                        <list class="list-group-item">{$key}充值：{$vo.pay}</list>
+                    </foreach>
+                    <list class="list-group-item">下级金额：{$res["userinfo"]["myusermoney"]}</list>
+                </div>
+                <!-- 常用功能 -->
+                <div class="col-md-2 tab-show-box tab-default tab-selected">
+                    <h3>常用功能</h3>
+                    <a href="{:U('Cronlist/index')}" class="list-group-item">任务管理</a>
+                    <a href="{:U('DomainUser/index')}" class="list-group-item">域名注册信息</a>
+                    <a href="{:U('Product/order')}" class="list-group-item">订单管理</a>
+                    <a href="{:U('Product/index')}" class="list-group-item">产品管理</a>
+                    <a href="{:U('Paid/lists')}" class="list-group-item">商品代付</a>
+                    <notempty name="checkWebUser">
+                        <a href="{:U('pricesetting/index')}" class="list-group-item">价格产品设置</a>
+                        <else />
+                        <a href="{:U('Ranwen/index')}" class="list-group-item">软文发布</a>
+                    </notempty>
+                    <notempty name="checkAgent">
+                        <a href="{:U('UserList/index')}" class="list-group-item">下级会员列表</a>
+                        <a href="{:U('Plugin/index')}" class="list-group-item">插件管理</a>
+                        <else />
+                        <a href="{:U('LoginLog/index')}" class="list-group-item">登录记录</a>
+                    </notempty>
+                    <a href="{:U('Money/index')}" class="list-group-item">财务信息</a>
+                    <a href="{:U('Money/pay')}" class="list-group-item">账户充值</a>
+                    <notempty name="checkWebUser">
+                        <a href="{:U('dictionary/index')}" class="list-group-item">字典管理</a>
+                        <else />
+                        <a href="{:U('Notice/index')}" class="list-group-item">公告列表</a>
+                    </notempty>
+                    <a href="{:U('LoginLog/addr')}" class="list-group-item">信任地区管理</a>
+                </div>
+            </div>
+        </div>
+        <!-- 系统版本 -->
+        <notempty name="checkWebUser">
+            <div class="tabs-block tab-show-box tab-sys-versions" id="tabs-5">
+            	<h3>系统版本</h3>
+                本地版本：{$res["GPC"]["VERSION"]["this"]}
+                <br> 最新版本：{$res["GPC"]["VERSION"]["new"]}
+                <br> 内测版本：{$res["GPC"]["VERSION"]["bate"]}
+                <br> 在线文件更新：
+                <a href="{:U('SoftUpdate/index')}">在线文件更新</a>
+                <br>
+            </div>
+        </notempty>
+        
+        <!-- 主机数量 -->
+        <div class="tabs-block tab-show-box tab-host-count" id="tabs-1">
+    		<h3>主机数量</h3>
+            <ul class="content_box clear">
+                <li style="background-color: #95ce46;">
+                    <p class="p_name">vps 云主机</p>
+                    <img src="__PUBLIC__/user/images/cloud.png">
+                    <p class="p_num">有效云主机： {$res["count"]["vps"]["num"]}台</p>
+                </li>
+                <li style="background-color: #00bcd6;">
+                    <p class="p_name">域名管理</p>
+                    <img src="__PUBLIC__/user/images/guanli.png">
+                    <p class="p_num">有效云主机： {$res["count"]["domain"]["num"]}台</p>
+                </li>
+                <li style="background-color: #ff4135;">
+                    <p class="p_name">虚拟主机管理</p>
+                    <img src="__PUBLIC__/user/images/server.png">
+                    <p class="p_num">有效云主机： {$res["count"]["host"]["num"]}台</p>
+                </li>
+                <li style="background-color: #fbc618;">
+                    <p class="p_name">服务器管理</p>
+                    <img src="__PUBLIC__/user/images/X86png.png">
+                    <p class="p_num">有效云主机： {$res["count"]["servers"]["num"]}台</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 财务日志 -->
+        <div class="tabs-block tab-show-box tab-charge-log" id="tabs-2">
+        	<h3>财务日志</h3>
+            <div style="overflow-x: auto;">
+                <table cellpadding="0" class="table table-bordered" style="width:700px;table-layout: fixed;word-wrap:break-word;">
+                    <tr>
+                        <th>时间</th>
+                        <th>类型</th>
+                        <th>金额</th>
+                        <th>结余余额</th>
+                        <th>预存金额</th>
+                        <th>结余预存余额</th>
+                        <th>说明</th>
+                        <th>操作人</th>
+                    </tr>
+                    <foreach name="res['moneylog']" item="vo">
+                        <tr>
+                            <td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                            <td>{$vo.type} </td>
+                            <td>{$vo.money} </td>
+                            <td>{$vo.usermoney}</td>
+                            <td>{$vo.paymoney} </td>
+                            <td>{$vo.userpaymoney} </td>
+                            <td>{$vo.infos} </th>
+                                <td>{$vo.opuser}</td>
+                        </tr>
+                    </foreach>
+                </table>
+            </div>
+        </div>
+
+        <!-- 登录日志 -->
+        <div class="tabs-block tab-show-box tab-login-log" id="tabs-3">
+        	<h3>登录日志</h3>
+            <div style="overflow-x: auto;">
+                <table cellpadding="0" style="width:700px;" class="table table-bordered">
+                    <tr>
+                        <th>时间</th>
+                        <th>IP</th>
+                        <th>地区</th>
+                        <th>登录方式</th>
+                        <th>登录结果</th>
+                        <th>验证方式</th>
+                    </tr>
+                    <foreach name="res['loginlog']" item="vo">
+                        <tr>
+                            <td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                            <td>{$vo.ip} </td>
+                            <td>{$vo.addr}</td>
+                            <td>{$vo.type} </th>
+                                <td>{$vo.isloginsucc}</td>
+                                <td>{$vo.ischecked}</td>
+                        </tr>
+                    </foreach>
+                </table>
+            </div>
+        </div>
+	</div>
+
+	<a href="#top" name="top" id="go-top"><i class="iconfont">&#xe61e;</i></a>
+</block>
+<block name="script">
+	<script>
+        (function (){
+            var tabBoxList = document.querySelectorAll('.tab-show-box');
+            document.getElementById('tabs-but').onclick = function(e){
+                var target = e.target || e.srcElement;
+                if(target.classList.contains('tab-show-but')){
+                    var tabName = '.tab-' + target.getAttribute('tab-name');
+                    for(var i = 0;i<tabBoxList.length;i++)
+                        tabBoxList[i].classList.remove('tab-selected');
+                    document.querySelector(tabName).classList.add('tab-selected');
+                }
+            }
+            document.querySelector('.tab-default').classList.add('tab-selected');
+        })();
+	</script>
+</block>

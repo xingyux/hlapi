@@ -1,0 +1,50 @@
+	<div id="dialog_dialog" style="display: none"></div>
+	
+
+	<script id="noticelook_dialog_tmpl" type="text/x-jquery-tmpl">
+	<h1 class="text-center news-title"></h1><h3>发布时间：<span class='news-time'></span></h3><div style='white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;' class='news-content'></div>
+</script>	
+
+<script>
+
+$(function(){
+
+$("a.notice-info").click(function(){
+var title=decodeURIComponent($(this).attr("data-title"));
+var id=decodeURIComponent($(this).attr("data-id"));
+var content=$("#news-content-"+id).html();
+var time=$(this).attr("data-time");
+
+
+var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#noticelook_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+
+		dialogObj.find(".news-title").html(title);
+		dialogObj.find(".news-time").html(time);
+		dialogObj.find(".news-content").html(content);
+
+		dialogObj.dialog({
+			title: "阅读新闻",
+			width: 600,
+			height:400,
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		
+		dialogObj.dialog( "option", "buttons", {"关闭":function(){dialogObj.dialog("close");}});	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+
+	
+			return false;
+
+
+});
+
+
+
+
+})
+</script>

@@ -1,0 +1,304 @@
+@charset "utf-8";
+*{ margin:0; padding:0; box-sizing:border-box;}
+li{ list-style:none; }
+i,em{ font-style:normal; }
+a{ text-decoration:none; }
+a:focus{ outline:none; }
+input,button{ outline:none;}
+textarea{ outline: none; resize: none;}
+input,img{ border:0; }
+table{ border-collapse:collapse;}
+body{ font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei"; }
+/*防止iPhone按钮自动圆角*/
+input[type="submit"],input[type="reset"],input[type="button"],input{-webkit-appearance:none;}
+html{ font-size:62.5%; }
+html,body{ width:100%; min-height:100%; }
+
+/*加载中*/
+#loading{ width:100%; height:100%; position:fixed; top:0; left:0; z-index:98; }
+#loading .shadow{ width:100%; height:100%; position:absolute; top:0; left:0; z-index:98; background-color:#fff; opacity:0.9;  }
+#loading .text{ width:12em; height:12em; position:absolute; top:32%; left:50%; z-index:99; margin-left:-6em; border-radius:0.6em; background:#5e4674 url(../images/loading.gif) no-repeat -1.3em -2em; background-size:16em auto; opacity:0.9;}
+
+/* start 通用headerUI头 */
+.headerUI{ position: fixed; left: 0; top: 0; z-index: 2; width: 100%; height: 50px; line-height: 50px; font-size: 18px; text-align: center; background-color: #008cd6; color: #fff; }
+.headerUI .title{display: inline-block; max-width: 60%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.headerUI .btn-left{ display: block; font-size: 15px; position: absolute; top: 0px; left: 10px; }
+.headerUI .btn-left a{ display: block; color: #fff; }
+.headerUI .btn-left .fa-angle-left{ font-size: 26px; float: left; margin: 11px 4px 0 0; }
+.headerUI .btn-right{ display: block; font-size: 15px; position: absolute; top: 0px; right: 10px;}
+.headerUI .btn-right a{ display: block; color: #fff; overflow: hidden; }
+.headerUI .btn-right .icon{ font-size: 28px; float: right; margin: 0 0 0 2px; }
+.headerUI .btn-right .icon .fa{ font-size: 26px; overflow: hidden; }
+.headerUI .btn-right .icon .fa-trash-o{ font-size: 22px; }
+.headerUI .btn-right .icon .fa-angle-right{ line-height: 20px;}
+.headerUI .btn-right .text{ float: left;  }
+.bodyUI{ padding-top: 50px; }
+/* end 通用headerUI头 */
+
+/*----------start 通用navBarUI顶部导航----------*/
+.navBarUI{ position:absolute; top: 0; }
+.navBarUI .nav-btn{ display:block; width: 30px; height:30px; line-height: 32px; color:#fff; }
+.navBarUI .nav-btn .fa{ font-size:20px; }
+.navBarUI .nav-menu{ width: 150px; display:none; position:absolute; top:50px; padding:2px 15px; background-color:#00A7FF; border-radius:4px; }
+.navBarUI .nav-menu .menu{ white-space: nowrap; line-height: normal; }
+.navBarUI .nav-menu .menu a{ display:block; width:100%; padding: 15px 0; border-bottom:solid 1px #34B9FF; overflow: hidden; }
+.navBarUI .nav-menu .menu:nth-last-child(1) a{ border-bottom:0; }
+.navBarUI .nav-menu .menu a .text{ display:block; float:left; color:#fff; font-size:16px; }
+.navBarUI .nav-menu .menu a .icon{ display:block; float:left; width:18px; height:18px; margin:0 5px 0; background-size:100% auto; background-repeat:no-repeat; background-position: 0px center; }
+.navBarUI .nav-menu .menu a .icon-tjsb{ background-image:url(../images/icon-tjsb.png); }
+.navBarUI .nav-menu .menu a .icon-sjdc{ background-image:url(../images/icon-sjdc.png); }
+.navBarUI .nav-menu .menu a .icon-tjxgs{background-image:url(../images/icon-tjxgs.png) }
+.navBarUI .nav-menu .menu a .icon-tjzd{ background-image:url(../images/icon-tjzd.png); }
+.navBarUI .nav-menu .menu a .icon-qxbz{ background-image:url(../images/icon-qxbz.png); }
+.navBarUI .nav-menu .menu a .icon-sctm{ background-image:url(../images/icon-sctm.png); background-size:100% 100%;}
+.navBarUI-right{ right: 0px; }
+.navBarUI-right .nav-btn{ margin:10px 10px 0 0; }
+.navBarUI-right .nav-menu{ right:1px; }
+.navBarUI-left{ left: 0px; }
+.navBarUI-left .nav-btn{ margin:10px 0 0 10px; }
+.navBarUI-left .nav-menu{ left:1px; }
+.navBarUI.open .nav-menu{ display:block; }
+/*----------end 通用navBarUI顶部导航----------*/
+
+/*----------start 通用searchUI搜索框----------*/
+.searchUI{ overflow: hidden; padding: 10px; }
+.searchUI .search-input{ border: solid 1px #ddd; border-radius: 50px; float: left; width: 84%; height: 35px; padding: 0 5px 0 25px; background:#fff url("../images/icon-search.png") no-repeat 5px 8px; background-size:16px auto; }
+.searchUI .search-btn{ border: solid 0px #ddd; float: left; width: 16%; height: 35px; background:none; font-size: 16px; color: #008cd6; overflow: hidden; }
+/*----------end 通用searchUI搜索框----------*/
+
+/*----------start 通用btnUI按钮组----------*/
+.btnUI{ overflow: hidden; }
+.btnUI .btn{ display: inline-block; width: 100%; height: 50px; line-height: 50px; margin: 5px 0; text-align: center; background-color: #008cd7; color: #fff; font-size: 16px; border-radius: 3px; }
+.btnUI .btn-small{ height: 40px; line-height: 40px;}
+.btnUI .btn-large{ height: 60px; line-height: 60px;}
+.btnUI .btn-cancel{ background-color: #fff; border: solid 1px #dcdcdc; color: #008cd6; }
+.btnUI .btn-cancel-1{ background-color: #bbb; }
+/*----------end 通用btnUI按钮组----------*/
+
+/*----------start 通用tabUI按钮组----------*/
+.tabUI .tab-header{ overflow: hidden; padding: 10px 0; width: 50%; margin: auto; }
+.tabUI .tab-header .lists{ overflow: hidden; border-radius: 5px; }
+.tabUI .tab-header .lists .list{ display: block; float: left; width: 50%; height: 40px; line-height: 40px; text-align: center; background-color: #fff; color: #666; font-size: 16px; }
+.tabUI .tab-header .lists .list.active{ background-color: #008cd6; color: #fff; }
+.tabUI .tab-body .tab-body-content{ display: none; }
+.tabUI .tab-body .tab-body-content.active{ display: block; }
+/*----------end 通用tabUI按钮组----------*/
+
+/*----------start 通用itemUI列表----------*/
+.itemUI{ margin-bottom: 10px; }
+.itemUI .itemUI-header{ width:100%; padding: 16px 10px 10px; font-size: 15px; font-weight: normal; position: relative; overflow: hidden; }
+.itemUI .itemUI-header .text{ display: block; float: left; width: 100%; padding:0 20px 0 0; color: #7d7d7d; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.itemUI .itemUI-header .icon-arrow{ display: block; width: 18px; height: 18px; position: absolute; top: 50%; right: 5px; margin: -5px 0 0 0; background: url("../images/icon-arrow-r.png") no-repeat 0px 0px; background-size:auto 100%; }
+.itemUI .itemUI-body{ background-color: #fff; border-top:solid 1px #e1e1e1; border-bottom:solid 1px #e1e1e1; overflow: hidden; }
+.itemUI .itemUI-body .list{ overflow: hidden; }
+.itemUI .itemUI-body .list .around{ display: block; width: 100%; border-bottom: solid 1px #e1e1e1; padding:15px 10px; overflow: hidden; position: relative; color: #666; font-size: 16px; }
+.itemUI .itemUI-body .list:nth-last-child(1) .around{ border-bottom: 0;}
+.itemUI .itemUI-body .list .around.outer{ width: 100%; }
+.itemUI .itemUI-body .list .around.inner{ width: 98%; margin-left: 2%; padding:15px 5px; }
+.itemUI .itemUI-body .list .around .icon{ float: left; background-position: 0px 0px; background-repeat: no-repeat; background-size: 100% auto;}
+.itemUI .itemUI-body .list .around .icon-username{ background-image: url("../images/icon-username.png"); }
+.itemUI .itemUI-body .list .around .icon-telphone{ background-image: url("../images/icon-telphone.png"); }
+.itemUI .itemUI-body .list .around .icon-email{ background-image: url("../images/icon-email.png"); background-size: 100% auto; }
+.itemUI .itemUI-body .list .around .icon-edit{ background-image: url("../images/icon-edit.png"); }
+.itemUI .itemUI-body .list .around .icon-pw{ background-image: url("../images/icon-pw.png"); }
+.itemUI .itemUI-body .list .around .text{ display: block; float: left; width: 100%; padding:0 20px 0 0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.itemUI .itemUI-body .list .around.iconSmall .icon{ width: 22px; height: 22px; }
+.itemUI .itemUI-body .list .around.iconSmall .text{ padding:0 15px 0 25px; margin:2px 0 0 -22px; }
+.itemUI .itemUI-body .list .around.iconMedium .icon{ width: 30px; height: 30px; }
+.itemUI .itemUI-body .list .around.iconMedium .text{ padding:0 15px 0 33px; margin:6px 0 0 -30px; }
+.itemUI .itemUI-body .list .around.iconLarge .icon{ width: 45px; height: 45px; }
+.itemUI .itemUI-body .list .around.iconLarge .text{ padding:0 15px 0 50px; margin:12px 0 0 -45px; }
+.itemUI .itemUI-body .list .around .icon-arrow{ display: block; width: 18px; height: 18px; position: absolute; top: 50%; right: 5px; margin: -9px 0 0 0; background: url("../images/icon-arrow-r.png") no-repeat 0px 0px; background-size:auto 100%; }
+.itemUI .itemUI-body .list .around .icon-fa{ display: none; width: 18px; height: 18px; line-height: 18px; position: absolute; top: 50%; right: 10px; margin: -9px 0 0 0; color: #008cd6; font-size: 20px; }
+.itemUI .itemUI-body .list.active .around .icon-fa{ display: block;}
+.itemUI .itemUI-body .list .around .text input::-webkit-input-placeholder{ color:#c8c8c8; font-size: 16px; }
+.itemUI .itemUI-body .list .around .text input::-moz-placeholder{ color:#c8c8c8; font-size: 16px; }
+
+.itemUI .itemUI-body .list .around .text-left{ display: block; float: left; width: 28%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.itemUI .itemUI-body .list .around .text-right{ display: block; float: left; width: 72%; padding:0 20px 0 0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.itemUI .itemUI-body .list .around .text-min{ width: 28%; }
+.itemUI .itemUI-body .list .around .text-max{ width: 72%; }
+/*----------end 通用itemUI列表----------*/
+
+.p-body{ width:100%;}
+
+/* ---------- start page1 ---------- */
+.page{position: relative;height: 100%;}
+.page1{ height:100%; background:url(../images/bg1.jpg) no-repeat 0px 0px; background-size:100% 100%;position:fixed;}
+.page1 .item-1{ width:70%; margin:auto; padding:60px 0 0px; }
+.page1 .item-1 img{ width:100%; }
+.page1 .item-2{ width:80%; margin:auto; padding:10px 0 0px; overflow:hidden;}
+.page1 .item-2 li span{ display:block; float:left; height:50px; }
+.page1 .item-2 li .s1{ width:100px; }
+.page1 .item-2 li .s1{ background:url(../images/page1-2.png) no-repeat center bottom; background-size:auto 30px; }
+.page1 .item-2 li:nth-child(2) .s1{ background:url(../images/page1-3.png) no-repeat 0px bottom; background-size:90px auto; }
+.page1 .item-2 li .s2{ width:100%; margin-left:-100px; margin-top:4px; padding:0 0 0 100px; }
+.page1 .item-2 li .s2 input{ float:left; width:100%; height:28px; line-height:16px; margin:20px 0 0 0; padding:0 5px 8px; background:url(../images/page1-4.png) no-repeat 0px bottom; background-size:100% auto; font-size:22px; color:#fff; }
+.page1 .item-3{ display:block; width:60%; height:50px; margin:auto; margin-top:40px; background-image:url(../images/page1-5.png); background-repeat:no-repeat; background-position:0px 0px; background-size:100% 100%;}
+.page1 .item-4{ margin-top:20px; background-image:url(../images/page1-6.png); }
+/* ---------- end page1 ---------- */
+
+/* ---------- start page2 ---------- */
+.page2{ height:100%; padding-bottom:20px; background:url(../images/bg2.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page2 .item-1{ width:50%; margin:auto; padding:10px 0 0px; }
+.page2 .item-1 img{ width:100%; }
+.page2 .item-2{ width:80%; margin:auto; margin-top:20px; padding:10px 0 15px; overflow:hidden; border-radius:4px; background:url(../images/page2-1.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page2 .item-2 .bar{ display:block; width:50%; height:40px; line-height:44px; color:#fff; padding:0 0 0 20px; font-size:20px; background:url(../images/page2-2.png) no-repeat 0px 0px; background-size:100% 100%;}
+.page2 .item-2 .li-1{ padding:0 0 0 20px; font-size:16px; color:#fff; margin-top:10px; }
+.page2 .item-2 .li-2{ width:60%; margin:auto; margin-top:10px; height:82px; padding:10px; font-size:18px; color:#fff; background:url(../images/page2-3.png) no-repeat 0px 0px; background-size:100% 100%; overflow-y:auto; }
+.page2 .item-2 .li-2 span{ display:block; height:24px; text-shadow:1px 1px 1px #4e1003; }
+.page2 .item-2 .li-3{ padding:10px 0; margin-top:10px; font-size:16px; color:#fff; text-align:center; background:url(../images/page2-4.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page2 .item-2 .li-4{ display:block; width:50%; height:45px; line-height:45px; text-align:center; font-size:20px; color:#431406; margin:auto; margin-top:10px; background:url(../images/page2-5.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page2 .item-2 .li-5{ padding:10px 0; margin-top:10px; font-size:16px; color:#491b06; text-align:center; }
+.page2 .item-2 .li-6{ margin-top:10px; padding:10px; font-size:16px; color:#fff; }
+.page2 .item-2 .li-6 dl{ overflow:hidden; }
+.page2 .item-2 .li-6 dl dt{ display:block; width:20px; float:left;}
+.page2 .item-2 .li-6 dl dd{ display:block; width:100%; margin-left:-20px; padding:0 0 0 25px; float:left;}
+/* ---------- end page2 ---------- */
+
+/* ---------- start page3 ---------- */
+.page3{ height:100%; padding-bottom:20px; background:url(../images/bg3.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page3 .item-1{ width:80%; margin:auto; padding:20px 0 0px; }
+.page3 .item-1 img{ height:30px;}
+.page3 .item-2{ width:80%; margin:auto; margin-top:20px; }
+.page3 .item-2 td:nth-child(1){ width:100px; font-size:20px; color:#fff; }
+.page3 .item-2 td:nth-child(2) img{ max-width:80%;}
+.page3 .item-3{ width:85%; margin:auto; margin-top:20px; padding:10px 10px 30px; overflow:hidden; background:url(../images/page3-7.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page3 .item-3 h2{ font-size:28px; color:#dbfb05; text-shadow:2px 2px 4px #000; text-align:center; padding:0 0 15px; }
+.page3 .item-3 h3 img{ width:55%; }
+.page3 .item-3 li{ padding:10px 0; overflow:hidden;}
+.page3 .item-3 li span{ display:block; float:left; height:40px; }
+.page3 .item-3 li .s1{ width:100px; }
+.page3 .item-3 li.xm .s1{ background:url(../images/page3-4.png) no-repeat right bottom; background-size:auto 20px; }
+.page3 .item-3 li.dh .s1{ background:url(../images/page3-5.png) no-repeat right bottom; background-size:auto 20px; }
+.page3 .item-3 li.dz .s1{ background:url(../images/page3-6.png) no-repeat right bottom; background-size:auto 20px; }
+.page3 .item-3 li .s2{ width:100%; margin-left:-100px; margin-top:4px; padding:0 0 0 105px; }
+.page3 .item-3 li .s2 input{ float:left; width:100%; height:28px; line-height:32px; margin:10px 0 0 0; padding:0 5px 0px; background:none; border-bottom:solid 2px #fff; font-size:18px; color:#fff; }
+.page3 .item-3 li.dz1 .s2{ margin-left:0px; padding:0;}
+.page3 .item-4{ display:block; width:60%; height:50px; margin:auto; margin-top:20px; background-image:url(../images/page1-5.png); background-repeat:no-repeat; background-position:0px 0px; background-size:100% 100%;}
+/* ---------- end page3 ---------- */
+
+/* ---------- start page4 ---------- */
+.page4{ height:100%; padding-bottom:20px; background:url(../images/bg4.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page4 .item-1{ padding:20px 0 0px; text-align:center; }
+.page4 .item-1 img{ width:90%;}
+/* ---------- end page4 ---------- */
+
+/* ---------- start page5 ---------- */
+.page5{ height:100%; padding-bottom:20px; background:url(../images/bg5.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page5 .item-1{ padding:70px 0 0px; text-align:center; }
+.page5 .item-1 img{ width:66%; }
+/* ---------- end page5 ---------- */
+
+/* ---------- start page6 ---------- */
+.page6{ height:100%; padding-bottom:20px; background:url(../images/bg6.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page6 .item-1{ padding:100px 0 0px; text-align:center; }
+.page6 .item-1 img{ width:50%; }
+/* ---------- end page6 ---------- */
+
+/* ---------- start page7 ---------- */
+.page7{ height:100%; padding-bottom:20px; background:url(../images/bg7.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page7 .item-1{ padding:20px 0 0px; text-align:center; }
+.page7 .item-1 img{ width:40%; }
+.page7 .item-2{ overflow:hidden; }
+.page7 .item-2 li{ float:left; background-color:#eea50a; padding:6px 15px; font-weight:bold; font-size:22px; margin:20px 0 0 5%; }
+.page7 .item-3{ overflow:hidden; padding:190px 0 0; }
+.page7 .item-3 li{ float:left; background-color:#eea50a; padding:6px 15px; font-weight:bold; font-size:22px; margin:0px 0 0 5%; }
+.page7 .item-4{ width:90%; margin:auto; margin-top:10px; padding:20px 10px 10px; background:url(../images/page7-2.png) no-repeat 0px 0px; background-size:100% 100%;}
+.page7 .item-4 span{ display:block; font-size:20px; color:#fff; font-weight:bold;}
+.page7 .item-4 a{ display:block; margin:auto; margin-top:15px; width:45%; height:40px; line-height:40px; text-align:center; border-radius:5px; background-color:#ff6600; color:#fff; font-weight:bold; font-size:20px; border:solid 1px #fff; }
+.page7 .item-5{ overflow:hidden; margin:10px 0 0; }
+.page7 .item-5 li{ float:left; background-color:#eea50a; padding:6px 15px; font-weight:bold; font-size:22px; margin:20px 0 0 5%; }
+.page7 .item-6{ width:90%; margin:auto; margin-top:10px; padding:20px 10px 10px; background:url(../images/page7-2.png) no-repeat 0px 0px; background-size:100% 100%;}
+.page7 .item-6 span{ display:block; font-size:20px; color:#fff; font-weight:bold; text-align:center; margin-bottom:30px; }
+/* ---------- end page7 ---------- */
+
+/* ---------- start page8 ---------- */
+.page8{ height:100%; padding-bottom:20px; background:url(../images/bg7.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page8 .item-1{ padding:20px 0 0px; text-align:center; }
+.page8 .item-1 img{ width:40%; }
+.page8 .item-2{ overflow:hidden; }
+.page8 .item-2 li{ float:left; background-color:#000; padding:6px 15px; font-weight:bold; font-size:22px; margin:20px 0 0 5%; color:#fbc40f; }
+.page8 .item-3{ width:90%; margin:auto; overflow:hidden; padding:40px 0 0; }
+.page8 .item-3 li{ float:left; background-color:#000; padding:6px 15px; font-weight:bold; font-size:22px; color:#fbc40f; }
+.page8 .item-3 a{ display:block; float:right; height:38px; line-height:38px; padding:0 5px; text-align:center; border-radius:5px; color:#652407; font-weight:bold; font-size:17px; border:solid 2px #8c1405; background:url(../images/page2-5.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page8 .item-4{ width:90%; margin:auto; margin-top:10px; padding:5px 0px; background:url(../images/page7-2.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page8 .item-4 li{ max-height:202px; padding-right:10px; overflow-y:auto;}
+.page8 .item-4 li dl{overflow:hidden; padding:8px 0; border-bottom: dashed 1px #cccc33; }
+.page8 .item-4 li dl dt{ float:left; width:40px; line-height:40px; text-align:right; font-size:20px; background:url(../images/page8-3.png) no-repeat 0px 0px; background-size:25px 100%; }
+.page8 .item-4 li dl dd{ float:left; width:100%; margin-left:-40px; padding:0 0 0 40px; }
+.page8 .item-4 li dl dd span{ display:block; width:100%; border: solid 1px #fff; padding:0 0 5px 0; border-radius:5px; overflow:hidden; }
+.page8 .item-4 li dl dd span em{ display:block; float:left; width:28px; height:28px; margin:5px 0px 0px 5px; }
+.page8 .item-4 li dl dd span em img{ width:100%; height:100%;}
+.page8 .item-5{ overflow:hidden; margin:10px 0 0; }
+.page8 .item-5 li{ float:left; background-color:#000; padding:10px 15px; font-weight:bold; font-size:22px; margin:20px 0 0 5%; color:#fbc40f; }
+.page8 .item-6{ width:90%; margin:auto; margin-top:10px; padding:20px 10px 10px; background:url(../images/page7-2.png) no-repeat 0px 0px; background-size:100% 100%;}
+.page8 .item-6 span{ display:block; font-size:20px; color:#fff; font-weight:bold; text-align:center; margin-bottom:30px; }
+.page8 .item-7{ width:90%; height:90px; margin:auto; margin-top:20px; padding:0px 0px 10px; background:url(../images/page7-2.png) no-repeat 0px 0px; background-size:100% 100%; position:relative; border-radius:3px; }
+.page8 .item-7 em{ display:block; width:90%; height:50px; border:solid 1px #eee; border-radius:5px; background-color:#d65600; position:absolute; top:20px; left:5%;}
+.page8 .item-7 span{ height:70px; float:left; margin:0 0 0 8px; position:relative; z-index:2;}
+.page8 .item-7 span img{ height:100%; }
+/* ---------- end page8 ---------- */
+
+/* ---------- start page9 ---------- */
+.page9{ height:100%; padding-bottom:20px; background:url(../images/bg9.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page9 .item-1{ padding:10px 0 0px 5%;}
+.page9 .item-1 img{ width:50%; }
+.page9 .item-2{ padding:10px 0 0px; text-align:center; }
+.page9 .item-2 img{ width:80%; }
+.page9 .item-3{ width:80%; padding:10px 0; margin:auto; margin-top:20px; background:url(../images/page7-2.png) no-repeat 0px 0px; background-size:100% 100%; border-radius:5px; color:#fff; }
+.page9 .item-3 h3{ height:50px; padding:0 0 10px 30px; line-height:40px; border-bottom: dashed 1px #cccc33; background:url(../images/page8-3.png) no-repeat 0px 0px; background-size:auto 35px; font-size:18px; }
+.page9 .item-3 li{ padding:0 15px; line-height:25px; font-size:16px; }
+.page9 .item-4{ font-size:0; text-align:center;}
+.page9 .item-4 a{ display:inline-block; width:23%; height:40px; line-height:40px; margin:20px 3%; text-align:center; font-size:16px; background-color:#ff6600; color:#fff; border:solid 1px #fff; border-radius:4px; }
+/* ---------- end page9 ---------- */
+
+/* ---------- start page9 ---------- */
+.page10{ height:100%; padding-bottom:20px; background:url(../images/bg3.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page10 .item-1{ padding:10px 0 0px 5%;}
+.page10 .item-1 img{ width:50%; }
+.page10 .item-2{ padding:10px 0 0px; text-align:center; }
+.page10 .item-2 img{ width:80%; }
+.page10 .item-3{ width:80%; padding:10px 0; margin:auto; margin-top:20px; background:url(../images/page7-2.png) no-repeat 0px 0px; background-size:100% 100%; border-radius:5px; color:#fff; }
+.page10 .item-3 h3{ height:50px; padding:0 0 10px 30px; line-height:40px; border-bottom: dashed 1px #cccc33; background:url(../images/page8-3.png) no-repeat 0px 0px; background-size:auto 35px; font-size:18px; }
+.page10 .item-3 li{ padding:0 15px; line-height:25px; font-size:16px; }
+.page10 .item-4{ font-size:0; text-align:center;}
+.page10 .item-4 a{ display:inline-block; width:23%; height:40px; line-height:40px; margin:20px 3%; text-align:center; font-size:16px; background-color:#ff6600; color:#fff; border:solid 1px #fff; border-radius:4px; }
+/* ---------- end page9 ---------- */
+
+/* ---------- start page4 ---------- */
+.page11{ height:100%; padding-bottom:20px; background-color:#ea4146; }
+.page11 .item-1{ padding:20px 0 0px; text-align:center; }
+.page11 .item-1 img{ width:80%;}
+.page11 .item-2{ position:relative; z-index:2; display:block; width:50%; height:50px; margin:auto; margin-top:-100px; background:url(../images/page11-2.png) no-repeat 0px 0px; background-size:100% 100%;}
+.page11 .item-3{ text-align:center; color:#ffec14; font-size:14px; position:absolute; bottom:10px; left:0; width:100%; }
+/* ---------- end page4 ---------- */
+
+/* ---------- start page2 ---------- */
+.page12{ height:100%; padding-bottom:20px; background:url(../images/bg2.jpg) no-repeat 0px 0px; background-size:100% 100%;}
+.page12 .item-1{ width:50%; margin:auto; padding:10px 0 0px; }
+.page12 .item-1 img{ width:100%; }
+
+.page12 .item-2{ width:80%; margin:auto; margin-top:20px; border-radius:4px; background:url(../images/page2-1.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page12 .item-2 table caption{ padding:0 0 25px; text-align:center; color:#fff; font-size:18px; }
+.page12 .item-2 table caption span{ display:inline-block; padding:30px 20px 2px; border-bottom:solid 1px #fff; }
+.page12 .item-2 table td{ padding:12px 0; color:#fff; font-size:18px; text-align:center;}
+.page12 .item-2 table .td-btn{ display:block; width:110px; height:34px; line-height:34px; text-align:center; font-size:16px; font-weight:bold; color:#fff; margin:auto; background:url(../images/page12-1.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page12 .item-2 table .btn-1{ background:url(../images/page12-1.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page12 .item-2 table .btn-2{ background:url(../images/page12-2.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page12 .item-2 table .btn-3{ background:url(../images/page12-3.png) no-repeat 0px 0px; background-size:100% 100%; }
+
+.page12 .item-3{ width:80%; margin:auto; margin-top:20px; padding:10px 0 15px; overflow:hidden; border-radius:4px; background:url(../images/page2-1.png) no-repeat 0px 0px; background-size:100% 100%; }
+.page12 .item-3 .bar{ display:block; width:50%; height:40px; line-height:44px; color:#fff; padding:0 0 0 20px; font-size:20px; background:url(../images/page2-2.png) no-repeat 0px 0px; background-size:100% 100%;}
+
+
+
+.page12 .item-3 .li-5{ padding:10px 0; margin-top:10px; font-size:16px; color:#491b06; text-align:center; }
+.page12 .item-3 .li-6{ margin-top:10px; padding:10px; font-size:16px; color:#fff; }
+.page12 .item-3 .li-6 dl{ overflow:hidden; }
+.page12 .item-3 .li-6 dl dt{ display:block; width:20px; float:left;}
+.page12 .item-3 .li-6 dl dd{ display:block; width:100%; margin-left:-20px; padding:0 0 0 25px; float:left;}
+/* ---------- end page2 ---------- */
+
+
+

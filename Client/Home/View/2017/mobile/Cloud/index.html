@@ -1,0 +1,311 @@
+<extend name="mobile/Layout/base" />
+<block name="style">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/web/css/simple-web-plug.css">
+	<style>
+		h3.field{
+			text-align: center;
+			border-bottom: 1px solid #DDD;
+			line-height: 40px;
+			color: #5F5F5F;
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+		.filed_select,.select{
+			width: 90%;
+			padding: 0 10px;
+			margin: 0 auto;
+			display: block;
+			height: 40px;
+			line-height: 40px;
+			color: #5F5F5F;
+			border: 1px solid #DDD;
+			border-radius: 5px;
+		}
+		.main h2{
+			line-height: 20px;
+			color: #5F5F5F;
+			font-size: 1em;
+			text-align: center;
+			margin: 20px 0 10px 0;
+		}
+		.simple-slider-scale .scale span{
+			border-radius: 5px;
+			color: #5F5F5F;
+		}
+		.simple-slider-scale .scale{
+			top: 74%;
+		}
+		#details-block{
+			width: 100%;
+			position: fixed;
+			bottom: 0px;
+		}
+		#details-block>label>span{
+			display: block;
+			text-align: center;
+			background-color: #03b3ff;
+			color: #FFF;
+			line-height: 40px;
+			height: 40px;
+		}
+		body{
+			padding-bottom: 150px;
+		}
+		#details-content ~ div{
+			position: fixed;
+			left: 0;
+			top: 100%;
+			background-color: rgba(0, 0, 0, .5);
+			z-index: 2;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			-webkit-transition: all 0.2s  linear;
+		       -moz-transition: all 0.2s  linear;
+		        -ms-transition: all 0.2s  linear;
+		         -o-transition: all 0.2s  linear;
+		            transition: all 0.2s  linear;
+		}
+		#details-content:checked ~ div{
+			top: 0%;
+			opacity: 1;
+		}
+		#selected{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #FFF;
+			box-shadow: 0 0 30px #FFF;
+			color: #5F5F5F;
+			width: 80%;
+			text-align: center;
+			line-height: 30px;
+		}
+		#selected th{
+			border-bottom: 1px solid #DDD;
+		}
+		#selected button{
+			border: none;
+			background: none;
+			color: #5F5F5F;
+			width: 80%;
+			line-height: 30px;
+			color: #FFF;
+			background-color: #03b3ff;
+		}
+	</style>
+</block>
+<block name="content">
+	<h3 class="field">品牌选择</h3>
+	<select class="filed_select" id="brand">
+		<foreach name="resAPI['servers']" item="vo" key="key">
+			<option class="op" value="{:U('index',array('room'=>$vo['flag']))}" data-pid="{$vo['flag']}" <eq name="resAPI['GPC']['get']['room']" value="$vo['flag']">selected</eq>>{$vo.name}</option>
+		</foreach>
+	</select>
+	<h3 class="field">地域</h3>
+	<select class="filed_select" id="region">
+		<foreach name="resAPI['product']" item="vo" >
+			<option value="{:U('index',array_merge($_GET,array('pid'=>$vo['id'])))}" class="op" data-pid="{$vo['id']}" <eq name="resAPI['GPC']['get']['pid']" value="$vo['id']">selected</eq>>{$vo.name}</option>
+		</foreach>
+	</select>
+	<h3 class="field">基本参数</h3>
+	<h2>CPU（核）<span id="cpu-t"></span></h2>
+	<div id="cpu-slider-scale" style="width: 85%;margin:0 auto;" class="simple-slider-scale"></div>
+	<h2>内存（G）<span id="memory-t"></span></h2>
+	<div id="memory-slider-scale" style="width: 85%;margin:0 auto;" class="simple-slider-scale"></div>
+	<h2>硬盘（G）<span id="disk-t"></span></h2>
+	<div id="disk-slider-scale" style="width: 85%;margin:0 auto;" class="simple-slider-scale"></div>
+	<h2>宽带（M）<span id="net-t"></span></h2>
+	<div id="net-slider-scale" style="width: 85%;margin:0 auto;" class="simple-slider-scale"></div>
+	<h3 class="field">操作系统</h3>
+	<select class="select" id="os" autocomplete="off">
+		<foreach name="resAPI['oslist']" item="vo" key="key">
+	        <option value="{$vo['osid']}">{$vo['osname']}</option>
+		</foreach>
+	</select>
+	<h3 class="field">购买时限</h3>
+	<select class="select" id="time" autocomplete="off">
+		<foreach name="resAPI['pricelist']" item="v" key="key">
+	        <option value="{$v.value}">{$v.name}</option>
+		</foreach>
+	</select>
+	<div id="details-block">
+		<label>
+			<span id="reset-price">查看已选配置并结算</span>
+			<input type="checkbox" id="details-content" style="display: none;" unchecked autocomplete="off">
+			<div>
+				<table id="selected">
+					<th colspan="4" style="text-align: center;">已选配置清单</th>
+					<tr>
+						<td>品牌：</td>
+						<td id="brand-data"></td>
+						<td>地域：</td>
+						<td id="region-data"></td>
+					</tr>
+					<tr>
+						<td>CPU：</td>
+						<td id="cpu-data"></td>
+						<td>内存：</td>
+						<td id="memory-data"></td>
+					</tr>
+					<tr>
+						<td>硬盘：</td>
+						<td id="disk-data"></td>
+						<td>宽带：</td>
+						<td id="net-data"></td>
+					</tr>
+					<tr>
+						<td>系统：</td>
+						<td id="os-data"></td>
+						<td>时限：</td>
+						<td id="time-data"></td>
+					</tr>
+					<tr>
+						<td>价格：</td>
+						<td id="price-data" style="font-size: 1.3em;color: red;"></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="4" style="text-align: center;"><button id="submit-but">价格查询</button></td>
+					</tr>
+				</table>
+			</div>
+		</label>
+	</div>
+</block>
+<block name="script">
+	<script src="__PUBLIC__/web/js/simple-web-plug.js"></script>
+	<script>
+		var cloudset={$resAPI['cloudsetting']|json_encode};
+		console.log(cloudset)
+		$(".filed_select").change(function(event) {
+			window.location.href=$(this).val();
+		});
+		var memoryList={};
+		var cpuList={};
+		for(var i in cloudset.list.cpu)
+			cpuList[i]=i;
+		for(var i in cpuList)
+			memoryList[i]=cloudset.list.cpu[i];
+
+		var cpuSliderScale = new SimpleSliderScale('#cpu-slider-scale',{
+			scale:{1:'1',2:'2',4:'4',8:'8',12:'12核',16:'16核'},
+			min:1,max:16,siezNearly:true,clickMove:true,change:function (scale){
+				memorySliderScale = new SimpleSliderScale('#memory-slider-scale',getMemoryList(scale));
+				$('#cpu-data').attr('data',scale).text(scale+'核');
+				$("#cpu-t").text(scale+'核');
+			}
+		});
+		var memorySliderScale = new SimpleSliderScale('#memory-slider-scale',getMemoryList(1));
+		var diskSliderScale = new SimpleSliderScale('#disk-slider-scale',{
+			min:0,max:1000,scale:{1:'1G',1000:'1000 G'},change:function(scale){
+				$('#disk-data').attr('data',scale).text(scale+'G');
+				$("#disk-t").text(scale+'G');
+			}
+		});
+		var netSliderScale = new SimpleSliderScale('#net-slider-scale',{
+			min:1,max:100,scale:{1:'1M',100:'100 M'},change:function(scale){
+				$('#net-data').attr('data',scale).text(scale+'M');
+				$("#net-t").text(scale+'M');
+			}
+		});
+
+		function getMemoryList(cpu){
+			var t=memoryList[cpu];
+			if(!t) return {};
+			var scale={};
+			for(var i = 0;i<t.length;i++)
+				scale[t[i]]=t[i]+'G';
+			return {
+				min: t[0],max: t[t.length-1],
+				scale: scale,clickMove:true,siezNearly:true,change:function(scale){
+					$('#memory-data').attr('data',scale).text(scale+'G');
+					$("#memory-t").text(scale+'G');
+				}
+			}
+		}
+		$(".select,.filed_select").change(function(){
+			var option=$(this).find(':selected');
+			$('#'+$(this).attr('id')+'-data').text(option.text()).attr('data',option.attr('value'));
+		});
+		function getConfigData(){
+			var con={};
+			$.each($('.filed_select'), function(index, val) {
+				var option=$(val).find(':selected');
+				con[$(val).attr('id')]={value:option.attr('data-pid'),text:option.text()};
+			});
+			$.each($('.select'), function(index, val) {
+				var option=$(val).find(':selected');
+				con[$(val).attr('id')]={value:option.attr('value'),text:option.text()};
+			});
+			con.memory=memorySliderScale.value;
+			con.cpu=cpuSliderScale.value;
+			con.net=netSliderScale.value;
+			con.disk=diskSliderScale.value;
+
+			return con;
+		}
+		function setDetails(){
+			var data=getConfigData();
+			$('#cpu-data').text(data.cpu+'核');
+			$("#cpu-t").text(data.cpu+'核');
+			$('#net-data').text(data.net+'M');
+			$("#net-t").text(data.net+'M');
+			$('#disk-data').text(data.cpu+'G');
+			$("#disk-t").text(data.disk+'G');
+			$('#memory-data').text(data.cpu+'G');
+			$("#memory-t").text(data.memory+'G');
+
+			$("#region-data").text(data.region.text);
+			$("#os-data").text(data.os.text);
+			$("#time-data").text(data.time.text);
+			$("#brand-data").text(data.brand.text);
+			$("#price-data").text('点击查询');
+		}
+		setDetails();
+		function conversion(){
+			var data=getConfigData();
+			return {
+				"room":data.brand.value,
+				"id":data.region.value,
+				"cpu":data.cpu,
+				"ram":data.memory,
+				"hd":data.disk,
+				"bd":data.net,
+				"period":data.time.value,
+				"os":data.os.value,
+				
+			};
+		}
+		var price=false;
+		$("#submit-but").click(function(){
+			if(!price){
+				$(this).text('查询中...');
+				$.post('{:U("App/getmoney")}', conversion(), function(data, textStatus, xhr) {
+					if(data.code==0){
+						$("#submit-but").text('提交购买');
+						$("#price-data").text(data.price);
+						price=true;
+					}else{
+						show_error(data.message);
+					}
+				});
+			}else{
+				$.post('{:U("App/creatShopUrl")}', conversion(), function(data, textStatus, xhr) {
+					if(data.code==0){
+						window.location.href=data.url;
+					}else{
+						show_error(data.message);
+					}
+				});
+			}
+			return false;
+		})
+		$("#reset-price").click(function(){
+			price=false;
+			$("#submit-but").text('价格查询');
+		});
+	</script>
+</block>

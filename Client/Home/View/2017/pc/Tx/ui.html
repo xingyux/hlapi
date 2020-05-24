@@ -1,0 +1,328 @@
+	<div id="dialog_dialog" style="display: none"></div>
+	<div id="dialog_dialog2" style="display: none"></div>
+	<script id="notice_dialog_tmpl" type="text/x-jquery-tmpl">
+
+			<form id="form" action="?" method="post" role="form">
+
+			
+	
+			
+<table>
+                	
+                         <tr>
+                    	<td>金额</td><td><input type="number" name="notice-title" value="" placeholder="金额" class="form-control"></td></tr>
+					
+<notempty name="res['userinfo']['withdrawcash']">
+<tr><td>提现方式</td> <td class="withdrawcash_name"></td></tr>
+<tr><td>提现说明</td><td class="withdrawcash_info">
+
+</td></tr>
+
+<else />
+   <tr><td>提现方式</td> <td>请先点下方更换提现方式</td></tr>
+</notempty>
+					
+                       
+                    
+                        <tr><td></td><td>
+						
+						<div class="alert alert-warning" style="display:none;" id="btnn-check-pay-alert">
+	<a href="#" class="close">
+		&times;
+	</a>
+	<strong id="errtitle"></strong><span id="errmsg"></span>
+</div>		                        
+				
+						</td></tr>
+						
+                    
+                </table>
+<input type="hidden" name="submit" value="add">
+</form>
+
+</div>
+</script>	
+	<script id="wx_dialog_tmpl" type="text/x-jquery-tmpl">
+	<div class="tip"></div>
+				<div class="alert alert-warning btnn-check-pay-alert" style="display:none;">
+	<a href="#" class="close">
+		&times;
+	</a>
+	<strong class="errtitle"></strong><span class="errmsg"></span>
+</div>	
+</script>
+
+	<script id="ali_dialog_tmpl" type="text/x-jquery-tmpl">
+
+<table>
+                	
+                         <tr>
+                    	<td>支付宝名称：</td><td><input type="text" name="noticetitle" value="" placeholder="支付宝名称" class="form-control"></td></tr>
+					
+
+   <tr><td>收款二维码</td> <td class="qrimg"><button>请先点下方上传</button></td></tr>
+         
+                </table>
+	
+	
+	
+				<div class="alert alert-warning btnn-check-pay-alert" style="display:;">
+	<a href="#" class="close">
+		&times;
+	</a>
+	<strong class="errtitle">说明</strong><span class="errmsg">
+	支付宝名称为收收款人的真实姓名或者企业名称，方便核对。<br>
+	收款二维码用手机打开手机支付宝，点右上角【+】号，然后点击我要收款，保存到相册。
+	</span>
+</div>	
+</script>	
+
+<script id="ali_up_dialog_tmpl" type="text/x-jquery-tmpl">
+	<iframe frameborder=0 width=200 height=200 marginheight=0 marginwidth=0 scrolling=no src=""></iframe>
+</script>
+
+<script>
+var tx_list;
+<notempty name="res['userinfo']['withdrawcash']">
+	tx_list={$res['userinfo']['withdrawcash']|json_encode};
+</notempty>
+</script>
+<script>
+var _up_ali_qrcode=function(){
+
+var dialogObj=$("#dialog_dialog2");dialogObj.empty();$("#ali_up_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+
+		dialogObj.dialog({
+			title: "上传二维码",
+			width: 500,
+
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );
+		dialogObj.find("iframe").attr("src","{:U('aliup')}");
+}
+var _set_ali=function(img){
+var posturl="{:U('qrcode')}";
+var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#ali_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+	dialogObj.find(".tip").html("数据图片加载中……");
+		dialogObj.dialog({
+			title: "设置阿里提现",
+			width: 500,
+
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		if(img!=""){
+		dialogObj.find(".qrimg").html("<img src='"+img+"' style='width:200px;'>");
+		$("#dialog_dialog2").dialog("close");
+		dialogObj.dialog( "option", "buttons", {"点此提交":function(){
+				var name=dialogObj.find("input[name='noticetitle']").val();
+				
+				getPost(
+					posturl,
+					{"submit":"add","id":"ali","name":name,"img":img,"json":1},
+					function(d){
+					
+					if(d.code==0){
+						dialogObj.find(".errtitle").html("成功：");
+						dialogObj.find(".errmsg").html("提交成功");
+						tx_list=d.withdrawcash;
+						dialogObj.dialog( "option", "buttons", {"点击申请提现":function(){_tx();},"关闭":function(){dialogObj.dialog("close");}});	
+					}else{
+						dialogObj.find(".errtitle").html("错误：");
+						dialogObj.find(".errmsg").html(d.message);					
+					}
+					
+					},"","json",function(e){
+						dialogObj.find(".errtitle").html("错误：");
+						dialogObj.find(".errmsg").html("未知错误");
+					}
+				);
+		
+		},"关闭":function(){dialogObj.dialog("close");}});	
+		}else{
+		dialogObj.dialog( "option", "buttons", {"上传收款二维码":function(){_up_ali_qrcode();},"关闭":function(){dialogObj.dialog("close");}});	
+		}
+		
+		
+		
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+}
+var _set_wx=function(){
+
+var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#wx_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+	dialogObj.find(".tip").html("数据图片加载中……");
+		dialogObj.dialog({
+			title: "设置微信提现",
+			width: 250,
+
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		dialogObj.dialog( "option", "buttons", {"关闭":function(){dialogObj.dialog("close");}});	
+		
+		
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		
+		getPost(
+			"{:U('qrcode')}",
+			{
+			"json":1,
+			} ,
+			function(data){
+			if(data.code==0){
+			dialogObj.find(".tip").html("<img src='"+data.wechat.url+"' style='width:100%;'>");
+			
+			var buttons={};
+			buttons["微信扫码后点此确认"]=function(){
+
+				dialogObj.find(".errtitle").html("声明：");
+				dialogObj.find(".errmsg").html("正在提交");
+				dialogObj.find(".btnn-check-pay-alert").show();			
+			
+				getPost(
+					"{:U('qrcode')}",
+					{"submit":"add","id":data.wechat.id, "json":1 },
+					function(d){
+					
+					if(d.code==0){
+						dialogObj.find(".errtitle").html("成功：");
+						dialogObj.find(".errmsg").html("提交成功");
+						tx_list=d.withdrawcash;
+						dialogObj.dialog( "option", "buttons", {"点击申请提现":function(){_tx();},"关闭":function(){dialogObj.dialog("close");}});	
+					}else{
+						dialogObj.find(".errtitle").html("错误：");
+						dialogObj.find(".errmsg").html(d.message);					
+					}
+					
+					},"","json",function(e){
+						dialogObj.find(".errtitle").html("错误：");
+						dialogObj.find(".errmsg").html("未知错误");
+					}
+				);
+			};
+			buttons["关闭"]=function(){dialogObj.dialog("close");};			
+			
+			dialogObj.dialog( "option", "buttons", buttons);
+			}else{
+				dialogObj.find(".tip").html(data.message);
+				dialogObj.dialog( "option", "buttons", {"刷新重试":function(){_set_wx();},"关闭":function(){dialogObj.dialog("close");}});	
+			}
+			},"","json",function(e){
+				dialogObj.find(".tip").html("未知错误");
+				dialogObj.dialog( "option", "buttons", {"刷新重试":function(){_set_wx();},"关闭":function(){dialogObj.dialog("close");}});	
+			}
+		);
+		
+		return false;
+
+}
+
+var _tx=function(){
+
+var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#notice_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+
+
+		dialogObj.find("form").submit(function(){
+		
+	$("#errtitle").html("声明：");
+	$("#errmsg").html("正在提交");
+	$("#btnn-check-pay-alert").show();		
+		
+		var object=$(this).serializeArray();
+		object[object.length]={"name":"json","value":1};
+		getPost(
+		"{:U('withdrawcash')}",
+		object,
+		function(data){
+			if(data.code==0){
+				$("#errtitle").html("成功：");
+		$("#errmsg").html("提交成功");
+		window.location.reload()
+			}else{
+				$("#errtitle").html("错误：");
+		$("#errmsg").html(data.message);		
+			}
+		},"","json",function(e){
+		
+		
+			$("#errtitle").html("错误：");
+		$("#errmsg").html("未知错误");
+		
+		}
+		
+		);
+		return false;
+		});
+		
+		
+		dialogObj.dialog({
+			title: "提现申请",
+			width: 400,
+
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		var buttons={};
+		buttons["设为支付宝"]=function(){_set_ali("");};
+		buttons["设为微信"]=function(){_set_wx();};
+		if(tx_list){
+		buttons["申请提现"]=function(){dialogObj.find("form").submit();}
+		
+		
+		
+		if(tx_list.name=="微信"){
+		var tx_list_info=tx_list.nickname;
+		var tx_list_name=tx_list.name;
+		}else{
+		var tx_list_name=tx_list.name+":"+tx_list.nickname;
+		var tx_list_info="<img src='"+tx_list.img+"' style='width:200px;'>";
+		}
+		dialogObj.find(".withdrawcash_name").html(tx_list_name);
+		dialogObj.find(".withdrawcash_info").html(tx_list_info);
+		
+		
+		}
+		buttons["关闭"]=function(){dialogObj.dialog("close");};
+		dialogObj.dialog( "option", "buttons", buttons);	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+
+}
+
+$(function(){
+
+$("#btnn-check-pay-alert .close").click(function(){
+	$("#btnn-check-pay-alert").hide();
+	return false;
+});
+
+	$("a.add-notice").click(function(){
+
+		_tx();
+
+		return false;	
+
+
+});
+
+
+})
+</script>

@@ -1,0 +1,461 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>管理中心-{$sitename}</title>
+<include file="Common/head" />
+
+
+<script>
+$(function(){
+	
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	});
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+<include file="User/nav" />
+
+<style>.ui-dialog-titlebar{background-color:#03b0ff; color:#FFFFFF;}.ui-widget-overlay {
+    background: #000;
+    opacity: 0.5;
+    filter: Alpha(Opacity=0.5);
+  
+}</style>
+
+    <section class="main clear">
+    	<include file="Common/menu" />
+        <div class="content">
+        	
+
+			
+<link href="__RESOURE__/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen" />
+
+			
+<div class="">
+	
+</div>
+			
+			
+			
+
+				
+				
+	
+
+			
+			
+<div id="tabs">
+  <ul>
+	<li><a href="#tabs-4">基本信息</a></li>
+	<li><a href="{:U('userReturn')}">资料修改</a></li>
+	<notempty name="checkWebUser"><li><a href="#tabs-5">系统版本</a></li></notempty>
+    <li><a href="#tabs-1">主机数量</a></li>
+    <li><a href="#tabs-2">财务日志</a></li>
+    <li><a href="#tabs-3">登录日志</a></li>
+	<li><a href="{:U('LoginLog/addr')}">信任地区</a></li>
+	<notempty name="checkWebUser">
+	<li><a href="{:U('clearcache')}">清除缓存</a></li>
+	</notempty>
+  </ul>
+  <notempty name="checkWebUser">
+  <div id="tabs-5">
+  本地版本：{$res["GPC"]["VERSION"]["this"]}<br>
+  最新版本：{$res["GPC"]["VERSION"]["new"]}<br>
+  内测版本：{$res["GPC"]["VERSION"]["bate"]}<br>
+  在线文件更新：<a href="{:U('SoftUpdate/index')}">在线文件更新</a><br>
+  </div>
+
+  
+  
+  </notempty>
+  <div id="tabs-4">
+  
+  <div class="row clearfix">
+	
+			<div class="col-md-3 column">
+			<h3>
+				帐号信息
+			</h3>
+<list class="list-group-item"> <strong>我的资料</strong></list>				
+<list class="list-group-item"> 网站帐号： {$res["userinfo"]["username"]}<eq name="res['userinfo']['personnel']" value="1">&nbsp;&nbsp;<a href="{:U('changepersonnel')}"><small class="text-danger">切换公司帐号</small></a></eq></list>		
+<list class="list-group-item"> 代理级别： {$res["userinfo"]["pricetypename"]}</list>	
+<list class="list-group-item"> 手机号码： {$res["userinfo"]["moblie"]}</list>	
+<list class="list-group-item"> 平台金额： {$res["userinfo"]["usermoney"]}&nbsp;&nbsp;<a href="{:U('Money/pay')}"><small class="text-danger">在线充值</small></a></list>	
+<list class="list-group-item"> 预存金额： {$res["userinfo"]["userpaymoney"]}&nbsp;&nbsp;<a href="{:U('check',array('bind'=>'tx'))}"><small class="text-danger">余额提现</small></a></list>
+<list class="list-group-item"> ＱＱ绑定： <abbr title="头像"><img src="{:getqqwechatinfo($res['userinfo']['qqinfo'],"figureurl_qq_1","img")}" style="max-height:20px;"></abbr>&nbsp;&nbsp;<abbr title="QQ昵称">{:getqqwechatinfo($res['userinfo']['qqinfo'],"nickname","text")}</abbr>&nbsp;&nbsp;<a href="{:U('User/index',array('bind'=>'qq'))}"><small class="text-danger">修改绑定</small></a></list>	
+<list class="list-group-item"> 微信绑定： <abbr title="头像"><img src="{:getqqwechatinfo($res['userinfo']['wechatinfo'],"headimgurl","img")}" style="max-height:20px;"></abbr>&nbsp;&nbsp;<abbr title="昵称">{:getqqwechatinfo($res['userinfo']['wechatinfo'],"nickname","text")}</abbr>&nbsp;&nbsp;<a href="{:U('User/wechat')}"><small class="text-danger">修改绑定</small></a></list>	
+<list class="list-group-item"> <strong>上级代理商</strong></list>	
+<list class="list-group-item"> 网站名称： {$res["userinfo_agent"]["webname"]}</list>		
+<list class="list-group-item">手机号码： {$res["userinfo_agent"]["moblie"]}</list>	
+
+		</div>
+	
+
+	<div class="col-md-4 column">
+			<h3>
+				系统公告
+			</h3>
+			
+			
+			<foreach name="res['Notice']" item="vo">
+			<a href="#" class="list-group-item notice-info" data-title="{$vo.title|urlencode}" data-time="{$vo.tim|date='Y-m-d H:i',###}" data-content="{$vo.content|urlencode}"<eq name="vo.istop" value="1"> style="color:#FF0000"</eq>>[{$vo.tim|date='m-d',###}]{$vo.title|mb_substr=0,10,"UTF-8"}</a>
+                      
+						</foreach>
+				
+		</div>
+	
+	
+			<div class="col-md-3 column">
+			<h3>
+				消费信息
+			</h3>
+<foreach name="res['financial_table']" item="vo" key="key">			
+<list class="list-group-item">{$key}消费：{$vo.consume}</list>				
+<list class="list-group-item">{$key}退款：{$vo.refun}</list>			
+<list class="list-group-item">{$key}充值：{$vo.pay}</list>	
+</foreach>	
+<list class="list-group-item">下级金额：{$res["userinfo"]["myusermoney"]}</list>
+
+		</div>
+		<div class="col-md-2">
+			<h3>
+				常用功能
+			</h3>
+
+			
+			
+			<a href="{:U('Cronlist/index')}" class="list-group-item">任务管理</a>
+			
+			<a href="{:U('DomainUser/index')}" class="list-group-item">域名注册信息</a>
+			
+			<a href="{:U('Product/order')}" class="list-group-item">订单管理</a>
+			<notempty name="checkWebUser">
+				<a href="{:U('pricesetting/index')}" class="list-group-item">价格产品设置</a>
+			<else />
+				<a href="{:U('Ranwen/index')}" class="list-group-item">软文发布</a>
+			</notempty>
+			<notempty name="checkAgent">
+				<a href="{:U('UserList/index')}" class="list-group-item">下级会员列表</a>
+				<a href="{:U('Plugin/index')}" class="list-group-item">插件管理</a>
+			<else />
+				<a href="{:U('LoginLog/index')}" class="list-group-item">登录记录</a>
+			</notempty>
+			<a href="{:U('Money/index')}" class="list-group-item">财务信息</a>
+			<a href="{:U('Money/pay')}" class="list-group-item">账户充值</a>
+			
+			<notempty name="checkWebUser">
+		<a href="{:U('dictionary/index')}" class="list-group-item">字典管理</a>
+		<else />
+				<a href="{:U('Notice/index')}" class="list-group-item">公告列表</a>
+			</notempty>
+		<a href="{:U('LoginLog/addr')}" class="list-group-item">信任地区管理</a>
+
+			
+			
+		</div>		
+	</div>
+  
+  </div>
+  <div id="tabs-1">
+               <ul class="content_box clear">
+            	<li>
+                	<p class="p_name">vps   云主机</p>
+                    <img src="__PUBLIC__/user/images/cloud.png">
+                    <p class="p_num">有效云主机：         {$res["count"]["vps"]["num"]}台</p>
+                </li>
+                <li>
+                	<p class="p_name">域名管理</p>
+                    <img src="__PUBLIC__/user/images/guanli.png">
+                    <p class="p_num">有效云主机：         {$res["count"]["domain"]["num"]}台</p>
+                </li>
+                <li>
+                	<p class="p_name">虚拟主机管理</p>
+                    <img src="__PUBLIC__/user/images/server.png">
+                    <p class="p_num">有效云主机：         {$res["count"]["host"]["num"]}台</p>
+                </li>
+                <li>
+                	<p class="p_name">服务器管理</p>
+                    <img src="__PUBLIC__/user/images/X86png.png">
+                    <p class="p_num">有效云主机：         {$res["count"]["servers"]["num"]}台</p>
+                </li>
+            </ul>
+	</div>
+  <div id="tabs-2">
+    <table class="table table-bordered" style="table-layout: fixed;word-wrap:break-word;">
+                	<tr>
+                    	<th>时间</th>
+						<th>类型</th>
+                        
+                        <th>金额</th>
+                        <th>结余余额</th>
+                        <th>预存金额</th>
+                        <th>结余预存余额</th>						
+                        <th>说明</th>
+						<th>操作人</th>
+                        
+                        
+                    </tr>
+                    <foreach name="res['moneylog']" item="vo">
+                         <tr>
+                    	<td>{$vo.tim|date='Y-m-d H:i',###}</td>
+						<td>{$vo.type} </td>
+						<td>{$vo.money} </td>
+                        <td>{$vo.usermoney}</td>
+                        <td>{$vo.paymoney} </td>
+                        <td>{$vo.userpaymoney}  </td>								
+                        <td>{$vo.infos}  </th>
+                        <td>{$vo.opuser}</td>
+                      
+                       </tr>
+						</foreach>
+						
+                    
+                </table>		  </div>
+  <div id="tabs-3">
+   	<table class="table table-bordered">
+                	<tr>
+                    	<th>时间</th>
+						
+                        
+                        <th>IP</th>
+                        <th>地区</th>
+						
+                        <th>登录方式</th>
+						<th>登录结果</th>
+                        <th>验证方式</th>
+                        
+                    </tr>
+                    <foreach name="res['loginlog']" item="vo">
+                         <tr>
+                    	<td>{$vo.tim|date='Y-m-d H:i',###}</td>
+						<td>{$vo.ip} </td>
+                        <td>{$vo.addr}</td>
+                        <td>{$vo.type}  </th>
+                        <td>{$vo.isloginsucc}</td>
+                        <td>{$vo.ischecked}</td>
+                       </tr>
+						</foreach>
+						
+                    
+                </table>
+  </div>
+</div>			
+			
+			
+			
+			
+          		
+				
+           
+				
+
+        </div>
+    </section>
+
+
+	
+	
+	
+	
+	
+	<div id="noticelook_dialog_tmpl" style="display:none;">
+	<div></div>
+</div>	
+
+
+	
+
+<notempty name="res.VERSIONERROR">
+<div id="myModal" style="display:none;">
+<h3>此系统版本错误</h3>
+</div>
+<script>
+
+
+
+$(function(){
+	var dialogObj=$("#myModal");
+dialogObj.dialog({
+			title: "版本错误",
+			width: 550,
+			
+			position: { my: "center top+100", at: "center top", of: window },
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			buttons: {
+				"关闭": function() {
+				  $( this ).dialog( "close" );
+				}
+			  },
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+				
+			}
+		});
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+});
+</script>
+<else />
+<empty name="res.VERSION"><else />
+<eq name="checkWebUser" value="1">
+<div id="myModal" style="display:none;">
+<div class="panel panel-default">
+<foreach name="res.VERSION" item="vo">
+	<div class="panel-heading">版本号：V{$vo.version}&nbsp;&nbsp;&nbsp;&nbsp;发布时间：{$vo.tim|date='Y-m-d H:i',###}</div>
+	<div class="panel-body">
+		<p>{$vo.info}
+		</p>
+	</div>
+</foreach>	
+</div>
+</div>
+</eq>
+<script>
+
+$(function(){
+	var dialogObj=$("#myModal");
+dialogObj.dialog({
+			title: "版本升级",
+			width: 550,
+			height:400,
+			position: { my: "center top+100", at: "center top", of: window },
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			buttons: {
+				"关闭": function() {
+				  $( this ).dialog( "close" );
+				}
+			  },
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+				
+			}
+		});
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+});
+</script>
+</empty>
+</notempty>
+<script>
+
+var $tabslib=null;
+
+var _init_tabs=function(index){
+index = index || 0;
+
+var tabslib = $( "#tabs" ).tabs({
+      beforeLoad: function( event, ui ) {
+        ui.jqXHR.fail(function() {
+          ui.panel.html("无法加载数据……" );
+        });
+      }
+    ,
+	active : index , 
+	
+	});
+	return tabslib;
+}
+
+$(function(){
+	if($tabslib){
+		$( "#tabs" ).tabs( 'destroy' ) ;
+	}
+$tabslib = _init_tabs(0);
+
+$( document ).tooltip({
+      track: true
+    });
+
+
+$("a.notice-info").click(function(){
+
+
+var title=decodeURIComponent($(this).attr("data-title"));
+var content=decodeURIComponent($(this).attr("data-content"));
+content=content.replace(/\+/ig," ");
+var time=$(this).attr("data-time");
+
+var dialogObj=$("#noticelook_dialog_tmpl");
+
+dialogObj.html("<h1 class=\"text-center\">"+title+"</h1><h3>发布时间："+time+"</h3><pre style='white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;'>"+content+"</pre>");
+		
+
+dialogObj.dialog({
+			title: "阅读公告",
+			width: 550,
+			height:550,
+			position: { my: "center top+100", at: "center top", of: window },
+			resizable: true,
+			modal:true,
+			autoOpen: true,
+			buttons: {
+				"关闭": function() {
+				  $( this ).dialog( "close" );
+				}
+			  },
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+				
+			}
+		});
+dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );
+
+return false;
+});
+
+
+
+
+})
+</script>
+<empty name="res.userinfo.qq">
+	<link href='__RESOURE__/model/Charisma/css/jquery.noty.css' rel='stylesheet'>
+	<link href='__RESOURE__/model/Charisma/css/noty_theme_default.css' rel='stylesheet'>
+<script src="__RESOURE__/model/Charisma/js/jquery.noty.js"></script>
+<script>
+$(function(){
+
+var buttons=[{type: 'btn btn-danger', text: "<i class=\"icon-remove icon-white\"></i> 去设置",click:function(){
+	if($tabslib){
+		$( "#tabs" ).tabs( 'destroy' ) ;
+		
+	}
+
+	$tabslib = _init_tabs(1);
+	$.noty.closeAll();
+							}}];
+	noty({text:"为了方便您的代理商与您联系，请先设置QQ号码，谢谢合作！",modal:true,layout:"center",type:"warning",timeout:false,buttons:buttons});
+});
+</script>
+</empty>
+
+</body>
+</html>

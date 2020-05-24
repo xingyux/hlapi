@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>帐号绑定-{$sitename}</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="//cache-code-ui.html5ui.org/bootstrap-3.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//cache-code-ui.html5ui.org/Font-Awesome-3.2.1/css/font-awesome.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/server/css/form-elements.css">
+        <link rel="stylesheet" href="__PUBLIC__/server/css/style.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="__PUBLIC__/server/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__PUBLIC__/server/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__PUBLIC__/server/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__PUBLIC__/server/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="__PUBLIC__/server/ico/apple-touch-icon-57-precomposed.png">
+
+    </head>
+
+    <body>
+<div id="notice_dialog_tmpl" style="display: none;text-align:left;">
+<div>
+{$res['unbindinfo']}
+</div>
+								<div class="alert alert-warning btnn-check-pay-alert" style="display:none;">
+	<a href="#" class="close">
+		&times;
+	</a>
+	<strong class="errtitle"></strong><span class="errmsg"></span>
+</div>	
+
+</div>		
+
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                 
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>帐号【微信】绑定</h3>
+                            		<p style="color:#FF0000"></p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-key"></i>
+                        		</div>
+                            </div>
+							
+                            <div class="form-bottom">
+			                    <form role="form" action="" method="post" class="login-form">
+								
+								<div class="row">
+    <div class="col-sm-6 col-md-12">
+        <a class="thumbnail">
+            <img src="{$res['qrcode']}" style="width:250px;">
+        </a>
+    </div>
+
+</div>
+								
+			                    
+									<div class="alert alert-warning" style="display:none;" id="btnn-check-pay-alert">
+	<a href="#" class="close">
+		&times;
+	</a>
+	<strong id="errtitle"></strong><span id="errmsg"></span>
+</div>		                        
+			                       	
+									
+			                        <button type="button" class="btn btnn-check-pay" data-id="{$res['ticket_id']}">【微信】扫码完成后请点确认完成绑定</button>
+									<button type="button" class="btn btnn-check-unbind" style="margin-top:10px;">跳过，我不想绑定</button>
+	
+			                    </form>
+		                    </div>
+                        </div>
+                    </div>
+          
+                </div>
+            </div>
+            
+        </div>
+
+<link href="//cache-code-ui.html5ui.org/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen" />
+        <script src="//cache-code-ui.html5ui.org/jQuery/jquery-1.11.3.min.js"></script>
+		<script src='//cache-code-ui.html5ui.org/jquery-ui-1.12.1.custom/jquery-ui.min.js'></script>
+        <script src="//cache-code-ui.html5ui.org/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+        <script src="__PUBLIC__/server/js/jquery.backstretch.min.js"></script>
+        <script src="__PUBLIC__/server/js/scripts.js"></script>
+        <script src='//cache-code-ui.html5ui.org/ajax/ajax.js'></script>
+	
+        <!--[if lt IE 10]>
+            <script src="__PUBLIC__/server/js/placeholder.js"></script>
+        <![endif]-->
+		
+
+
+	
+
+<script>
+var _pay=function(){
+
+$(".btnn-check-pay").click(function(){
+
+	$("#errtitle").html("声明：");
+	$("#errmsg").html("正在查询结果");
+	$("#btnn-check-pay-alert").show();
+	$(".btnn-check-pay").unbind("click");
+	var _id=$(this).attr("data-id");
+	getPost(
+	window.location.href,
+	{"ticket_id":_id},
+	function(data){
+		if(data.code==0){
+			$("#errtitle").html("成功：");
+			$("#errmsg").html(data.message);
+			
+			setTimeout(function(){window.location.href=data.url;},1500);
+			
+		}else{
+			$("#errtitle").html("错误：");
+			$("#errmsg").html(data.message);
+			_pay();
+		}
+	},
+	"",
+	"json",
+	function(e){
+		$("#errtitle").html("错误：");
+		$("#errmsg").html("未知错误");
+		_pay();
+	}
+	);
+});
+}
+$(function(){
+
+$("#btnn-check-pay-alert .close").click(function(){
+	$("#btnn-check-pay-alert").hide();
+});
+$(".btnn-check-unbind").click(function(){
+
+	var dialogObj=$("#notice_dialog_tmpl");
+		dialogObj.dialog({
+			title: "绑定声明",
+
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		
+		dialogObj.dialog( "option", "buttons", {"不想绑定，点此跳过":function(){
+
+
+	dialogObj.find(".errtitle").html("声明：");
+	dialogObj.find(".errmsg").html("正在提交");
+	dialogObj.find(".btnn-check-pay-alert").show();	
+		
+	getPost(
+	window.location.href,
+	{"ticket_id":"un"},
+	function(data){
+		if(data.code==0){
+			dialogObj.find(".errtitle").html("成功：");
+			dialogObj.find(".errmsg").html(data.message);
+			
+			setTimeout(function(){window.location.href=data.url;},1500);
+			
+		}else{
+			dialogObj.find(".errtitle").html("错误：");
+			dialogObj.find(".errmsg").html(data.message);
+
+		}
+	},
+	"",
+	"json",
+	function(e){
+		dialogObj.find(".errtitle").html("错误：");
+		dialogObj.find(".errmsg").html("未知错误");
+
+	}
+	);		
+			
+		},"关闭":function(){dialogObj.dialog("close");}});	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } )
+	
+});
+
+_pay();
+
+})
+
+</script>
+    </body>
+
+</html>

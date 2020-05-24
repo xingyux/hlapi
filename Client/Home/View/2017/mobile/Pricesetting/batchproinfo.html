@@ -1,0 +1,265 @@
+<style>th span.add-on{color:#000;}</style>
+<table class="">
+							  <thead>
+								  <tr>
+									  <th>产品名称</th>
+									  <th>销售方式</th>
+									  <th>代理价<br>销售价</th>
+									  <foreach name="pricetype" item="vo"><th>
+									  <div class="controls">
+									  <span>代理价{$vo.name}</span>
+								  <div class="input-append">
+								  
+									
+									<input id="appendedInput" name="appendedInput" size="10" type="number"><span class="add-on">%</span>
+								
+
+								<div class="btn-group" style="margin-top:2px;">
+								  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> 批量设置</a>
+								  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+								  <ul class="dropdown-menu">
+									<li><a href="#" class="dopsetmoney" data-select="0" data-all="0" data-name="【所有产品】" data-typename="代理级别【{$vo.name}】" data-pid="0" data-agent="{$agent}" data-typeid="{$vo['id']}"><i class="icon-pencil"></i> 设置上方统一数字</a></li>
+									<li><a href="#" class="dopsetmoney2" data-select="0" data-all="1" data-name="【所有产品】" data-typename="代理级别【{$vo.name}】" data-pid="0" data-agent="{$agent}" data-typeid="{$vo['id']}"><i class="icon-ban-circle"></i> 按下方输入框设置</a></li>
+								  </ul>
+								</div>
+								 </div>
+								  
+								</div>
+							  
+									  </th></foreach>
+									  <th><div class="control-group">
+								
+								<div class="controls">
+								<span>销售价</span>
+								  <div class="input-append">
+									
+									<input id="appendedInput" name="appendedInput" size="10" type="number"><span class="add-on">%</span>
+									
+								  <div class="btn-group" style="margin-top:2px;">
+								  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> 批量设置</a>
+								  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+								  <ul class="dropdown-menu">
+									<li><a href="#" class="dopsetmoney" data-select="0" data-all="0" data-name="【所有产品】" data-typename="【销售价】" data-pid="0" data-agent="{$agent}" data-typeid="0"><i class="icon-pencil"></i> 设置上方统一数字</a></li>
+									<li><a href="#" class="dopsetmoney2" data-select="0" data-all="1" data-name="【所有产品】" data-typename="【销售价】" data-pid="0" data-agent="{$agent}" data-typeid="0"><i class="icon-ban-circle"></i> 按下方输入框设置</a></li>
+								  </ul>
+								</div>
+								  
+								  </div>
+								  
+								</div>
+							  </div>
+									</th>
+									                          
+								  </tr>
+							  </thead>   
+							  <tbody>
+							  <foreach name="res" item="vv">
+								<tr>
+									<td>{$vv.name}</td><td><eq name="vv.paymode" value="static">固定价格<else />官方折扣</eq></td>
+									<td><eq name="vv.paymode" value="static">{$vv["myprice"]["monthprice"]}/月|{$vv["myprice"]["yearprice"]}/年
+									<br>
+									{$vv["monthprice"]}/月|{$vv["yearprice"]}/年<else />
+									{$vv["myprice"]["yearprice"]}%
+									<br>
+									{$vv["yearprice"]}%
+									</eq>
+									
+									</td>
+									<foreach name="pricetype" item="vo">
+									<td class="center"><div class="controls">
+								  <div class="input-append">
+								  
+									
+									<input id="appendedInput" name="appendedInput" size="16" type="number" value="<php>echo (!$vv['pricetype_discount_pro'][$vo['id']]) ? $vo['price'] : $vv['pricetype_discount_pro'][$vo['id']]</php>"><span class="add-on">%</span>
+								 <button class="btn dopsetmoney tablib-{$agent}-{$vo.id}" data-select="1" data-name="{$vv.name}" data-typename="代理级别【{$vo.name}】" data-agent="{$agent}" data-pid="{$vv['id']}" data-typeid="{$vo['id']}" ><i class="icon-cog"></i> 单个设置</button>
+								  </div>
+								  
+								</div></td></foreach>
+									<td class="center"><div class="controls">
+								  <div class="input-append">
+								  
+									
+									<input id="appendedInput" name="appendedInput" size="16" type="number" value="<php>echo (!$vv['pricetype_discount_pro'][0]) ? 100 : $vv['pricetype_discount_pro'][0]</php>"><span class="add-on">%</span>
+								 <button class="btn dopsetmoney tablib-{$agent}-0" data-select="1" data-name="{$vv.name}" data-typename="销售价" data-pid="{$vv['id']}" data-agent="{$agent}" data-typeid="0" ><i class="icon-cog"></i> 单个设置</button>
+								  </div>
+								  
+								</div></td>
+									                               
+								</tr>
+								 </foreach>                             
+							  </tbody>
+						 </table>  
+					<script>
+					var _p_noty2=function(object,obj,index,err){
+						$.noty.closeAll();
+						var buttons=[];
+							buttons[0]={type:'btn btn-info',text: "<i class=\"icon-pencil icon-white\"></i> 仅设置所有机房",click:function($noty){
+							object.isUpdateProduct=0;
+							_DoProductMoney_all(obj,index,err,0);
+							
+							}};
+							noty({text:"您确认要设置"+object.name+object.typename+"的价格为下方指定的？",layout:"bottom",type:"warning",timeout:false,buttons:buttons});						
+					}
+					var _DoProductMoney_all=function(obj,index,err,isUpdateProduct){
+							$.noty.closeAll();
+							var max=$(obj).size();
+						
+							if(index>=max){
+								noty({text:"所有数据更新完成，正在刷新数据请稍候……<br>"+err,layout:"bottom",type:"information",timeout:2000,onClosed:function(){
+								var tab_lib=".{$tablib}";
+								$tabslib.tabs("load",$(tab_lib).index());
+								
+								}});
+								return false;
+							}
+							var object={};
+							var objthis=$(obj+":eq("+index+")");
+						
+							object.name=objthis.data("name");
+							object.typename=objthis.data("typename");
+							object.agent=objthis.data("agent");
+							object.typeid=objthis.data("typeid");
+							object.select=parseInt(objthis.data("select"));
+							object.pid=parseInt(objthis.data("pid"));
+							object.appendedInput=parseInt(objthis.closest("div").children("input[name='appendedInput']").val())||0;
+							object.isUpdateProduct=isUpdateProduct;
+							object.json=1;
+							
+								console.log(object);
+							
+						console.log(obj);
+						console.log(index);
+						console.log(isUpdateProduct);
+							
+							_DoProductMoney2(object,obj,index,err,isUpdateProduct);
+							
+					}
+					var _DoProductMoney2=function(object,obj,index,err,isUpdateProduct){
+						
+						
+						$.noty.closeAll();
+						noty({text:"正在提交【"+object.name+object.typename+"】数据，请稍候……",layout:"bottom",type:"information",timeout:500,onClosed:function(){
+						
+					getPost(
+						"{:U('doproductmoney')}",
+						object,
+						function(data){
+						$.noty.closeAll();
+						index++;
+							if(data.code==0){
+								noty({text:object.name+object.typename+"数据提交成功",layout:"bottom",type:"success",timeout:1000,onClosed:function(){
+									
+									_DoProductMoney_all(obj,index,err,isUpdateProduct);
+								}});return false;
+							}else{
+								noty({text:data.message,layout:"bottom",type:"error",timeout:1000,onClosed:function(){
+									err+=object.name+object.typename+data.message+"<br>";
+									_DoProductMoney_all(obj,index,err,isUpdateProduct);
+								}});return false;
+							}
+						},"","json",function(e){
+						index++;
+								$.noty.closeAll();
+								noty({text:"未知错误",layout:"bottom",type:"error",timeout:1000,onClosed:function(){
+									
+									err+=object.name+object.typename+"未知错误<br>";
+									_DoProductMoney_all(obj,index,err,isUpdateProduct);
+								}});return false;							
+						}
+						)			
+						
+						},});
+				
+						
+						
+					}					
+					var _p_noty=function(object){					
+						$.noty.closeAll();
+						var buttons=[{type:'btn btn-info',text: "<i class=\"icon-pencil icon-white\"></i> 设置此产品价格1",click:function(){
+							object.isUpdateProduct=0;
+							_DoProductMoney(object);
+							
+							}},{type: 'btn btn-danger', text: "<i class=\"icon-remove icon-white\"></i> 关闭",click:function(){
+							$noty.close();
+							}}];
+							if(object.select==0) buttons[0]={type:'btn btn-info',text: "<i class=\"icon-pencil icon-white\"></i> 设置所有产品价格",click:function(){
+							object.isUpdateProduct=0;
+							_DoProductMoney(object);
+							
+							}};
+							noty({text:"您确认要设置"+object.name+object.typename+"的价格为"+(100+object.appendedInput)+"%？",layout:"bottom",type:"warning",timeout:false,buttons:buttons});						
+					}
+					var _DoProductMoney=function(object){						
+						$(".dopsetmoney").unbind("click");
+						$.noty.closeAll();
+						noty({text:"正在提交数据，请稍候……",layout:"bottom",type:"information",timeout:false,});						console.log(object);
+						getPost(
+						"{:U('doproductmoney')}",
+						object,
+						function(data){
+						$.noty.closeAll();
+							if(data.code==0){
+								noty({text:"数据提交成功",layout:"bottom",type:"success",timeout:1500,onClosed:function(){
+								var tab_lib=".{$tablib}";
+								//$tabslib.tabs("option", "active",0);
+									$tabslib.tabs("load",$(tab_lib).index());
+									_dopsetmoney();
+								}});return false;
+							}else{
+								noty({text:data.message,layout:"bottom",type:"error",timeout:3000,onClosed:function(){
+									_dopsetmoney();_p_noty(object);
+								}});return false;
+							}
+						},"","json",function(e){
+								$.noty.closeAll();
+								noty({text:"未知错误",layout:"bottom",type:"error",timeout:3000,onClosed:function(){
+									_dopsetmoney();_p_noty(object);
+								}});return false;							
+						}
+						)
+						
+						
+					}
+					var _dopsetmoney=function(){
+					$(".dopsetmoney").unbind("click");
+					$(".dopsetmoney").click(function(){
+							$.noty.closeAll();
+							var object={};
+							object.name=$(this).data("name");
+							object.typename=$(this).data("typename");
+							object.agent=$(this).data("agent");
+							object.typeid=$(this).data("typeid");
+							object.select=parseInt($(this).data("select"));
+							object.pid=parseInt($(this).data("pid"));
+							object.appendedInput=parseInt($(this).closest("div.input-append").children("input[name='appendedInput']").val())||0;
+							object.json=1;
+							if(object.appendedInput==0){
+								noty({text:"请输入价格百分数",layout:"bottom",type:"error",timeout:2000,});return false;
+							}
+							_p_noty(object);
+							
+						 });
+}
+
+					var _dopsetmoney2=function(){
+					$(".dopsetmoney2").unbind("click");
+					$(".dopsetmoney2").click(function(){
+							$.noty.closeAll();
+							var object={};
+							object.name=$(this).data("name");
+							object.typename=$(this).data("typename");
+							object.agent=$(this).data("agent");
+							object.typeid=$(this).data("typeid");
+							object.select=parseInt($(this).data("select"));
+							object.pid=parseInt($(this).data("pid"));
+							object.appendedInput=parseInt($(this).closest("div").children("input[name='appendedInput']").val())||0;
+							object.json=1;
+							_p_noty2(object,".tablib-{$agent}-"+object.typeid,0,"");
+							
+						 });
+}
+	
+					  $( function() {
+  _dopsetmoney();_dopsetmoney2();tablecloth();
+  } );
+					</script>

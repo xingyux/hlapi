@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品管理-{$sitename}</title>
+<include file="Common/head" />
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">代理级别管理</p>
+         
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>ID</th>
+                        <th>级别名称</th>
+                       <th>级别折扣（>100）</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="res['pricetype']" item="vo">
+					<form id="form{$vo.id}" action="" method="post">
+                         <tr>
+                    	<td>{$vo.id} </td>
+                        <td>
+<input type="text" name="name" value="{$vo.name}" placeholder="请输入新的名称" style=" border:1px solid #000;">
+
+						<input type="hidden" name="id" value="{$vo.id}">
+						</td>
+<td>
+
+<input type="number" name="price" value="{$vo.price}" placeholder="请输入折扣" style=" border:1px solid #000;">%
+
+						</td>                        
+                        <td class="cz">
+                        	
+                            
+                            <button type="submit">改名</button>
+							
+                        </td></tr></form>
+						</foreach>
+			<form id="form{$vo.id}" action="" method="post">
+                         <tr>
+                    	<td>新增</td>
+                        <td>
+<input type="text" name="name" placeholder="请输入新的名称" style=" border:1px solid #000;">
+						<input type="hidden" name="id" value="0">
+						</td>
+                        <td>
+<input type="number" name="price" value="110" placeholder="请输入折扣" style=" border:1px solid #000;">%
+						</td>                       
+                        <td class="cz">
+                        	
+                            <button type="submit">新增</button>
+                            
+							
+                        </td></tr></form>			
+                    
+                </table>
+            *折扣定义：100元的商品，如果设置折扣 10%，当前代理价格则为 110，设置为 0 默认为 成本价，机房和产品可以分别设置，如果有设置优先顺序为 产品，机房，级别，默认
+			</div>
+			
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

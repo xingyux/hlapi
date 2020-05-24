@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>任务信息-{$sitename}</title>
+<include file="Common/head" />
+<link href="__RESOURE__/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="__RESOURE__/tablecloth/tablecloth.js"></script>
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="Common/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">任务信息</p>
+            	<table>
+                	<tr>
+                  	<th>编号</th>
+						<th>操作时间</th>
+                        <th>产品信息</th>
+                        <th>购买数量</th>
+						<th>成功</th>
+						<th>失败</th>
+						<th>总金额</th>
+                        <th>任务状态</th>
+						<th>备注</th>
+              
+                        
+                      
+                    </tr>
+                    <foreach name="res['cronLog']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						<td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.productname}</td>
+                        
+                        <td>{$vo.buynum}</td>
+						<td>{$vo.sucnum}</td>
+						<td>{$vo.failnum}</td>
+						<td>{$vo.summoney}</td>
+                        <td>
+						<if condition="$vo['state'] eq 1">
+								<span class="label label-sm label-success">进行中</span>
+							<elseif condition="$vo['state'] eq 3" />
+								<span class="label label-sm label-warning">成功</span>
+							<elseif condition="$vo['state'] eq 2" />
+								<span class="label label-sm label-warning">失败</span>	
+							<else /> 
+								<span class="label label-sm label-warning">异常</span>
+								
+							</if>
+						</td>
+						<td> {$vo.info}</td>
+						
+                        </tr>
+						</foreach>
+						
+                    
+                </table>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>编号</th>
+						<th>操作时间</th>
+                        <th>金额</th>
+						<th>消费方式</th>
+                        <th>购买周期</th>
+                       <th>任务状态</th>
+						<th>备注</th>
+                    </tr>
+                    <foreach name="res['Log']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						<td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.usemoney}</td>
+						<td>{$vo.show}  </th>
+                        <td>{$vo.period}  </th>
+                        <td>				<if condition="$vo['state'] eq 1">
+								<span class="label label-sm label-success">进行中</span>
+							<elseif condition="$vo['state'] eq 3" />
+								<span class="label label-sm label-warning">成功</span>
+							<elseif condition="$vo['state'] eq 2" />
+								<span class="label label-sm label-warning">失败</span>	
+							<else /> 
+								<span class="label label-sm label-warning">异常</span>
+								
+							</if></td>
+							<td>{$vo.log}</td>
+                        </tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 <include file="Common/ui-page" />
+            </div>
+        </div>
+    </section>
+   
+
+	
+</body>
+</html>

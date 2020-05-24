@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>公告信息-{$sitename}</title>
+<include file="Common/head" />
+<link href="__RESOURE__/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="__RESOURE__/tablecloth/tablecloth.js"></script>
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+<style>
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+
+</style>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">公告信息</p>
+            <notempty name="checkAgent"><div class="">
+		
+				
+			<a href="#" class="add-notice"><button type="button" class="btn_css3" >发布公告</button></a>
+				
+				
+            </div></notempty>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>编号</th>
+						<th>发布时间</th>
+                        <th>发布人</th>
+                        <th>标题</th>
+                        <th>阅读权限</th>
+						<th>操作</th>
+                      
+                    </tr>
+                    <foreach name="res['Notice']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						<td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.username}</td>
+                        <td><eq name="AgentInfo.username" value="$vo['username']"><a href="#" class="add-notice" data-title="{$vo.title|urlencode}" data-time="{$vo.tim|date='Y-m-d H:i',###}" data-content="{$vo.content|urlencode}" data-islook="{$vo['islook']}" data-id="{$vo['id']}">{$vo.title|mb_substr=0,15,"UTF-8"}【点击修改】</a><else /><a href="#" class="notice-info" data-title="{$vo.title|urlencode}" data-time="{$vo.tim|date='Y-m-d H:i',###}" data-content="{$vo.content|urlencode}" data-id="{$vo['id']}">{$vo.title|mb_substr=0,15,"UTF-8"}</a></eq>  </th>
+                        <td>
+						<if condition="$vo['islook'] eq 1">代理
+						<elseif condition="$vo['islook'] eq 2" />会员
+						<else />所有人</if>
+						</td>
+                        <td>
+						<notempty name="checkAgent">
+						<eq name="AgentInfo.username" value="$vo['username']">
+						<a href="javascript:;" class="delnotice" data-id="{$vo.id}">删除</a>
+						</eq>
+						</notempty>
+						</td>
+                        </tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 <include file="Common/ui-page" />
+            </div>
+        </div>
+    </section>
+   
+
+	
+	
+<include file="ui" />
+	
+	
+</body>
+</html>

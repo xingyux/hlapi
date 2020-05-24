@@ -1,0 +1,86 @@
+
+
+
+
+
+<div id="change_dialog" style="display:none;"></div>
+<script id="change_dialog_tmpl" type="text/x-jquery-tmpl">
+
+<center>用户：<input type="text" name="chngusername" value="" style="border-style:solid;border-width:1px; height:30px; line-height:30px;"></center>
+<center>金额：<input type="text" name="chngmoney" value="" style="border-style:solid;border-width:1px; height:30px; line-height:30px;"></center>
+<center>正数为扣除，负数为增加</center>
+<div class="alert alert-warning alert-info" style="display:none;"><strong class="errtitle"></strong><span class="errmsg"></span></div>
+</script>
+
+
+<script>
+
+
+$(function(){
+
+	$("a:contains('转移')").click(function(){
+	var _domain=$(this).attr("data-domain");
+	var _pid=$(this).attr("data-id");
+	
+	var dialogObj=$("#change_dialog");dialogObj.empty();$("#change_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+
+	dialogObj.dialog({
+			title: _domain+"转移",
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			buttons:{
+				"确认转移":function(){
+					var object={};
+					object.pid=_pid;
+					object.chngusername=dialogObj.find("input[name='chngusername']").val();
+					object.chngmoney=dialogObj.find("input[name='chngmoney']").val();
+					object.json=1;
+					dialogObj.find(".errtitle").html("声明：");
+					dialogObj.find(".errmsg").html("正在提交");				
+					dialogObj.find(".alert-info").show();	
+					getPost(
+					"{:U('App/changeproductuser')}",
+					object,
+					function(data){
+				
+					if(data.code!=0){
+							dialogObj.find(".errtitle").html("错误：");
+							dialogObj.find(".errmsg").html(data.message);		
+							return false;
+					}
+							dialogObj.find(".errtitle").html("成功：");
+							dialogObj.find(".errmsg").html("转移用户成功");		
+							var buttons={};
+							buttons.关闭=function() {dialogObj.dialog( "close" );};			
+							dialogObj.dialog( "option", "buttons", buttons );
+					
+					},
+					"",
+					"json",
+					function(e,field){
+							dialogObj.find(".errtitle").html("错误：");
+							dialogObj.find(".errmsg").html("未知错误");		
+					}
+					
+					);				
+				},
+				"关闭":function() {dialogObj.dialog( "close" );},
+			},
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		dialogObj.dialog( "option", "width", "300" );	
+
+
+
+
+			return false;
+
+});
+
+})
+</script>

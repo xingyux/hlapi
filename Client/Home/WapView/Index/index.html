@@ -1,0 +1,292 @@
+<extend name="Layout/base" />
+<block name="style">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/swiper-3.3.1.min.css">
+	<style>
+		body{}
+		.swiper-pagination-switch{width: 40px;height: 2px;background-color: #FFF;margin-right: 5px;}
+		.banner{background-color: #03b3ff;width: 100vw;}
+		.banner .swiper-slide{height: calc(100vw / 2.5);}
+		.banner .pagination{text-align: center;position: relative;bottom: 10px;}
+		.swiper-active-switch{background-color: #5F5F5F;}
+		.swiper-slide{position: relative;width: 100vw;}
+		.swiper-slide img{width: 100%;}
+		#product-list{width:100%;margin-top: 30px;margin-bottom: 30px;background-color: #FFF;padding: 10px 0;}
+		.product-block{background-color: #EEE;padding-top: 30px;}
+		h1{font-size: 1.3em;font-weight: 800;text-align: center;margin-top: 10px;}
+		h3{font-size: 1em;text-align: center;}
+		.product{background-color: #FFF;width: 25%;border:2px solid #EEE;padding: 10px 0;}
+		.product h6{text-align: center;color: #5F5F5F;}
+		.product img{display: block;width:45%;height: 10vw;margin:0 auto;}
+		.product input[type=checkbox]{display: none;}
+		.product-details{position: fixed;background-color: rgba(0, 0, 0, .5);z-index: 1;top: 40px;height: calc(100vh - 40px);width:100vw;left:-100%;opacity: 0;-webkit-transition: all 0.2s  linear;-moz-transition: all 0.2s  linear;-ms-transition: all 0.2s  linear;-o-transition: all 0.2s  linear;transition: all 0.2s  linear;}
+		.product-details .details{width:80vw;height: 50vw;position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);background-color: #FFF;border-radius: 5px;padding: 15px;box-shadow: 1px 1px 20px #FFF;}
+		.product-details .details p{text-align: center;color: #5F5F5F;font-size: 1.3em;margin-bottom: 10px;}
+		.product-details .details a{position: absolute;display: block;width: 100%;text-align: center;font-size:1.5em;left:0;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;background-color: #03b3ff;color: #FFF;border-top: 1px solid #000;bottom:0;line-height: 60px;}
+		.product input[type=checkbox]:checked ~ .product-details{opacity: 1;left:0;}
+		.index_ad_gg{
+			background-image: url(__PUBLIC__/wap/images/index-ad.png);
+			padding: 10px;
+			width: 100%;
+			background-repeat: no-repeat;
+			background-size: cover;
+			text-align: center;
+			color: #FFF;
+		}
+		.index_ad_gg P{
+			line-height: 50px;
+			font-size: 1.2em;
+		}
+		.index_ad_gg a{
+			line-height: 30px;
+			font-size: 1.2em;
+			color: #FFF;
+			border: 1px solid #FFF;
+			padding: 5px 30px;
+		}
+		.xq-text{
+			text-align: center;
+			margin: 20px 0px;
+		}
+		.xq-text .iconfont{
+			color: #03b3ff;
+		}
+		.partner_img{
+			text-align: center;
+			height: 54vw;
+			background-size: cover;
+			margin-top: 10px;
+			background-repeat: no-repeat;
+			background-image: url(__PUBLIC__/wap/images/partner_logo.png);
+		}
+		.recm{
+			margin: 10px;
+			border: 1px solid #DDD;
+			display: block;
+		}
+		.recm h1{
+			font-size: 1.2em;
+			margin-top: 0;
+			background-color: #03b3ff;
+			line-height: 40px;
+			display: block;
+			height: 40px;
+			color: #FFF;
+			text-align: left;
+			padding: 0 10px;
+		}
+		.recm h1 span{
+			float: right;
+		}
+		.recm p{
+			padding: 10px;
+			text-indent: 2em;
+			color: #5F5F5F;
+		}
+	</style>
+</block>
+<block name="content">
+	<section class="banner" id="banner_target">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                	<a href=""><img src="__PUBLIC__/wap/images/rw_banner_img.png" alt=""></a>
+                </div>
+                <div class="swiper-slide">
+                	<a href=""><img src="__PUBLIC__/wap/images/rw_banner_img.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+        <div class="pagination"></div>
+    </section>
+    <section class="product-block">
+    	<h1>测试网站带你领略全新互联网世界！</h1>
+    	<h3>域名注册，虚拟主机，VPS，云服务器……我们提供你想要的一切产品。</h3>
+    	<table id="product-list" cellspacing>
+    		<tr>
+    			<td class="product">
+    				<label>
+	    				<img src="__PUBLIC__/wap/images/ym.png" alt="">
+	    				<h6>域名注册</h6>
+	    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+	    				<div class="product-details">
+	    					<div class="details">
+	    						<p>高可靠、高性能、高质量按需配置，即买即用。</p>
+	    						<p>¥：199/年</p>
+	    						<a href="{:U('Domain/index')}">立即选购</a>
+	    					</div>
+	    				</div>
+    				</label>
+    			</td>
+    			<td class="product">
+    				<label>
+	    				<img src="__PUBLIC__/wap/images/BCH .png" alt="">
+	    				<h6>虚拟主机</h6>
+	    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+	    				<div class="product-details">
+	    					<div class="details">
+	    						<p>高可靠、高性能、高质量按需配置，即买即用。</p>
+	    						<p>¥：199/年</p>
+	    						<a href="{:U('Host/index')}">立即选购</a>
+	    					</div>
+	    				</div>
+    				</label>
+    			</td>
+    			<td class="product">
+    				<label>
+	    				<img src="__PUBLIC__/wap/images/Unix.png" alt="">
+	    				<h6>VPS</h6>
+	    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+	    				<div class="product-details">
+	    					<div class="details">
+	    						<p>高可靠、高性能、高质量按需配置，即买即用。</p>
+	    						<p>¥：199/年</p>
+	    						<a href="{:U('Vps/index')}">立即选购</a>
+	    					</div>
+	    				</div>
+    				</label>
+    			</td>
+    			<td class="product">
+    				<label>
+	    				<img src="__PUBLIC__/wap/images/txy.png" alt="">
+	    				<h6>弹性云</h6>
+	    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+	    				<div class="product-details">
+	    					<div class="details">
+	    						<p>高可靠、高性能、高质量按需配置，即买即用。</p>
+	    						<p>¥：199/年</p>
+	    						<a href="{:U('Cloud/index')}">立即选购</a>
+	    					</div>
+	    				</div>
+    				</label>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td class="product">
+    				<label>
+	    				<img src="__PUBLIC__/wap/images/x86.png" alt="">
+	    				<h6>ADSL</h6>
+	    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+	    				<div class="product-details">
+	    					<div class="details">
+	    						<p>高可靠、高性能、高质量按需配置，即买即用。</p>
+	    						<p>¥：199/年</p>
+	    						<a href="{:U('Adsl/index')}">立即选购</a>
+	    					</div>
+	    				</div>
+    				</label>
+    			</td>
+    			<td class="product">
+    				<label>
+	    				<img src="__PUBLIC__/wap/images/host.png" alt="">
+	    				<h6>服务器</h6>
+	    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+	    				<div class="product-details">
+	    					<div class="details">
+	    						<p>高可靠、高性能、高质量按需配置，即买即用。</p>
+	    						<p>¥：199/年</p>
+	    						<a href="{:U('Server/index')}">立即选购</a>
+	    					</div>
+	    				</div>
+    				</label>
+    			</td>
+    			<td class="product">
+    				<label>
+	    				<img src="__PUBLIC__/wap/images/wz.png" alt="">
+	    				<h6>网站建设</h6>
+	    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+	    				<div class="product-details">
+	    					<div class="details">
+	    						<p>高可靠、高性能、高质量按需配置，即买即用。</p>
+	    						<p>¥：199/年</p>
+	    						<a href="#">立即选购</a>
+	    					</div>
+	    				</div>
+    				</label>
+    			</td>
+    			<td class="product">
+    				<label>
+	    				<img src="__PUBLIC__/wap/images/fb.png" alt="">
+	    				<h6>软文发布</h6>
+	    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+	    				<div class="product-details">
+	    					<div class="details">
+	    						<p>高可靠、高性能、高质量按需配置，即买即用。</p>
+	    						<p>¥：199/年</p>
+	    						<a href="{:U('Seo/index')}">立即选购</a>
+	    					</div>
+	    				</div>
+    				</label>
+    			</td>
+    		</tr>
+    	</table>
+    </section>
+	<section class="index_ad_gg">
+		<p>加入我们开启全新的互联网之旅！</p>
+		<a href="">立即加入</a>
+	</section>
+	<section class="">
+		<h1>成熟的产品满足海量的业务需求</h1>
+		<h3>99.95%服务可用性；99.999%数据可靠性，专业存储技术保证数据安全。</h3>
+		<div class="xq-text">
+			<span>
+				<i class="iconfont">&#xe604;</i>
+				<div>高性价比</div>
+			</span>
+			<span>
+				<i class="iconfont">&#xe63f;</i>
+				<div>多个数据中心</div>
+			</span>
+			<span>
+				<i class="iconfont">&#xe626;</i>
+				<div>快速免费备案</div>
+			</span>
+		</div>
+		<h1>测试网站最新的产品推荐！</h1>
+		<h3>灵活的多样多样的产品，给你最最直观的选择体验。</h3>
+		<div class="recm-pro">
+			<a class="recm">
+				<h1>百度云服务器<span>XX折</span></h1>
+				<p>高可靠，高性能，高配置网络接入优势；按配置 即买即用</p>
+			</a>
+			<a class="recm">
+				<h1>百度云<span>XX折</span></h1>
+				<p>高可靠，高性能，高配置网络接入优势；按配置 即买即用</p>
+			</a>
+			<a class="recm">
+				<h1>阿里云服务器<span>XX折</span></h1>
+				<p>高可靠，高性能，高配置网络接入优势；按配置 即买即用</p>
+			</a>
+		</div>
+		<h1>丰富的品牌给你多样化的选择</h1>
+		<h3>不管你处于什么行业，测试网站助你轻松跨入“互联网+”时代</h3>
+		<div class="partner_img">
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+		</div>
+	</section>
+	<include file="Layout/footer" />
+</block>
+<block name="script">
+	<script type="text/javascript" src="__PUBLIC__/wap/js/swiper.min.js"></script>
+	<script>
+		(function (){
+			var banner;
+			$(function (){
+	            banner = new Swiper('.swiper-container',{
+	                pagination: '.pagination',
+	                loop: true,
+	                autoplay: 0,
+	                autoplayDisableOnInteraction: true,
+	                autoResize: true,
+	                calculateHeight: true,
+	                paginationClickable: true,
+	            });
+	        });
+		})();
+	</script>
+</block>

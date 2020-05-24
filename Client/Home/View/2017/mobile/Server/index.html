@@ -1,0 +1,127 @@
+<extend name="mobile/Layout/base" />
+<block name="style">
+	<style>
+		h3.field{
+			text-align: center;
+			border-bottom: 1px solid #DDD;
+			line-height: 40px;
+			color: #5F5F5F;
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+		.filed_select{
+			width: 90%;
+			padding: 0 10px;
+			margin: 0 auto;
+			display: block;
+			height: 40px;
+			line-height: 40px;
+			color: #5F5F5F;
+			border: 1px solid #DDD;
+			border-radius: 5px;
+		}
+		.vps{
+			width: 90%;
+			margin: 5%;
+		}
+		.vps h3{
+			background-color: #03b3ff;
+			color: #FFF;
+			text-align: center;
+			line-height: 30px;
+			margin-bottom: 10px;
+		}
+		.vps .buy{
+			display: block;
+			border-radius: 5px;
+			border: 1px solid #DDD;
+			text-align: center;
+			line-height: 30px;
+			margin-top: 10px;
+		}
+		.page li{
+			display: inline-block;
+			line-height: 30px;
+			padding: 0 10px;
+			border: 1px solid #DDD;
+			background-color: #EEE;
+			margin-right: 5px;
+		}
+		.page ul{
+			text-align: center;
+		}
+		body{
+			padding-bottom: 10px;
+		}
+		.adsl_price{
+			display: block;
+			text-align: center;
+		}
+		.adsl_price b{
+			font-weight: bolder;
+			font-size: 1.5em;
+			color: red;
+		}
+	</style>
+</block>
+<block name="content">
+	<h3 class="field">品牌选择</h3>
+	<select class="filed_select" id="brand">
+		<option class="op" value="{:U('index',array_merge($_GET,array('page'=>1,'room'=>null)))}" <empty name="_GET['room']">selected</empty>>全部</option>
+		<foreach name="servers" item="vo" key="key">
+			<option class="op" value="{:U('index',array_merge($_GET,array('page'=>1,'room'=>$vo['flag'])))}" <eq name="_GET['room']" value="$vo['flag']">selected</eq>>{$vo.name}</option>
+		</foreach>
+	</select>
+	<h3 class="field">CPU核心：</h3>
+	<select class="filed_select">
+		<option class="op" value="{:U('index',array_merge($_GET,array('page'=>1,'cpu'=>null)))}" <empty name="_GET['cpu']">selected</empty>>全部</option>
+		<volist name="DictionaryCache['cpu']" id="vo">
+	        <option value="{:U('index',array_merge($_GET,array('page'=>1,'cpu'=>$vo)))}" <eq name="_GET['cpu']" value="$vo">selected</eq>>{$vo}</option>
+        </volist>
+	</select>
+	<h3 class="field">内存：</h3>
+	<select class="filed_select">
+		<option class="op" value="{:U('index',array_merge($_GET,array('page'=>1,'ram'=>null)))}" <empty name="_GET['ram']">selected</empty>>全部</option>
+		<volist name="DictionaryCache['ram']" id="vo">
+	        <option value="{:U('index',array_merge($_GET,array('page'=>1,'ram'=>$vo)))}" <eq name="_GET['ram']" value="$vo">selected</eq>>{$vo}</option>
+        </volist>
+	</select>
+	<h3 class="field">所在地区选择</h3>
+	<select class="filed_select" id="place">
+		<option class="op" value="{:U('index',array_merge($_GET,array('page'=>1,'address'=>null)))}" <empty name="_GET['address']">selected</empty>>全部</option>
+		<volist name="DictionaryCache['address']" id="vo">
+	        <option class="op" value="{:U('index',array_merge($_GET,array('page'=>1,'address'=>$vo)))}" <eq name="_GET['address']" value="$vo">selected</eq>>{$vo}</option>
+	    </volist>
+	</select>
+	<div id="vps-list">
+		<foreach name="product" item="vo">
+			<div class="vps">
+                <h3>{$vo.name}</h3>
+                <div class="adsl_info">
+                	<b>CPU : </b>{$vo.cpu}<br/>
+	                <b>内存 : </b>{$vo.ram}<br/>
+	                <b>硬盘 : </b>{$vo.hdinfo}<br/>
+	                <b>带宽 : </b>{$vo.bdinfo}<br/>
+	                <b>IP地址 : </b> {$vo.ipinfo}<br/>
+					<b>说明 : </b> {$vo.infos|mb_substr=0,120,"UTF-8"}
+                </div>
+                <p class="adsl_price"><b>¥ {$vo.yearprice}元 </b>年/起</p>
+                <a href="{:buy($vo['id'])}" class="buy">立即选购</a>
+            </div>
+		</foreach>
+	</div>
+	<section class="page"> 
+    	<div class="pageBox clear">
+            <ul class="clear badoo">
+                {$page}
+            </ul>
+        </div>
+    </section>
+</block>
+<block name="script">
+	<script>
+		$(".filed_select").change(function(event) {
+			window.location.href=$(this).val();
+		});
+	</script>
+</block>

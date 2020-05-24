@@ -1,0 +1,388 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>管理中心-{$sitename}</title>
+    <include file="Common/head"/>
+    <script>
+        $(function () {
+
+            $(function () {
+                $('.nav li').hover(
+                        function () {
+                            $(this).find('.dropmenu').stop().slideDown()
+
+                        },
+                        function () {
+                            $(this).find('.dropmenu').stop().slideUp('fast')
+                        }
+                )
+
+            });
+            $('.menu li div').click(function () {
+                $(this).parents('ul').find('li').removeClass('active')
+                $(this).parent().addClass('active')
+                $(this).parents('ul').find('p').slideUp()
+                if ($(this).parent().find('p').length) {
+
+                    $(this).parent().find('p').slideDown()
+                }
+            })
+
+        })
+    </script>
+    <style>
+        .templete_box li {
+            float: left;
+            width: 24%;
+            margin-right: 1.3%;
+            height: 350px;
+            text-align: center;
+            background: #95ce46;
+            position: relative;
+        }
+
+        .templete_box li .img {
+            width: 70%;
+            height: 150px;
+            overflow: hidden;
+            background: #fff;
+            padding: 5px;
+            margin: auto;
+        }
+
+        .templete_box li .img img {
+            width: 100%;
+            max-height: 150px;
+        }
+
+        .templete_box li p {
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .templete_box li .p_name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .templete_box li div.install {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .templete_box li div.install:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-style: solid;
+            border-width: 34px;
+            z-index: 1;
+        }
+        /**/
+        .templete_box li div.install-use:before {
+            border-color: rgba(206,3,5,.7)  rgba(206,3,5,.7) transparent transparent;
+        }
+        .templete_box li div.install-download:before {
+             border-color: rgba(81, 62, 255, 0.7)  rgba(81, 62, 255, 0.7) transparent transparent;
+         }
+        .templete_box li div.install-online:before {
+            border-color: rgba(0, 0, 0, 0.7)  rgba(0, 0, 0, 0.7) transparent transparent;
+        }
+        .templete_box li div.install-backup:before {
+            border-color: rgba(206,3,5,.7)  rgba(206,3,5,.7) transparent transparent;
+        }
+
+        .templete_box li div.install .flag-text {
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg) translateZ(0);
+            transform: rotate(45deg) translateZ(0);
+            color: #FFF;
+            display: inline-block;
+            position: absolute;
+            top: 18px;
+            left: 0;
+            z-index: 1;
+            font-size: 12px;
+            text-transform: uppercase;
+            width: 50px;
+            text-align: center;
+        }
+        .page-btnn .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .page-btnn .btn {
+            font-weight: 300;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+        .page-btnn .m-r-5 {
+            margin-right: 5px!important;
+        }
+        .page-btnn .m-b-5 {
+            margin-bottom: 5px!important;
+        }
+        .page-btnn .btn.btn-primary {
+            color: #fff;
+            background: #348fe2;
+            border-color: #348fe2;
+        }
+        .page-btnn .btn.btn-primary {
+            color: #fff;
+            background: #348fe2;
+            border-color: #348fe2;
+        }
+        .page-btnn .btn.btn-info {
+            color: #fff;
+            background: #49b6d6;
+            border-color: #49b6d6;
+        }
+        .page-btnn .btn.btn-success {
+            color: #fff;
+            background: #00acac;
+            border-color: #00acac;
+        }
+        .page-btnn .btn.btn-danger {
+            color: #fff;
+            background: #ff5b57;
+            border-color: #ff5b57;
+        }
+        .page-btnn .btn.btn-warning {
+            color: #fff;
+            background: #f59c1a;
+            border-color: #f59c1a;
+        }
+
+
+        .page-btnn  .btn.btn-inverse {
+            color: #fff;
+            background: #2d353c;
+            border-color: #2d353c;
+        }
+        .page-btnn .btn.btn-white {
+            font-weight: 400;
+            color: #333;
+            background: #fff;
+            border-color: #e2e7eb;
+        }
+    </style>
+</head>
+
+<body>
+<include file="User/nav"/>
+
+<section class="main clear">
+    <include file="Common/menu"/>
+    <div class="content">
+        <link href="__RESOURE__/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen" />
+        <div class="">
+        </div>
+        <div id="tabs">
+            <ul>
+
+                <li><a href="#tabs-1">已安装模版</a></li>
+                <li><a href="#tabs-2">备份模版</a></li>
+                <li><a href="#tabs-3">模版市场</a></li>
+
+
+            </ul>
+            <div id="tabs-1">
+                <ul class="templete_box clear">
+                    <foreach name="res.templeteInfo.offline" item="vo">
+                        <li>
+                            <p class="p_name">{$vo.name}</p>
+                            <div class="img"><img
+                                    src="//update.hlapi.com/templete/Client/Home/View/{$vo.path}/info.jpg"></div>
+                            <p class="p_num">作者：{$vo.author}</p>
+                            <p class="p_num">更新时间：{$vo.lastdate}</p>
+                            <p class="page-btnn">
+                                <if condition="$vo['install'] eq 'use'">
+                                    <a href="{:U('update' , array('id'=>$vo['path'] ) )}" title="安装此模版" class="btn btn-primary m-r-5 m-b-5">重新安装</a>
+
+
+                                    <elseif condition="$vo['install'] eq 'download'" />
+                                    <a href="{:U('usetemplete' , array('id'=>$vo['path'] ) )}" title="安装此模版" class="btn btn-success m-r-5 m-b-5">使用模版</a>
+                                    <a href="{:U('update' , array('id'=>$vo['path'] ) )}" title="安装此模版" class="btn btn-primary m-r-5 m-b-5">重新安装</a>
+                                  <button type="button" data-deluri="{:U('del' , array('id'=>$vo['path']) )}" data-bakuri="{:U('backup' , array('id'=>$vo['path']) )}" class="btn btnn-deltheme btn-warning m-r-5 m-b-5">删除模版</button>
+                                    <else />
+                                    <a href="{:U('update' , array('id'=>$vo['path'] ) )}" title="安装此模版" class="btn btn-primary m-r-5 m-b-5">安装模版</a>
+                                </if>
+
+                            </p>
+                            <if condition="$vo['install'] eq 'use'">
+                            <div class="install install-flag install-{$vo.install}"><span class="flag-text">
+                                正在使用
+                                </span></div>
+                                <elseif condition="$vo['install'] eq 'download'" />
+                                <div class="install install-flag install-{$vo.install}"><span class="flag-text">
+                                已安装
+                                </span></div><else />
+                                 <div class="install install-flag install-{$vo.install}"><span class="flag-text">
+                                未安装
+                                </span></div>
+
+                            </if>
+
+                        </li>
+                    </foreach>
+
+                </ul>
+            </div>
+            <div id="tabs-2">
+                <ul class="templete_box clear">
+                    <foreach name="res.templeteInfo.backup" item="vo">
+                        <li>
+                            <p class="p_name">{$vo.name}</p>
+                            <div class="img"><img
+                                    src="//update.hlapi.com/templete/Client/Home/View/{$vo.path}/info.jpg"></div>
+                            <p class="p_num">作者：{$vo.author}</p>
+                            <p class="p_num">备份时间：{$vo.time}</p>
+                            <p class="page-btnn">
+                                <button type="button" data-deluri="{:U('retheme' , array('id'=>$vo['path'],'idd'=>$vo['backpath'],'do'=>'de' ) )}" data-bakuri="{:U('retheme' , array('id'=>$vo['path'],'idd'=>$vo['backpath'],'do'=>'bc') )}" class="btn btnn-retheme btn-warning m-r-5 m-b-5">还原模版</button>
+
+                            </p>
+                            <div class="install install-flag install-backup"><span class="flag-text">
+                                备份模版
+                                </span></div>
+
+                        </li>
+                    </foreach>
+
+                </ul>
+            </div>
+            <div id="tabs-3">
+                <ul class="templete_box clear">
+                    <foreach name="res.templeteInfo.online" item="vo">
+                        <li>
+                            <p class="p_name">{$vo.name}</p>
+                            <div class="img"><img
+                                    src="//update.hlapi.com/templete/Client/Home/View/{$vo.path}/info.jpg"></div>
+                            <p class="p_num">作者：{$vo.author}</p>
+                            <p class="p_num">更新时间：{$vo.lastdate}</p>
+                            <p class="page-btnn">
+                                <if condition="$vo['install'] eq 'use'">
+                                    <a href="{:U('update' , array('id'=>$vo['path'] ) )}" title="安装此模版" class="btn btn-primary m-r-5 m-b-5">重新安装</a>
+
+
+                                    <elseif condition="$vo['install'] eq 'download'" />
+                                    <a href="{:U('usetemplete' , array('id'=>$vo['path'] ) )}" title="安装此模版" class="btn btn-success m-r-5 m-b-5">使用模版</a>
+                                    <a href="{:U('update' , array('id'=>$vo['path'] ) )}" title="安装此模版" class="btn btn-primary m-r-5 m-b-5">重新安装</a>
+                                    <button type="button" data-deluri="{:U('del' , array('id'=>$vo['path']) )}" data-bakuri="{:U('backup' , array('id'=>$vo['path']) )}" class="btn btnn-deltheme btn-warning m-r-5 m-b-5">删除模版</button>
+                                    <else />
+                                    <a href="{:U('update' , array('id'=>$vo['path'] ) )}" title="安装此模版" class="btn btn-primary m-r-5 m-b-5">安装模版</a>
+                                </if>
+
+                            </p>
+                            <if condition="$vo['install'] eq 'use'">
+                                <div class="install install-flag install-{$vo.install}"><span class="flag-text">
+                                正在使用
+                                </span></div>
+                                <elseif condition="$vo['install'] eq 'download'" />
+                                <div class="install install-flag install-{$vo.install}"><span class="flag-text">
+                                已安装
+                                </span></div><else />
+                                <div class="install install-flag install-{$vo.install}"><span class="flag-text">
+                                未安装
+                                </span></div>
+
+                            </if>
+
+                        </li>
+                    </foreach>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $( function(){
+        $("#tabs").tabs();
+
+        $(".btnn-retheme").on( "click" , function(){
+            var that = $(this);
+            if( confirm("您是否确认要还原此模版？") ){
+                if( confirm("您是否需要备份当前相同模版（如果已存在）？") ){
+                    var uri =that.data("bakuri");
+                }else{
+                    var uri =that.data("deluri");
+                }
+
+                getPost(
+                        uri,
+                        {},
+                        function(data){
+                            alert(data.message);
+                            if(data.code==0){
+                                window.location.reload();
+
+                            }
+                        },"","json",function(e){
+
+                            alert("未知错误");
+
+                        }
+
+                );
+            }
+        } );
+        $(".btnn-deltheme").on( "click" , function(){
+            var that = $(this);
+            if( confirm("您是否确认要删除此模版？") ){
+                if( confirm("您是否需要备份？") ){
+                    var uri =that.data("bakuri");
+                }else{
+                    var uri =that.data("deluri");
+                }
+
+                getPost(
+                        uri,
+                        {},
+                        function(data){
+                            alert(data.message);
+                            if(data.code==0){
+                                window.location.reload();
+
+                            }
+                        },"","json",function(e){
+
+                            alert("未知错误");
+
+                        }
+
+                );
+            }
+        } );
+    } )
+</script>
+</body>
+
+</html>

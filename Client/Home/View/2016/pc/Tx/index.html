@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>提现管理-{$sitename}</title>
+<include file="Common/head" />
+<link href="__RESOURE__/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="__RESOURE__/tablecloth/tablecloth.js"></script>
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+<style>
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+
+</style>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">提现管理</p>
+            <div class="">
+		
+				
+			<a href="#" class="add-notice"><button type="button" class="btn_css3" >申请提现</button></a>
+				
+				
+            </div>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>编号</th>
+						<th>提现时间</th>
+                        <th>提现金额</th>
+                        <th>状态</th>
+                        <th>提现方式</th>
+                       
+                      
+                    </tr>
+                    <foreach name="res['Notice']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						<td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.money}</td>
+                        <td>
+							<if condition="$vo['state'] eq 1">
+								<span>等待处理</span>
+							<elseif condition="$vo['state'] eq 2" />
+							<span>已处理</span>
+								<elseif condition="$vo['state'] eq 3" />
+							<span>已拒绝</span>						
+							<else /> 
+								<span>异常</span>
+							</if>
+						</td>
+                        <td>{$vo.info}</td>
+                        
+                        </tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 <include file="Common/ui-page" />
+            </div>
+        </div>
+    </section>
+   
+
+	
+	
+<include file="ui" />
+	
+	
+</body>
+</html>

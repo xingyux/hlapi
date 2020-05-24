@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<include file="Common/head" />
+<script src="__PUBLIC__/user/js/shop_car.js"></script>
+<title>消息通知-{$sitename}</title>
+<script>
+var count=function(){
+	var num_choose=parseInt($("input[name='num_choose']").val());
+	var price=$("select[name='time_choose'] option:selected").attr("data-price");
+	
+	$("#totalypice,#paypice").html(num_choose*price);
+}
+$(function(){
+	$('.nav li').hover(
+		function(){
+			$(this).find('.dropmenu').stop().slideDown()
+
+		},
+		function(){
+			$(this).find('.dropmenu').stop().slideUp('fast')
+	    }
+    )
+	count();
+	$("input[name='num_choose']").blur(function(){count();});
+	$("select[name='time_choose']").change(function(){count();});
+})
+
+</script>
+<style>.shopping_main_wrap .shopping_r .submit2{ width:auto; text-align:center; height:50px; background:#03b0ff; color:#fff; font-size:22px; position:relative; top:-1px; right:-1px; margin-left:20px;}</style>
+</head>
+
+<body>
+<include file="Common/nav" />
+<section class="shopping_lc">
+	<div class="shopping_lc_wrap">
+    	<img src="__PUBLIC__/user/images/shopping_lc1.png">
+    </div>
+</section>
+<section class="shopping_main">
+	<div class="shopping_main_wrap">
+    	<h2>微信通知设置</h2>
+		
+       
+		<form class="form-horizontal" role="form" action="" method="post">
+        <table>
+            <tr>
+            	<td style="text-align:center">
+				
+                
+				<gt  name="res['errorcode']" value="0">
+					{$res['message']}
+				<else />
+				<eq name="res['GPC']['post']['update_wechat']" value="1">
+				<empty name="errmsg">
+					<img src="{$res['wechat']['qrcode']['url']}" style="width:300px;">
+					<else />
+						{$errmsg}
+					</empty>
+					<else />
+						{$res['message']}
+				</eq>
+				
+				</gt>
+				
+                </td>
+                
+            </tr>
+        </table>
+        
+			<div class="shopping_r">
+                <eq name="res['errorcode']" value="0">
+				<neq name="res['GPC']['post']['update_wechat']" value="1">
+                <input type="submit" value="更换通知微信" class="submit">
+				</neq>
+				</eq>
+            </div>
+			<input type="hidden" value="1" name="update_wechat">
+			</form>
+			
+			
+        </div>
+    </div>
+</section>
+<include file="Common/webfooter" />
+</body>
+</html>

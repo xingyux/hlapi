@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>字典管理-{$sitename}</title>
+<include file="Common/head" />
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">字典管理</p>
+            <div class="select_choose">
+			
+               <a href="{:U('index',array('action'=>'update'))}"><button type="button">字典同步</button></a>
+				<a href="{:U('index',array('action'=>'clearcache'))}"><button type="button">更新缓存</button></a><br>
+				<foreach name="DictionaryType" item="vo" key="key"><a href="{:U('index',array('type'=>$key))}"><button type="button">{$vo}</button></a></foreach>
+            </div>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>名称</th>
+                        <th>序列</th>
+                        
+                    </tr>
+                    <foreach name="Dictionary" item="vo">
+                         <tr>
+                    	
+                        <td>{$vo.value}</td>
+                        <td>{$vo.ord}  </td>
+                        </tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 <div style="float:right">
+                 </div>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

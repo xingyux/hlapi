@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+	<title>密码找回</title>
+
+	<include file="Common/head" />
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+	<meta name="description" itemprop="description" content="">
+
+	<meta name="keywords" itemprop="keywords" content="">
+
+	<style type="text/css">
+
+		@font-face {
+
+		  font-family: 'iconfont';  /* project id 304767 */
+
+		  src: url('//at.alicdn.com/t/font_0uirvg3d7odpldi.eot');
+
+		  src: url('//at.alicdn.com/t/font_0uirvg3d7odpldi.eot?#iefix') format('embedded-opentype'),
+
+		  url('//at.alicdn.com/t/font_0uirvg3d7odpldi.woff') format('woff'),
+
+		  url('//at.alicdn.com/t/font_0uirvg3d7odpldi.ttf') format('truetype'),
+
+		  url('//at.alicdn.com/t/font_0uirvg3d7odpldi.svg#iconfont') format('svg');
+
+		}
+
+		.iconfont {
+
+		    font-family: "iconfont" !important;
+
+		    font-size: 16px;
+
+		    font-style: normal;
+
+		    -webkit-font-smoothing: antialiased;
+
+		    -webkit-text-stroke-width: 0.2px;
+
+		    -moz-osx-font-smoothing: grayscale;
+
+		    margin-right: 5px;
+
+		}
+
+		body{background-image: url('__PUBLIC__/server/img/backgrounds/1.jpg');position: fixed;background-position: 50%;background-color: #FFF;width: 100%;height: 100%;
+
+		}
+
+		.verify_form{
+
+			width: 600px;box-shadow: 0 0 50px #FFF;background-color: #FFF;border-radius: 5px;
+
+			position: fixed;top:50%;transform:translate(-50%,-50%);left: 50%;
+
+			margin-top: 20px;border:1px solid #DDD;padding: 20px;margin: 0 auto;opacity: 1;
+
+			-webkit-transition: all 0.2s  linear;
+
+		       -moz-transition: all 0.2s  linear;
+
+		        -ms-transition: all 0.2s  linear;
+
+		         -o-transition: all 0.2s  linear;
+
+		            transition: all 0.2s  linear;
+
+		}
+
+		.input_field,input,.input_field .iconfont,label{
+
+			vertical-align: top;
+
+			font-size: 18px;color: #5F5F5F;line-height: 40px;
+
+			display: inline-block;height: 40px;margin-bottom: 20px;
+
+		}
+
+		.input_field{
+
+			width: 150px;
+
+			text-align: right;
+
+			font-weight: 600;
+
+		}
+
+		input{
+
+			padding: 0 10px;
+
+			border-bottom: 1px solid #DDD;
+
+		}
+
+		input[type=email],input[type=text],input[type=tel]{
+
+			width: 200px;
+
+		}
+
+		form>h1{
+
+			font-size: 20px;
+
+			color: #5F5F5F;
+
+			line-height: 40px;
+
+			border-bottom: 1px solid #DDD;
+
+		}
+
+		.form_group{
+
+			padding-left: 100px;
+
+		}
+
+		button[type=submit]{
+
+			background: none;
+
+			float: right;
+
+			cursor: pointer;
+
+			background-color: #03a1e5;
+
+			padding: 0 20px;
+
+			font-size: 18px;
+
+			color: #FFF;
+
+			border-radius: 5px;
+
+			line-height: 30px;
+
+		}
+
+		#change_form{
+
+			left: -100%;
+
+			opacity: 0;
+
+		}
+
+		input[type=radio] ~ label{
+
+			cursor: pointer;
+
+		}
+
+		.back_type{
+
+			display: none;
+
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+	<include file="Common/nav" />
+
+	<form action="" method="POST" id="verify_form" class="verify_form" accept-charset="utf-8">
+
+		<h1><i class="iconfont">&#xe61b;</i>密码找回</h1>
+
+		<div class="form_group">
+
+			<label for="" class="input_field"><span class="iconfont">&#xe600;</span>帐号：</label>
+
+			<input type="text" name="account" id="account" autocomplete="off" ="" placeholder="请输入您的帐号">
+
+		</div>
+
+		<div class="form_group back_type">
+
+			<label for="" class="input_field"><span class="iconfont">&#xe639;</span>找回方式：</label>
+
+			<input type="radio" id="back_type1" unchecked class="radio" name="back_type" autocomplete="off" value="0">
+
+			<label for="back_type1">邮箱</label>
+
+			<input type="radio" id="back_type2" unchecked class="radio" name="back_type" autocomplete="off" value="1">
+
+			<label for="back_type2">手机</label>
+
+		</div>
+
+		<div class="form_group" id="emial-input" style="display: none;">
+
+			<label for="" class="input_field"><span class="iconfont">&#xe624;</span>邮箱：</label>
+
+			<input type="email" name="email" autocomplete="off" ="" placeholder="请输入帐号绑定的邮箱">
+
+		</div>
+
+		<div class="form_group" id="tel-input" style="display: none;">
+
+			<label for="" class="input_field"><span class="iconfont">&#xe625;</span>手机：</label>
+
+			<input type="tel" name="moblie" autocomplete="off" ="" placeholder="请输入帐号绑定的手机">
+
+		</div>
+
+		<div class="form_group">
+
+			<label for="" class="input_field"><span class="iconfont">&#xe601;</span>验证码：</label>
+
+			<input type="text" name="verify_code" autocomplete="off" ="" placeholder="请输入下方验证码">
+
+		</div>
+
+		<div class="form_group">
+
+			<label for="" class="input_field">&nbsp;</label>
+
+			<img src="{:U('VerifyCodeImage')}" id="verify_code_img" style="cursor: pointer;" onclick="this.src='{:U('VerifyCodeImage')}?'+Math.random();">
+
+		</div>
+
+		<div>
+
+			<button type="submit">发送验证码</button>
+
+		</div>
+
+	</form>
+
+	<form action="" method="POST" id="change_form" class="verify_form" accept-charset="utf-8">
+
+		<h1><i class="iconfont">&#xe61b;</i>密码修改</h1>
+
+		<div class="form_group">
+
+			<label for="" class="input_field"><span class="iconfont">&#xe601;</span>验证码：</label>
+
+			<input type="verify_code" name="verify_code" autocomplete="off" ="" placeholder="请输入收到的验证码">
+
+		</div>
+
+		<div class="form_group">
+
+			<label for="" class="input_field"><span class="iconfont">&#xe61b;</span>密码：</label>
+
+			<input type="password" name="password" autocomplete="off" ="" placeholder="请输入新密码">
+
+		</div>
+
+		<div class="form_group">
+
+			<label for="" class="input_field"><span class="iconfont">&#xe61b;</span>确认密码：</label>
+
+			<input type="password" name="re_pwd" autocomplete="off" ="" placeholder="请再次输入密码">
+
+		</div>
+
+		<div>
+
+			<button type="submit">确认修改</button>
+
+		</div>
+
+	</form>
+
+	<script>
+
+		(function (){
+
+			var verify={checked:false,account:null};
+
+			$("#verify_form").submit(function (){
+
+				var data=re_serialize($(this).serializeArray());
+
+				if(data.account==''){
+
+					alert('请先输入帐号');return false;
+
+				}
+
+				if(typeof data.back_type==='undefined'){
+
+					alert('请先选择找回方式');return false;
+
+				}
+
+
+
+				data.back_type=parseInt(data.back_type);
+
+				verify.account=data.account;
+
+				if(data.back_type==0&&data.email==''){
+
+					alert('邮箱不能为空');return false;
+
+				}
+
+				if(data.back_type==1&&data.moblie==''){
+
+					alert('手机号不能为空');return false;
+
+				}
+
+
+
+				if(data.verify_code==''){
+
+					alert('验证码不能为空');return false;
+
+				}
+
+				$.post('{:U("sendVerifyCode")}', data, function(data, textStatus, xhr) {
+
+					if(data.code!=0){
+
+						alert(data.message);
+
+						$("#verify_code_img").click();
+
+						verify.checked=false;
+
+					}else{
+
+						$("#change_form").css({
+
+							display: 'block',
+
+							left: '50%',
+
+							opacity: '1'
+
+						});
+
+						$("#verify_form").css({
+
+							display: 'block',
+
+							left: '-100%',
+
+							opacity: '0'
+
+						});
+
+						verify.checked=true;
+
+					}
+
+				});
+
+				return false;
+
+			});
+
+
+
+			$("#change_form").submit(function (){
+
+				var data=re_serialize($(this).serializeArray());
+
+				if(!verify.checked||!verify.account){
+
+					alert('请刷新页面重试');return false;
+
+				}
+
+				if(data.verify_code==''){
+
+					alert('请输入验证码');return false;
+
+				}
+
+				data.account=verify.account;
+
+				if(data.password!=data.re_pwd){
+
+					alert('两次输入的密码不一样');return false;
+
+				}
+
+				$.post('{:U("changePassWord")}', data, function(data, textStatus, xhr) {
+
+					if(data.code!=0){
+
+						alert(data.message);
+
+					}else{
+
+						alert('修改成功');
+
+						window.location.href="{:U('login')}";
+
+					}
+
+				});
+
+				return false;
+
+			});
+
+			$("#account").keyup(function(event) {
+
+				if($.trim($(this).val())!=''){
+
+					$(".back_type").show(0);
+
+				}else{
+
+					$(".back_type").hide(0);
+
+				}
+
+			});
+
+			function re_serialize(data,isre){
+
+				var result;
+
+				if(isre===true){
+
+					result=[];
+
+					for(var i in data)
+
+						result.push({name:i,value:data[i]});
+
+				}else{
+
+					result={};
+
+					for(var i=0;i<data.length;i++){
+
+						var l=data[i];
+
+						result[l.name]=$.trim(l.value);
+
+					}
+
+				}
+
+				return result;
+
+			}
+
+			$(".radio").change(function(){
+
+				if(parseInt($(this).val())==0){
+
+					$("#emial-input").css('display','block');
+
+					$("#tel-input").css('display','none');
+
+				}else{
+
+					$("#emial-input").css('display','none');
+
+					$("#tel-input").css('display','block');
+
+				}
+
+			});
+
+		})();
+
+	</script>
+
+</body>
+
+</html>
+
+
+

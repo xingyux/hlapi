@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品管理-{$sitename}</title>
+<include file="Common/head" />
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">{$servers["name"]}产品管理</p>
+            <div class="select_choose">
+               <a href="{:U('product',array('action'=>'update','agent'=>$agent))}"><button>同步产品</button></a>
+			   <a href="{:U('product',array('action'=>'clearcache','agent'=>$agent))}"><button>更新缓存</button></a>
+            </div>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>ID</th>
+                        <th>产品名称</th>
+						<th>可购买</th>
+						<th>计费方式</th>
+						<th>日</th>
+						<th>周</th>
+                       <th>月</th>
+					   <th>季</th>
+					   <th>半年</th>
+					   <th>年</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="list" item="vo">
+					<form id="form{$vo.id}" action="" method="post">
+                         <tr>
+                    	<td>{$vo.id} </td>
+                        <td>{$vo.name}</td>
+						<td><eq name="vo.state" value="0">是<else />否</eq></td>
+						<td><eq name="vo.paymode" value="static">固定价格<else />官方折扣</eq></td>
+						<eq name="vo.paymode" value="static">
+						<td>{$myproduct[$vo['id']]['dayprice']}<br>{$vo.dayprice} </td>
+						<td>{$myproduct[$vo['id']]['weekprice']}<br>{$vo.weekprice} </td>
+                        <td>{$myproduct[$vo['id']]['monthprice']}<br>{$vo.monthprice} </td>
+						<td>{$myproduct[$vo['id']]['quarterprice']}<br>{$vo.quarterprice} </td>
+						<td>{$myproduct[$vo['id']]['halfprice']}<br>{$vo.halfprice} </td>
+						<td>{$myproduct[$vo['id']]['yearprice']}<br>{$vo.yearprice} </td>
+						<else />
+						<td>{$myproduct[$vo['id']]['dayprice']}%<br>{$vo.dayprice}% </td>
+						<td>{$myproduct[$vo['id']]['weekprice']}%<br>{$vo.weekprice}% </td>
+                        <td>{$myproduct[$vo['id']]['monthprice']}%<br>{$vo.monthprice}% </td>
+						<td>{$myproduct[$vo['id']]['quarterprice']}%<br>{$vo.quarterprice}% </td>
+						<td>{$myproduct[$vo['id']]['halfprice']}%<br>{$vo.halfprice}% </td>
+						<td>{$myproduct[$vo['id']]['yearprice']}%<br>{$vo.yearprice}% </td>						
+						</eq>
+                        <td class="cz">
+                        	
+                            
+                            <a href="{:U('agentprice',array('agent'=>$agent,'id'=>$vo['id']))}"><button type="button">设置代理价格</button></a>
+                            <a href="{:U('sellprice',array('agent'=>$agent,'id'=>$vo['id']))}"><button type="button">设置销售价格</button></a>
+							
+                        </td></tr></form>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

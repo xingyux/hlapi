@@ -1,0 +1,256 @@
+<div id="dialog_dialog" style="display: none"></div>
+<script id="add_domainuser_dialog_tmpl" type="text/x-jquery-tmpl">
+<form id="form1" name="form1" method="post" action="">
+<table width="500" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>类型</td>
+    <td>
+    
+          <input name="isgeren" type="radio" value="1" checked="checked" />
+          个人
+          
+          <input type="radio" name="isgeren" value="2" />
+          企业/政府事业单位    </td>
+  </tr>
+  <tr>
+    <td width="134">所有人</td>
+    <td width="366"><input name="suoyouren" type="text" id="suoyouren" value="" onblur="document.getElementById('ensuoyouren').value=pinyin.getFullChars(this.value)"  placeholder="所有人" /></td>
+  </tr>
+  <tr>
+    <td>所有人英文</td>
+    <td><input name="ensuoyouren" type="text" id="ensuoyouren"  placeholder="所有人英文" /></td>
+  </tr>
+  <tr>
+    <td>证件类型</td>
+    <td>
+	<input name="zjlx" type="radio" value="3" checked="checked" />
+身份证
+	<input name="zjlx" type="radio" value="1" />
+营业执照
+
+  <input type="radio" name="zjlx" value="2" />
+机构代码证</td>
+  </tr>
+  <tr>
+    <td>证件号码</td>
+    <td><input name="zjhm" type="text" id="zjhm"  value="" placeholder="身份证/营业执照号码/机构代码证号码" /></td>
+  </tr>  
+  <tr>
+    <td>所有人姓名</td>
+    <td><input name="xing" type="text" id="xing" size="5"  placeholder="姓" value="" onblur="document.getElementById('enxing').value=pinyin.getFullChars(this.value)" />
+      -
+      <input name="ming" type="text" id="ming" size="10"  placeholder="名" value="" onblur="document.getElementById('enming').value=pinyin.getFullChars(this.value)" /></td>
+  </tr>
+  <tr>
+    <td>所有人姓名英文</td>
+    <td><input name="enxing" type="text" id="enxing" size="5" placeholder="姓" value="" />
+-
+  <input name="enming" type="text" id="enming" size="10" placeholder="名" value="" /></td>
+  </tr>
+    
+  <tr>
+    <td>联系人姓名</td>
+    <td><input name="lxrxing" type="text" id="lxrxing" placeholder="姓" value="" size="5" onblur="document.getElementById('enlxrxing').value=pinyin.getFullChars(this.value)" />
+      -
+      <input name="lxrming" type="text" id="lxrming" size="10" placeholder="名" value="" onblur="document.getElementById('enlxrming').value=pinyin.getFullChars(this.value)" /></td>
+  </tr>
+  <tr>
+    <td>联系人姓名英文</td>
+    <td><input name="enlxrxing" type="text" id="enlxrxing" placeholder="姓" value="" size="5" />
+-
+  <input name="enlxrming" type="text" id="enlxrming" size="10" placeholder="名" value="" /></td>
+  </tr>
+  <tr>
+    <td>联系人身份证号码</td>
+    <td><input name="lxrzjhm" type="text" id="lxrzjhm" placeholder="身份证号码"  value=""/></td>
+  </tr>
+  <tr>
+    <td>手机号码</td>
+    <td><input name="sjhm" type="text" id="sjhm" placeholder="手机号码"  value="" /></td>
+  </tr>
+  <tr>
+    <td>电话号码</td>
+    <td><input name="dhqh" type="text" id="dhqh" size="5" placeholder="区号" value="" />
+-
+  <input name="dhhm" type="text" id="dhhm" size="10"  placeholder="号码" value="" />
+  -
+  <input name="dhfj" type="text" id="dhfj" size="10"  placeholder="分机" value="" /></td>
+  </tr>
+  <tr>
+    <td>电子邮箱</td>
+    <td><input name="email" type="text" id="email" placeholder="电子邮箱" value="" /></td>
+  </tr>
+  <tr>
+    <td>省份</td>
+    <td><select name="sf" id="sf" placeholder="省份">
+    </select>
+      <input name="ensf" type="text" id="ensf" onfocus="this.value=pinyin.getFullChars(document.getElementById('sf').value)" placeholder="省份英文" value="" /></td>
+  </tr>
+  <tr>
+    <td>城市</td>
+    <td><select name="chengshi" id="chengshi" placeholder="城市">
+        </select>
+      <input name="enchengshi" type="text" id="enchengshi" onfocus="this.value=pinyin.getFullChars(document.getElementById('chengshi').value)" placeholder="城市英文" value="" /></td>
+  </tr>
+  <tr>
+    <td>详细地址</td>
+    <td><input name="dizhi" type="text" id="dizhi" onblur="document.getElementById('endizhi').value=pinyin.getFullChars(this.value)" placeholder="详细地址" value="" /></td>
+  </tr>
+  <tr>
+    <td>详细地址英文</td>
+    <td><input name="endizhi" type="text" id="endizhi" placeholder="详细地址英文" value="" /></td>
+  </tr>
+  <tr>
+    <td>邮编</td>
+    <td><input name="youbian" type="text" id="youbian" placeholder="邮编" value="" /></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;<input name="domain_user_id" type="hidden" id="domain_user_id" placeholder="用户编号" value="0" /></td>
+  </tr>
+</table>
+
+<div class="alert alert-warning alert-info" style="display:none;"><strong class="errtitle"></strong><span class="errmsg"></span></div>
+
+</form>
+</script>
+
+
+
+
+<script>
+var _clicks=function(dialogObj){
+	dialogObj.find("form").unbind("submit");
+	dialogObj.find("form").submit(function(){
+	
+			dialogObj.find(".errtitle").html("声明：");
+			dialogObj.find(".errmsg").html("正在提交");				
+			dialogObj.find(".alert-info").show();		
+	
+			var obj=$(this).closest("form");
+			var ischeck=true;
+			var param={};
+			
+			obj.find("input[type='text']").each(function(){
+				if($(this).val()==""){dialogObj.find(".errtitle").html("错误：");dialogObj.find(".errmsg").html("请输入"+$(this).attr("placeholder"));ischeck=false;return false;}
+				param[$(this).attr("name")]=$(this).val();
+			});
+			
+			obj.find("input[type='radio']:checked").each(function(){
+				param[$(this).attr("name")]=$(this).val();
+			});
+			obj.find("select").each(function(){
+				if($(this).val()=="省份"||$(this).val()=="地级市"){dialogObj.find(".errtitle").html("错误：");dialogObj.find(".errmsg").html("请选择"+$(this).attr("placeholder"));ischeck=false;return false;}
+				var name=$(this).attr("name");
+				param[name]=$(this).val();
+			});	
+			var domain_user_id=obj.find("#domain_user_id").val()||0;
+			param.domain_user_id=domain_user_id;
+			if(!ischeck) return ischeck;
+			getPost(
+			"{:U('add')}",
+			{"domain":param,"json":1},
+			function(data,field){
+			if(parseInt(data.domain_user_id)!=0){
+				field.find("#domain_user_id").val(data.domain_user_id);
+			}
+			if(data.code!=0){
+				dialogObj.find(".errtitle").html("错误：");dialogObj.find(".errmsg").html(data.message);return false;
+			}
+			dialogObj.find(".errtitle").html("成功：");dialogObj.find(".errmsg").html("提交成功");
+			dialogObj.dialog( "option", "buttons", {"关闭":function(){dialogObj.dialog("close");}});	
+			},
+			obj,
+			"json",
+			function(err,res){
+				dialogObj.find(".errtitle").html("错误：");dialogObj.find(".errmsg").html("未知错误");
+				
+			}
+			);
+			return false;
+		});
+
+}
+$(function(){
+	$("a._info").click(function(){
+		var str=$(this).attr("data-domain");
+		var decode=$.base64({data:str,type:1});
+		var data=JSON.parse(decode);
+		
+		
+			var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#add_domainuser_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+
+			
+		s=["sf","chengshi"];
+		opt0=[data.sf,data.chengshi];
+		_init_area();	
+		var obj=	dialogObj.find("form");
+
+		
+			obj.find("input[type='text']").each(function(){
+			
+				$(this).val(data[$(this).attr("name")]);
+				
+			});
+			
+			obj.find("input[type='radio']").each(function(){
+				if($(this).val()==data[$(this).attr("name")]){
+					$(this).prop("checked",true);
+				}else{
+					$(this).prop("checked",false);
+				}
+				
+			});
+					
+		
+		obj.find("#domain_user_id").val(data.id);		
+		_clicks(dialogObj);
+		dialogObj.dialog({
+			title: "编辑联系人",
+			width: 500,
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		
+		dialogObj.dialog( "option", "buttons", {"编辑":function(){dialogObj.find("form").submit();},"关闭":function(){dialogObj.dialog("close");}});	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );
+		
+
+		
+		return false;
+	
+	});
+	$("a.add-domainuser").click(function(){
+	
+	var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#add_domainuser_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+	_clicks(dialogObj);
+		dialogObj.dialog({
+			title: "编辑联系人",
+			width: 500,
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		
+		dialogObj.dialog( "option", "buttons", {"编辑":function(){dialogObj.find("form").submit();},"关闭":function(){dialogObj.dialog("close");}});	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		s=["sf","chengshi"];
+		opt0 = ["省份","地级市"];
+		_init_area();
+	
+			return false;
+
+});
+
+
+
+
+})
+</script>

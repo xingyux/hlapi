@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>代理平台安装-{$sitename}</title>
+<link href="__PUBLIC__/install/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!-- -->
+<script>var __links = document.querySelectorAll('a');function __linkClick(e) { parent.window.postMessage(this.href, '*');} ;for (var i = 0, l = __links.length; i < l; i++) {if ( __links[i].getAttribute('data-t') == '_blank' ) { __links[i].addEventListener('click', __linkClick, false);}}</script>
+<script src="//cache-code-ui.html5ui.org/jQuery/jquery-1.9.1.min.js"></script>
+<script>$(document).ready(function(c) {
+	$('.alert-close').on('click', function(c){
+		$('.message').fadeOut('slow', function(c){
+	  		$('.message').remove();
+		});
+	});	  
+});
+</script>
+</head>
+<body>
+<!-- contact-form -->	
+<div class="message warning">
+<div class="inset">
+	<div class="login-head">
+		<h1>数据库</h1>
+		 			
+	</div>
+		<form class="form-horizontal" role="form" action="" method="post">
+			<li>
+				<input type="text" class="text" name="myhost" value="localhost"  placeholder="数据库服务器"><a href="#" class=" icon lock"></a>
+			</li>
+					<div class="clear"> </div>
+			<li>
+				<input type="text" class="text" value="3306" name="myport"  placeholder="数据库端口"><a href="#" class=" icon lock"></a>
+			</li>
+					<div class="clear"> </div>	
+			<li>
+				<input type="text" value="" placeholder="数据库名称" name="mydbname"> <a href="#" class="icon user"></a>
+			</li>
+				<div class="clear"> </div>					
+			<li>
+				<input type="text" value="" placeholder="数据库用户" name="myuser"> <a href="#" class="icon user"></a>
+			</li>
+				<div class="clear"> </div>
+			<li>
+				<input type="password" value="" placeholder="数据库密码" name="mypass"> <a href="#" class="icon lock"></a>
+			</li>
+			<div class="clear"> </div>
+				<li>
+				<input type="text" value="hlapi_" placeholder="数据表前缀" name="myprefix"> <a href="#" class="icon user"></a>
+			</li>
+				<div class="clear"> </div>	
+			<div class="clear"> </div>
+				<li>
+				<input type="checkbox" name="deltable" value="1">强制删除已有数据
+			</li>
+				<div class="clear"> </div>					
+			<div class="submit">
+				<input type="submit" value="建立数据库" >
+				<input type="hidden" value="connnet" name="action">
+						  <div class="clear">  </div>	
+			</div>
+				
+		</form>
+		</div>					
+	</div>
+	</div>
+	<div class="clear"> </div>
+<!--- footer --->
+
+</body>
+</html>

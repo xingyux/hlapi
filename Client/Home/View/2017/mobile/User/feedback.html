@@ -1,0 +1,75 @@
+
+
+
+<div id="feedback" style="display:none;">
+<form id="form" action="?" method="post" role="form">
+
+			
+<textarea class="form-control" rows="3" name="feedback-content" placeholder="内容" style="height:200px;width:100%;"></textarea>	
+			
+<div class="alert alert-warning btnn-check-pay-alert" style="display:none;">
+<strong class="errtitle"></strong><span class="errmsg"></span>
+</div>		                        
+				<input type="hidden" name="submit" value="feedback">
+
+</form>
+</div>
+<script>
+var _feedback=function(dialogObj){
+
+dialogObj.find(".errtitle").html("声明：");
+	dialogObj.find(".errmsg").html("正在提交");
+	dialogObj.find(".btnn-check-pay-alert").show();		
+		
+		var object=dialogObj.find("form").serializeArray();
+		
+		getPost(
+		"{:U('User/feedback')}",
+		object,
+		function(data){
+			if(data.code==0){
+				dialogObj.find(".errtitle").html("成功：");
+		dialogObj.find(".errmsg").html("提交成功");
+
+			}else{
+				dialogObj.find(".errtitle").html("错误：");
+		dialogObj.find(".errmsg").html(data.message);		
+			}
+		},"","json",function(e){
+		
+		
+			dialogObj.find(".errtitle").html("错误：");
+			dialogObj.find(".errmsg").html("未知错误");
+		
+		}
+		
+		);
+
+}
+$(function(){
+
+$("a.leftconfeedback").click(function(){
+
+var dialogObj=$("#feedback");
+		dialogObj.dialog({
+			title: "新版平台问题反馈",
+			width: 400,
+
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		
+		dialogObj.dialog( "option", "buttons", {"发布":function(){_feedback(dialogObj);},"关闭":function(){dialogObj.dialog("close");}});	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+
+})
+
+
+
+
+})
+</script>

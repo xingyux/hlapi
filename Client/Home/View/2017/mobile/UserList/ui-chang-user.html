@@ -1,0 +1,100 @@
+<div id="chguser_dialog" style="display: none"></div>
+<script id="chguser_dialog_tmpl" type="text/x-jquery-tmpl">
+
+
+<div class="alert alert-warning alert-info" style="display:none;"><strong class="errtitle"></strong><span class="errmsg"></span></div>
+</script>
+
+<script>
+
+
+
+
+$(function(){
+	$("button.change-user").click(function(){
+	
+	var _username=$("input.input-username").val();
+	var changUserUrl="{:U('changeuser')}";
+	var _returnUrl="{:U('User/index')}";
+	var dialogObj=$("#chguser_dialog");dialogObj.empty();$("#chguser_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+			dialogObj.find(".errtitle").html("提示：");
+			dialogObj.find(".errmsg").html("您确认要切换到帐号"+_username+"？");				
+			dialogObj.find(".alert-info").show();		
+			
+		
+	
+			
+
+		dialogObj.dialog({
+			title: _username+"余额调整",
+			width: 300,
+			height:200,
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+						if(_username==""){
+				dialogObj.find(".errtitle").html("错误：");
+				dialogObj.find(".errmsg").html("请输入要切换的用户");		
+
+dialogObj.dialog( "option", "buttons", {"关闭":function(){dialogObj.dialog("close");}});	
+				
+					}else{
+					
+					dialogObj.dialog( "option", "buttons", {"确认切换":function(){
+		
+				getPost(
+				changUserUrl,
+				{"chgusername":_username},
+				function(data){
+					if(data.code==0){
+			
+						dialogObj.find(".errtitle").html("成功：");
+					dialogObj.find(".errmsg").html("切换成功");
+					window.location.href=_returnUrl;
+					}else{
+					dialogObj.find(".errtitle").html("错误：");
+					dialogObj.find(".errmsg").html(data.message);	
+
+					}
+				},
+				"",
+				"json",
+				function(e){
+				dialogObj.find(".errtitle").html("错误：");
+				dialogObj.find(".errmsg").html("未知错误");
+				
+			
+				
+				}
+				);			
+		
+		
+		},"关闭":function(){dialogObj.dialog("close");}});	
+					
+					}
+		
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		
+
+		
+		
+
+					
+				
+	
+		
+		return false;	
+	
+	
+
+});
+
+
+
+
+})
+</script>

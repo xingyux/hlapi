@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>域名注册人管理-{$sitename}</title>
+<include file="Common/head" />
+<link href="//cache-code-ui.html5ui.org/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="//cache-code-ui.html5ui.org/tablecloth/tablecloth.js"></script>
+<script src="//cache-code-ui.html5ui.org/pinyin/pinyin.js"></script>
+<script src="//cache-code-ui.html5ui.org/Base64/Base64.js"></script>
+
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">域名注册人管理</p>
+            <div class="select_choose">
+			<form id="form" action="?" method="post">
+			<input type="hidden" name="searchword" value="true">
+               
+              
+                <label>
+                     所有人/联系人/证件号码 ：<input type="text">
+                </label>
+                
+          
+                <button type="submit">查询</button>
+				<a href="#" class="add-domainuser"><button type="button">添加</button></a>
+				</form>
+            </div>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>编号</th>
+                        <th>用户</th>
+                        <th>所有人</th>
+                        <th>联系人</th>
+                        <th>官方ID</th>
+                        
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="res['list']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+                        <td>{$vo.username}</td>
+                        <td>{$vo.suoyouren}  </th>
+                        <td>{$vo.lxrxing}{$vo.lxrming}</td>
+                        <td>{$vo.agent_id}</td>
+                        
+                        <td class="cz">
+                        	<a href="#" data-id="{$vo.id}" data-domain="{$vo|json_encode|base64_encode}" class="_info">管理</a>
+                           
+                            
+                        </td></tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                <include file="Common/ui-page" />
+            </div>
+        </div>
+    </section>
+   
+<include file="ui" />
+	
+</body>
+</html>

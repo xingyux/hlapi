@@ -1,0 +1,87 @@
+<div id="money_dialog" style="display: none"></div>
+<script id="money_dialog_tmpl" type="text/x-jquery-tmpl">
+
+<center>金额：<input type="number" name="money" value="" style="border-style:solid;border-width:1px; height:30px; line-height:30px;"></center><center>原因：<input type="text" name="info" value="" style="border-style:solid;border-width:1px; height:30px; line-height:30px;"></center>
+
+</select>
+<div class="alert alert-warning alert-info" style="display:none;"><strong class="errtitle"></strong><span class="errmsg"></span></div>	                        
+</script>
+
+<script>
+var changUrl="{:U('changemoney')}";
+
+var _chg_money=function(_submit,_tag,dialogObj,_id,_flag){
+
+dialogObj.dialog("option", "buttons", {"关闭":function(){dialogObj.dialog("close");}});	
+
+							dialogObj.find(".errtitle").html("声明：");
+							dialogObj.find(".errmsg").html("正在提交");				
+							dialogObj.find(".alert-info").show();				
+			
+				var money=dialogObj.find("input[name='money']").val();				var info=dialogObj.find("input[name='info']").val();
+				getPost(
+				changUrl,
+				{"id":_id,"money":money,"submit":_submit,"flag":_flag,"info":info, "json":1},
+				function(data){
+					if(data.code==0){
+			
+						dialogObj.find(".errtitle").html("成功：");
+					dialogObj.find(".errmsg").html(_tag+"成功");
+					window.location.reload();
+					}else{
+					dialogObj.find(".errtitle").html("错误：");
+					dialogObj.find(".errmsg").html(data.message);	
+					var s={};
+					s[_tag]=function(){_chg_money(_submit,_tag,dialogObj,_id,_flag);}
+					s["关闭"]=function(){dialogObj.dialog("close");}
+					dialogObj.dialog( "option", "buttons", s);	
+					}
+				},
+				"",
+				"json",
+				function(e){
+				dialogObj.find(".errtitle").html("错误：");
+				dialogObj.find(".errmsg").html("未知错误");
+				
+					var s={};
+					s[_tag]=function(){_chg_money(_submit,_tag,dialogObj,_id,_flag);}
+					s["关闭"]=function(){dialogObj.dialog("close");}
+					dialogObj.dialog( "option", "buttons", s);	
+				
+				}
+				);
+
+}
+
+$(function(){
+	$("a.change_money").click(function(){
+	
+	var _username=$(this).attr("data-username");
+	var _id=$(this).attr("data-id");
+	
+var dialogObj=$("#money_dialog");dialogObj.empty();$("#money_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+		dialogObj.dialog({
+			title: _username+"余额调整",
+			width: 300,
+	
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		var buttons={		"增加可用金额":function(){_chg_money("add","增加可用金额",dialogObj,_id,1);},		"扣除可用金额":function(){_chg_money("deduction","扣除可用金额",dialogObj,_id,1);},		"增加预存金额":function(){_chg_money("add","增加预存金额",dialogObj,_id,2);},		"扣除预存金额":function(){_chg_money("deduction","扣除预存金额",dialogObj,_id,2);},		"可用转预存":function(){_chg_money("unloading","可用转预存",dialogObj,_id,3);},		"预存转可用":function(){_chg_money("unloading","预存转可用",dialogObj,_id,4);},		"关闭":function(){dialogObj.dialog("close");}		};
+		dialogObj.dialog( "option", "buttons", buttons);	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		return false;	
+	
+	
+
+});
+
+
+
+
+})
+</script>

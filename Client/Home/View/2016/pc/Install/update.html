@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>代理平台安装-{$sitename}</title>
+<link href="__PUBLIC__/install/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="__RESOURE__/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+
+<!-- -->
+<script>var __links = document.querySelectorAll('a');function __linkClick(e) { parent.window.postMessage(this.href, '*');} ;for (var i = 0, l = __links.length; i < l; i++) {if ( __links[i].getAttribute('data-t') == '_blank' ) { __links[i].addEventListener('click', __linkClick, false);}}</script>
+<script src="__RESOURE__/jQuery/jquery-1.9.1.min.js"></script>
+<script src='__RESOURE__/ajax/ajax.js'></script>
+<script>$(document).ready(function(c) {
+	$('.alert-close').on('click', function(c){
+		$('.message').fadeOut('slow', function(c){
+	  		$('.message').remove();
+		});
+	});	  
+});
+</script>
+<style>
+
+input[type="button"] {
+	float: left;
+	color: #fff;
+	cursor: pointer;
+	font-weight: 900;
+	outline: none;
+	font-family: 'Raleway', sans-serif;
+	padding: 12px 0px;
+	width: 25%;
+	font-size: 18px;
+	background:#6C496F;
+	border:2px solid #6C496F;
+	border-radius: 0.5em;
+	-webkit-border-radius:0.5em;
+	-moz-border-radius:0.5em;
+	-o-border-radius:0.5em;
+	margin-right:10px;
+}
+input[type="button"]:hover {
+	background: #fff;
+	color:#6C496F;
+	border:2px solid #6C496F;
+}
+
+</style>
+</head>
+<body>
+<!-- contact-form -->	
+<div class="message warning" style="width:600px;">
+<div class="inset">
+	<div class="login-head">
+		<h1>更新数据</h1>
+		 			
+	</div>
+		<form class="form-horizontal" role="form" action="" method="post">
+		
+		
+		<ul class="nav nav-pills">
+  <li class="active"><a href="#"="#" class="show" id="all">全部</a></li>
+  <foreach name="res['SERVERTYPE']" item="vo" key="key">
+  <li><a href="#" class="show" id="{$key}">{$vo}</a></li>
+  </foreach>
+ 
+</ul>
+		
+	<div style="width:480px;margin:auto;">
+	<foreach name="res['server']" item="vo">
+	
+  <div class="showinfo {$vo.servertype}" style="width:160px; float:left; text-align:left;">
+    <input type="checkbox" id="{$vo.id}" name="server[{$vo.flag}]" value="{$vo.flag}">{$vo.name}<span id="s_{$vo.flag}"></span>
+  </div>
+  </foreach>
+</div>
+		
+		
+			
+				<div class="clear"> </div>	
+<div class="alert alert-warning" style="display:none;" id="btnn-check-pay-alert">
+	
+	<strong id="errtitle"></strong><span id="errmsg"></span>
+</div>		             				
+			<div class="submit">
+			<input type="button" value="全选" >
+				<input type="submit" value="更新数据" >
+				
+						  <div class="clear">  </div>	
+			</div>
+				
+		</form>
+		</div>					
+	</div>
+	</div>
+	<div class="clear"> </div>
+	
+<script>
+var _update_clear=function(object){
+
+			sobject=[{"name":"submit","value":"clear","json":1}];
+			getPost(
+				window.location.href,
+				sobject,
+				function(data,ob){
+					if(data.code==0){
+						$("#errtitle").html("删除缓存成功：");
+						$("#errmsg").html("删除缓存");
+						
+						setTimeout(function(){window.location.href="{:U('comm')}";	_update_clear(ob);},2000)
+					}else{
+							$("#errtitle").html("删除缓存错误：");
+							$("#errmsg").html("删除缓存失败");					
+					}
+				},
+				object,
+				"json",
+				function(e){
+					$("#errtitle").html("删除缓存错误：");
+					$("#errmsg").html(JSON.stringify(e));
+				}
+			);
+
+}
+
+var _update_product=function(object_d,flag){
+	
+		
+	var sobject=[].concat(object_d);
+	sobject[sobject.length]={"name":"submit","value":"product"};
+	sobject[sobject.length]={"name":"flag","value":flag};
+    
+			
+			
+			getPost(
+				window.location.href,
+				sobject,
+				function(data,ob){
+					if(data.code==0){
+
+						if(data.next!=""){
+						$("#errtitle").html("产品成功：");
+						$("#errmsg").html("【"+data.nowname+"】更新成功,等待更新【"+data.nextname+"】");						
+						
+							setTimeout(function(){$("#errtitle").html("声明：");$("#errmsg").html("正在更新【"+data.nextname+"】");	_update_product(object_d,data.next);},1000);
+						}else{
+						$("#errtitle").html("产品成功：");
+						$("#errmsg").html("数据更新成功，即将删除缓存数据");						
+						
+							setTimeout(function(){$("#errtitle").html("声明：");$("#errmsg").html("正在删除缓存数据");	_update_clear(ob);},1000);
+						}
+						
+					}else{
+							$("#errtitle").html("机房错误：");
+							$("#errmsg").html(data.message);					
+					}
+				},
+				object_d,
+				"json",
+				function(e){
+					$("#errtitle").html("机房错误：");
+					$("#errmsg").html(JSON.stringify(e));				
+				}
+			);
+
+}
+var _update_d=function(object){
+			
+			sobject=[{"name":"submit","value":"dictionary","json":1}];
+			getPost(
+				window.location.href,
+				sobject,
+				function(data,ob){
+					if(data.code==0){
+						$("#errtitle").html("字典成功：");
+						$("#errmsg").html("数据更新成功，即将更新产品");
+						setTimeout(function(){$("#errtitle").html("声明：");$("#errmsg").html("正在更新产品数据");_update_product(ob,"n");},1000);
+					}else{
+							$("#errtitle").html("字典错误：");
+							$("#errmsg").html(data.message);					
+					}
+				},
+				object,
+				"json",
+				function(e){
+					$("#errtitle").html("字典错误：");
+					$("#errmsg").html(JSON.stringify(e));				
+				}
+			);
+
+}
+$(function(){
+
+	$("form").submit(function(){
+		$("#errtitle").html("声明：");
+		$("#errmsg").html("正在更新机房数据");
+		$("#btnn-check-pay-alert").show();
+			
+			var object=$(this).serializeArray();
+			var sobject=[].concat(object);
+			sobject[sobject.length]={"json":1};
+			sobject[sobject.length]={"name":"submit","value":"server"};
+			console.log(sobject);
+			
+			getPost(
+				window.location.href,
+				sobject,
+				function(data,ob){
+					if(data.code==0){
+						$("#errtitle").html("机房成功：");
+						$("#errmsg").html("数据更新成功，即将更新字典");
+						setTimeout(function(){	$("#errtitle").html("声明：");
+								$("#errmsg").html("正在更新字典数据");	_update_d(ob);},1000)
+					}else{
+							$("#errtitle").html("机房错误：");
+							$("#errmsg").html(data.message);					
+					}
+				},
+				object,
+				"json",
+				function(e){
+					$("#errtitle").html("机房错误：");
+					$("#errmsg").html(JSON.stringify(e));				
+				}
+			);
+			
+			return false;
+	});
+
+	$("input[type='button']").click(function(){
+			
+			$(".showinfo:visible input[type='checkbox']").prop("checked",true);
+	})
+	$("a.show").click(function(){
+		$(".nav-pills li").removeClass("active");
+		$(this).closest("li").addClass("active");
+		var id=$(this).attr("id");
+		if(id=="all"){
+			$(".showinfo").show();
+		}else{
+			$(".showinfo").hide();
+			$(".showinfo."+id).show();
+		}
+	})
+})
+
+</script>
+
+</body>
+</html>

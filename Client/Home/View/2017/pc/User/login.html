@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<title>用户登录-{$sitename}</title>
+<include file="Common/head" />
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+
+<style>
+*{ padding:0; margin:0;font-family:yahei, '微软雅黑', arial, '宋体'; font-size:14px;}
+.clear{zoom:1}
+.clear:after{ content:'';height:0;visibility:hidden;display:block;clear:both;  }
+
+.main{ width:1000px; margin:0 auto; padding-top:20px; padding-bottom:20px;}
+.main_l{ float:left; padding:80px;}
+.main_r{ float:right; border:1px solid #e7e7e7; width:298px; margin-top:60px; padding:20px 50px 60px; background:#fff;}
+.main_r p{ height:60px; line-height:60px; font-size:18px; color:#383838; text-align:center}
+.main_r input[type='text']{ background:url(__PUBLIC__/user/images/login_icon1.png)10px 50% no-repeat; }
+.main_r input[type='password']{ background:url(__PUBLIC__/user/images/login_icon2.png) 10px 50% no-repeat; margin-bottom:20px; }
+.main_r input{ width:85%; height:40px; padding-left:15%; margin-top:20px;border:1px solid #ebebeb ;}
+.main_r .check{ width:17px; height:21px; vertical-align:middle}
+.main_r  .rem{ vertical-align:middle; font-size:14px; color:#383838; margin-left:17px;}
+.main_r button{ width:100%; height:50px; line-height:50px; border:0; font-size:20px; margin:15px 0; background:#2086ee; text-align:center; color:#fff;}
+.wechat button{ width:100%; height:30px; line-height:30px; border:0; font-size:20px; margin:10px 0; background:#2086ee; text-align:center; color:#fff;}
+.forget{ color:#383838; font-size:14px; text-decoration:none;}
+.reg{ float:right; color:#383838}
+.reg a{ color:#27a9f2; text-decoration:none;}
+.footer p{ text-align:center}
+.footer p a{ line-height:30px; color:#333; font-size:12px;}
+.back_pwd{float: right;}
+</style>
+</head>
+
+<body>
+<include file="Common/nav" />
+<form id="form" action="" method="post">
+    <section style="background: url(__PUBLIC__/user/images/loginbg.png) no-repeat bottom left #0aa1f0;">
+    	<div class="main clear">
+        	<div class="main_l">
+            	<img src="__PUBLIC__/user/images/login_bg.png">
+            </div>
+            <div class="main_r">
+                <p>账号登录</p>
+			   <div id="wechatlogin"></div>
+                <input type="text" class="user" name="username" placeholder="请输入您的邮箱">
+                <input type="password" class="password" name="password" placeholder="请输入您用户名的密码">
+                <label>
+                    <input type="checkbox" class="check" style="margin-top: 0;">
+                    <span class="rem">记住账号密码</span>
+                </label>
+                <a href="{:U('backpwd')}" class="back_pwd">找回密码</a>
+                <button type="submit">登录</button>
+                <input type="hidden" name="bind" value="{$bind}">
+				<a href="#" class="forget wechat"><img src="__PUBLIC__/web/images/wechat.png" style="width:30px;"></a>
+				<a href="#" class="forget qqlogin"><img src="__PUBLIC__/web/images/qq.png" style="width:30px;"></a>
+                <span class="reg">没有账号，<a href="{:U('reg')}">立即注册</a></span>
+            </div>
+        
+        </div>
+    </section>
+</form>
+
+
+</div>
+
+<script>
+$(function(){
+	$("a.wechat").click(function(){
+		
+					getPost(
+				"{:U('loginqrcode')}",
+				{"logintype":"wechat","logindomain":document.domain},
+				function(data){
+					if(data.code==0){
+						
+						top.location.href=data.url;
+						
+					}else{
+						alert(data.message);
+					}
+				},
+				"",
+				"json",
+				function(e){
+					alert("未知错误");
+				}
+			);
+		
+		});
+	$("a.qqlogin").click(function(){
+		
+					getPost(
+				"{:U('loginqrcode')}",
+				{"logintype":"qqlogin","logindomain":document.domain},
+				function(data){
+					if(data.code==0){
+						
+						top.location.href=data.url;
+						
+					}else{
+						alert(data.message);
+					}
+				},
+				"",
+				"json",
+				function(e){
+					alert("未知错误");
+				}
+			);
+		
+		});		
+})
+</script>
+</body>
+</html>

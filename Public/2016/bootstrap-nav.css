@@ -1,0 +1,1545 @@
+
+.bootstrap *{line-height:1;margin: 0; padding: 0; border: 0; outline: none;}
+.bootstrap .nav a{line-height:20px;}
+.bootstrap .nav{background-color:#FFF;height:auto;}
+.bootstrap a{color: black;text-decoration: none;}
+.bootstrap a:hover{text-decoration: underline;}
+
+.bootstrap html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+.bootstrap body {
+  margin: 0;
+}
+.bootstrap article,
+.bootstrap aside,
+.bootstrap details,
+.bootstrap figcaption,
+.bootstrap figure,
+.bootstrap footer,
+.bootstrap header,
+.bootstrap hgroup,
+.bootstrap main,
+.bootstrap menu,
+.bootstrap nav,
+.bootstrap section,
+.bootstrap summary {
+  display: block;
+}
+.bootstrap audio,
+.bootstrap canvas,
+.bootstrap progress,
+.bootstrap video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+.bootstrap audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+.bootstrap [hidden],
+.bootstrap template {
+  display: none;
+}
+.bootstrap a {
+  background-color: transparent;
+}
+.bootstrap a:active,
+.bootstrap a:hover {
+  outline: 0;
+}
+.bootstrap abbr[title] {
+  border-bottom: 1px dotted;
+}
+.bootstrap b,
+.bootstrap strong {
+  font-weight: bold;
+}
+.bootstrap dfn {
+  font-style: italic;
+}
+.bootstrap h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+.bootstrap mark {
+  background: #ff0;
+  color: #000;
+}
+.bootstrap small {
+  font-size: 80%;
+}
+.bootstrap sub,
+.bootstrap sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.bootstrap sup {
+  top: -0.5em;
+}
+.bootstrap sub {
+  bottom: -0.25em;
+}
+.bootstrap img {
+  border: 0;
+}
+.bootstrap svg:not(:root) {
+  overflow: hidden;
+}
+.bootstrap figure {
+  margin: 1em 40px;
+}
+.bootstrap hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+.bootstrap pre {
+  overflow: auto;
+}
+.bootstrap code,
+.bootstrap kbd,
+.bootstrap pre,
+.bootstrap samp {
+  font-family: monospace,
+.bootstrap  monospace;
+  font-size: 1em;
+}
+.bootstrap button,
+.bootstrap input,
+.bootstrap optgroup,
+.bootstrap select,
+.bootstrap textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+.bootstrap button {
+  overflow: visible;
+}
+.bootstrap button,
+.bootstrap select {
+  text-transform: none;
+}
+.bootstrap button,
+.bootstrap html input[type="button"],
+.bootstrap input[type="reset"],
+.bootstrap input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+.bootstrap button[disabled],
+.bootstrap html input[disabled] {
+  cursor: default;
+}
+.bootstrap button::-moz-focus-inner,
+.bootstrap input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+.bootstrap input {
+  line-height: normal;
+}
+.bootstrap input[type="checkbox"],
+.bootstrap input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+.bootstrap input[type="number"]::-webkit-inner-spin-button,
+.bootstrap input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+.bootstrap input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+.bootstrap input[type="search"]::-webkit-search-cancel-button,
+.bootstrap input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+.bootstrap fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+.bootstrap legend {
+  border: 0;
+  padding: 0;
+}
+.bootstrap textarea {
+  overflow: auto;
+}
+.bootstrap optgroup {
+  font-weight: bold;
+}
+.bootstrap table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.bootstrap td,
+.bootstrap th {
+  padding: 0;
+}
+.bootstrap * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.bootstrap *:before,
+.bootstrap *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.bootstrap html {
+  font-size: 10px;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.bootstrap body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333333;
+  background-color: #ffffff;
+}
+.bootstrap input,
+.bootstrap button,
+.bootstrap select,
+.bootstrap textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+.bootstrap a {
+  color: #428bca;
+  text-decoration: none;
+}
+.bootstrap a:hover,
+.bootstrap a:focus {
+  color: #2a6496;
+  text-decoration: underline;
+}
+.bootstrap a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.bootstrap figure {
+  margin: 0;
+}
+.bootstrap img {
+  vertical-align: middle;
+}
+.bootstrap .img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.bootstrap .img-rounded {
+  border-radius: 6px;
+}
+.bootstrap .img-thumbnail {
+  padding: 4px;
+  line-height: 1.42857143;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+.bootstrap .img-circle {
+  border-radius: 50%;
+}
+.bootstrap hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+}
+.bootstrap .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+.bootstrap .sr-only-focusable:active,
+.bootstrap .sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+.bootstrap fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  min-width: 0;
+}
+.bootstrap legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 21px;
+  line-height: inherit;
+  color: #333333;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.bootstrap label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.bootstrap input[type="search"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.bootstrap input[type="radio"],
+.bootstrap input[type="checkbox"] {
+  margin: 4px 0 0;
+  margin-top: 1px \9;
+  line-height: normal;
+}
+.bootstrap input[type="file"] {
+  display: block;
+}
+.bootstrap input[type="range"] {
+  display: block;
+  width: 100%;
+}
+.bootstrap select[multiple],
+.bootstrap select[size] {
+  height: auto;
+}
+.bootstrap input[type="file"]:focus,
+.bootstrap input[type="radio"]:focus,
+.bootstrap input[type="checkbox"]:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.bootstrap output {
+  display: block;
+  padding-top: 7px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+}
+.bootstrap .form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.bootstrap .form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);
+}
+.bootstrap .form-control::-moz-placeholder {
+  color: #999999;
+  opacity: 1;
+}
+.bootstrap .form-control:-ms-input-placeholder {
+  color: #999999;
+}
+.bootstrap .form-control::-webkit-input-placeholder {
+  color: #999999;
+}
+.bootstrap .form-control[disabled],
+.bootstrap .form-control[readonly],
+.bootstrap fieldset[disabled] .form-control {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+  opacity: 1;
+}
+.bootstrap textarea.form-control {
+  height: auto;
+}
+.bootstrap input[type="search"] {
+  -webkit-appearance: none;
+}
+.bootstrap input[type="date"],
+.bootstrap input[type="time"],
+.bootstrap input[type="datetime-local"],
+.bootstrap input[type="month"] {
+  line-height: 34px;
+  line-height: 1.42857143 \0;
+}
+.bootstrap input[type="date"].input-sm,
+.bootstrap input[type="time"].input-sm,
+.bootstrap input[type="datetime-local"].input-sm,
+.bootstrap input[type="month"].input-sm {
+  line-height: 30px;
+  line-height: 1.5 \0;
+}
+.bootstrap input[type="date"].input-lg,
+.bootstrap input[type="time"].input-lg,
+.bootstrap input[type="datetime-local"].input-lg,
+.bootstrap input[type="month"].input-lg {
+  line-height: 46px;
+  line-height: 1.33 \0;
+}
+.bootstrap _:-ms-fullscreen,
+.bootstrap :root input[type="date"],
+.bootstrap _:-ms-fullscreen,
+.bootstrap :root input[type="time"],
+.bootstrap _:-ms-fullscreen,
+.bootstrap :root input[type="datetime-local"],
+.bootstrap _:-ms-fullscreen,
+.bootstrap :root input[type="month"] {
+  line-height: 1.42857143;
+}
+.bootstrap _:-ms-fullscreen.input-sm,
+.bootstrap :root input[type="date"].input-sm,
+.bootstrap _:-ms-fullscreen.input-sm,
+.bootstrap :root input[type="time"].input-sm,
+.bootstrap _:-ms-fullscreen.input-sm,
+.bootstrap :root input[type="datetime-local"].input-sm,
+.bootstrap _:-ms-fullscreen.input-sm,
+.bootstrap :root input[type="month"].input-sm {
+  line-height: 1.5;
+}
+.bootstrap _:-ms-fullscreen.input-lg,
+.bootstrap :root input[type="date"].input-lg,
+.bootstrap _:-ms-fullscreen.input-lg,
+.bootstrap :root input[type="time"].input-lg,
+.bootstrap _:-ms-fullscreen.input-lg,
+.bootstrap :root input[type="datetime-local"].input-lg,
+.bootstrap _:-ms-fullscreen.input-lg,
+.bootstrap :root input[type="month"].input-lg {
+  line-height: 1.33;
+}
+.bootstrap .form-group {
+  margin-bottom: 15px;
+}
+.bootstrap .radio,
+.bootstrap .checkbox {
+  position: relative;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.bootstrap .radio label,
+.bootstrap .checkbox label {
+  min-height: 20px;
+  padding-left: 20px;
+  margin-bottom: 0;
+  font-weight: normal;
+  cursor: pointer;
+}
+.bootstrap .radio input[type="radio"],
+.bootstrap .radio-inline input[type="radio"],
+.bootstrap .checkbox input[type="checkbox"],
+.bootstrap .checkbox-inline input[type="checkbox"] {
+  position: absolute;
+  margin-left: -20px;
+  margin-top: 4px \9;
+}
+.bootstrap .radio + .radio,
+.bootstrap .checkbox + .checkbox {
+  margin-top: -5px;
+}
+.bootstrap .radio-inline,
+.bootstrap .checkbox-inline {
+  display: inline-block;
+  padding-left: 20px;
+  margin-bottom: 0;
+  vertical-align: middle;
+  font-weight: normal;
+  cursor: pointer;
+}
+.bootstrap .radio-inline + .radio-inline,
+.bootstrap .checkbox-inline + .checkbox-inline {
+  margin-top: 0;
+  margin-left: 10px;
+}
+.bootstrap input[type="radio"][disabled],
+.bootstrap input[type="checkbox"][disabled],
+.bootstrap input[type="radio"].disabled,
+.bootstrap input[type="checkbox"].disabled,
+.bootstrap fieldset[disabled] input[type="radio"],
+.bootstrap fieldset[disabled] input[type="checkbox"] {
+  cursor: not-allowed;
+}
+.bootstrap .radio-inline.disabled,
+.bootstrap .checkbox-inline.disabled,
+.bootstrap fieldset[disabled] .radio-inline,
+.bootstrap fieldset[disabled] .checkbox-inline {
+  cursor: not-allowed;
+}
+.bootstrap .radio.disabled label,
+.bootstrap .checkbox.disabled label,
+.bootstrap fieldset[disabled] .radio label,
+.bootstrap fieldset[disabled] .checkbox label {
+  cursor: not-allowed;
+}
+.bootstrap .form-control-static {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-bottom: 0;
+}
+.bootstrap .form-control-static.input-lg,
+.bootstrap .form-control-static.input-sm {
+  padding-left: 0;
+  padding-right: 0;
+}
+.bootstrap .input-sm,
+.bootstrap .form-group-sm .form-control {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.bootstrap select.input-sm,
+.bootstrap select.form-group-sm .form-control {
+  height: 30px;
+  line-height: 30px;
+}
+.bootstrap textarea.input-sm,
+.bootstrap textarea.form-group-sm .form-control,
+.bootstrap select[multiple].input-sm,
+.bootstrap select[multiple].form-group-sm .form-control {
+  height: auto;
+}
+.bootstrap .input-lg,
+.bootstrap .form-group-lg .form-control {
+  height: 46px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+.bootstrap select.input-lg,
+.bootstrap select.form-group-lg .form-control {
+  height: 46px;
+  line-height: 46px;
+}
+.bootstrap textarea.input-lg,
+.bootstrap textarea.form-group-lg .form-control,
+.bootstrap select[multiple].input-lg,
+.bootstrap select[multiple].form-group-lg .form-control {
+  height: auto;
+}
+.bootstrap .has-feedback {
+  position: relative;
+}
+.bootstrap .has-feedback .form-control {
+  padding-right: 42.5px;
+}
+.bootstrap .form-control-feedback {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  pointer-events: none;
+}
+.bootstrap .input-lg + .form-control-feedback {
+  width: 46px;
+  height: 46px;
+  line-height: 46px;
+}
+.bootstrap .input-sm + .form-control-feedback {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+.bootstrap .has-success .help-block,
+.bootstrap .has-success .control-label,
+.bootstrap .has-success .radio,
+.bootstrap .has-success .checkbox,
+.bootstrap .has-success .radio-inline,
+.bootstrap .has-success .checkbox-inline,
+.bootstrap .has-success.radio label,
+.bootstrap .has-success.checkbox label,
+.bootstrap .has-success.radio-inline label,
+.bootstrap .has-success.checkbox-inline label {
+  color: #3c763d;
+}
+.bootstrap .has-success .form-control {
+  border-color: #3c763d;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+.bootstrap .has-success .form-control:focus {
+  border-color: #2b542c;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #67b168;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #67b168;
+}
+.bootstrap .has-success .input-group-addon {
+  color: #3c763d;
+  border-color: #3c763d;
+  background-color: #dff0d8;
+}
+.bootstrap .has-success .form-control-feedback {
+  color: #3c763d;
+}
+.bootstrap .has-warning .help-block,
+.bootstrap .has-warning .control-label,
+.bootstrap .has-warning .radio,
+.bootstrap .has-warning .checkbox,
+.bootstrap .has-warning .radio-inline,
+.bootstrap .has-warning .checkbox-inline,
+.bootstrap .has-warning.radio label,
+.bootstrap .has-warning.checkbox label,
+.bootstrap .has-warning.radio-inline label,
+.bootstrap .has-warning.checkbox-inline label {
+  color: #8a6d3b;
+}
+.bootstrap .has-warning .form-control {
+  border-color: #8a6d3b;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+.bootstrap .has-warning .form-control:focus {
+  border-color: #66512c;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #c0a16b;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #c0a16b;
+}
+.bootstrap .has-warning .input-group-addon {
+  color: #8a6d3b;
+  border-color: #8a6d3b;
+  background-color: #fcf8e3;
+}
+.bootstrap .has-warning .form-control-feedback {
+  color: #8a6d3b;
+}
+.bootstrap .has-error .help-block,
+.bootstrap .has-error .control-label,
+.bootstrap .has-error .radio,
+.bootstrap .has-error .checkbox,
+.bootstrap .has-error .radio-inline,
+.bootstrap .has-error .checkbox-inline,
+.bootstrap .has-error.radio label,
+.bootstrap .has-error.checkbox label,
+.bootstrap .has-error.radio-inline label,
+.bootstrap .has-error.checkbox-inline label {
+  color: #a94442;
+}
+.bootstrap .has-error .form-control {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+.bootstrap .has-error .form-control:focus {
+  border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #ce8483;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #ce8483;
+}
+.bootstrap .has-error .input-group-addon {
+  color: #a94442;
+  border-color: #a94442;
+  background-color: #f2dede;
+}
+.bootstrap .has-error .form-control-feedback {
+  color: #a94442;
+}
+.bootstrap .has-feedback label ~ .form-control-feedback {
+  top: 25px;
+}
+.bootstrap .has-feedback label.sr-only ~ .form-control-feedback {
+  top: 0;
+}
+.bootstrap .help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #737373;
+}
+@media (min-width: 768px) {
+  .form-inline .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+.bootstrap   .form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+.bootstrap   .form-inline .form-control-static {
+    display: inline-block;
+  }
+.bootstrap   .form-inline .input-group {
+    display: inline-table;
+    vertical-align: middle;
+  }
+.bootstrap   .form-inline .input-group .input-group-addon,
+.bootstrap   .form-inline .input-group .input-group-btn,
+.bootstrap   .form-inline .input-group .form-control {
+    width: auto;
+  }
+.bootstrap   .form-inline .input-group > .form-control {
+    width: 100%;
+  }
+.bootstrap   .form-inline .control-label {
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+.bootstrap   .form-inline .radio,
+.bootstrap   .form-inline .checkbox {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+.bootstrap   .form-inline .radio label,
+.bootstrap   .form-inline .checkbox label {
+    padding-left: 0;
+  }
+.bootstrap   .form-inline .radio input[type="radio"],
+.bootstrap   .form-inline .checkbox input[type="checkbox"] {
+    position: relative;
+    margin-left: 0;
+  }
+.bootstrap   .form-inline .has-feedback .form-control-feedback {
+    top: 0;
+  }
+}
+.bootstrap .form-horizontal .radio,
+.bootstrap .form-horizontal .checkbox,
+.bootstrap .form-horizontal .radio-inline,
+.bootstrap .form-horizontal .checkbox-inline {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 7px;
+}
+.bootstrap .form-horizontal .radio,
+.bootstrap .form-horizontal .checkbox {
+  min-height: 27px;
+}
+.bootstrap .form-horizontal .form-group {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+@media (min-width: 768px) {
+  .form-horizontal .control-label {
+    text-align: right;
+    margin-bottom: 0;
+    padding-top: 7px;
+  }}
+.bootstrap .form-horizontal .has-feedback .form-control-feedback {
+  right: 15px;
+}
+@media (min-width: 768px) {
+  .form-horizontal .form-group-lg .control-label {
+    padding-top: 14.3px;
+  }
+}
+@media (min-width: 768px) {
+  .form-horizontal .form-group-sm .control-label {
+    padding-top: 6px;
+  }
+}
+.bootstrap .nav {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.bootstrap .nav > li {
+  position: relative;
+  display: block;
+}
+.bootstrap .nav > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+.bootstrap .nav > li > a:hover,
+.bootstrap .nav > li > a:focus {
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+.bootstrap .nav > li.disabled > a {
+  color: #777777;
+}
+.bootstrap .nav > li.disabled > a:hover,
+.bootstrap .nav > li.disabled > a:focus {
+  color: #777777;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: not-allowed;
+}
+.bootstrap .nav .open > a,
+.bootstrap .nav .open > a:hover,
+.bootstrap .nav .open > a:focus {
+  background-color: #eeeeee;
+  border-color: #428bca;
+}
+.bootstrap .nav .nav-divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+.bootstrap .nav > li > a > img {
+  max-width: none;
+}
+.bootstrap .nav-tabs {
+  border-bottom: 1px solid #dddddd;
+}
+.bootstrap .nav-tabs > li {
+  float: left;
+  margin-bottom: -1px;
+}
+.bootstrap .nav-tabs > li > a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+}
+.bootstrap .nav-tabs > li > a:hover {
+  border-color: #eeeeee #eeeeee #dddddd;
+}
+.bootstrap .nav-tabs > li.active > a,
+.bootstrap .nav-tabs > li.active > a:hover,
+.bootstrap .nav-tabs > li.active > a:focus {
+  color: #555555;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-bottom-color: transparent;
+  cursor: default;
+}
+.bootstrap .nav-tabs.nav-justified {
+  width: 100%;
+  border-bottom: 0;
+}
+.bootstrap .nav-tabs.nav-justified > li {
+  float: none;
+}
+.bootstrap .nav-tabs.nav-justified > li > a {
+  text-align: center;
+  margin-bottom: 5px;
+}
+.bootstrap .nav-tabs.nav-justified > .dropdown .dropdown-menu {
+  top: auto;
+  left: auto;
+}
+@media (min-width: 768px) {
+  .nav-tabs.nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+.bootstrap   .nav-tabs.nav-justified > li > a {
+    margin-bottom: 0;
+  }
+}
+.bootstrap .nav-tabs.nav-justified > li > a {
+  margin-right: 0;
+  border-radius: 4px;
+}
+.bootstrap .nav-tabs.nav-justified > .active > a,
+.bootstrap .nav-tabs.nav-justified > .active > a:hover,
+.bootstrap .nav-tabs.nav-justified > .active > a:focus {
+  border: 1px solid #dddddd;
+}
+@media (min-width: 768px) {
+  .nav-tabs.nav-justified > li > a {
+    border-bottom: 1px solid #dddddd;
+    border-radius: 4px 4px 0 0;
+  }
+.bootstrap   .nav-tabs.nav-justified > .active > a,
+.bootstrap   .nav-tabs.nav-justified > .active > a:hover,
+.bootstrap   .nav-tabs.nav-justified > .active > a:focus {
+    border-bottom-color: #ffffff;
+  }
+}
+.bootstrap .nav-pills > li {
+  float: left;
+}
+.bootstrap .nav-pills > li > a {
+  border-radius: 4px;
+}
+.bootstrap .nav-pills > li + li {
+  margin-left: 2px;
+}
+.bootstrap .nav-pills > li.active > a,
+.bootstrap .nav-pills > li.active > a:hover,
+.bootstrap .nav-pills > li.active > a:focus {
+  color: #ffffff;
+  background-color: #428bca;
+}
+.bootstrap .nav-stacked > li {
+  float: none;
+}
+.bootstrap .nav-stacked > li + li {
+  margin-top: 2px;
+  margin-left: 0;
+}
+.bootstrap .nav-justified {
+  width: 100%;
+}
+.bootstrap .nav-justified > li {
+  float: none;
+}
+.bootstrap .nav-justified > li > a {
+  text-align: center;
+  margin-bottom: 5px;
+}
+.bootstrap .nav-justified > .dropdown .dropdown-menu {
+  top: auto;
+  left: auto;
+}
+@media (min-width: 768px) {
+  .nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+.bootstrap   .nav-justified > li > a {
+    margin-bottom: 0;
+  }
+}
+.bootstrap .nav-tabs-justified {
+  border-bottom: 0;
+}
+.bootstrap .nav-tabs-justified > li > a {
+  margin-right: 0;
+  border-radius: 4px;
+}
+.bootstrap .nav-tabs-justified > .active > a,
+.bootstrap .nav-tabs-justified > .active > a:hover,
+.bootstrap .nav-tabs-justified > .active > a:focus {
+  border: 1px solid #dddddd;
+}
+@media (min-width: 768px) {
+  .nav-tabs-justified > li > a {
+    border-bottom: 1px solid #dddddd;
+    border-radius: 4px 4px 0 0;
+  }
+.bootstrap   .nav-tabs-justified > .active > a,
+.bootstrap   .nav-tabs-justified > .active > a:hover,
+.bootstrap   .nav-tabs-justified > .active > a:focus {
+    border-bottom-color: #ffffff;
+  }
+}
+.bootstrap .tab-content > .tab-pane {
+  display: none;
+  visibility: hidden;
+}
+.bootstrap .tab-content > .active {
+  display: block;
+  visibility: visible;
+}
+.bootstrap .nav-tabs .dropdown-menu {
+  margin-top: -1px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+.bootstrap .navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+@media (min-width: 768px) {
+  .navbar {
+    border-radius: 4px;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-header {
+    float: left;
+  }
+}
+.bootstrap .navbar-collapse {
+  overflow-x: visible;
+  padding-right: 15px;
+  padding-left: 15px;
+  border-top: 1px solid transparent;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  -webkit-overflow-scrolling: touch;
+}
+.bootstrap .navbar-collapse.in {
+  overflow-y: auto;
+}
+@media (min-width: 768px) {
+  .navbar-collapse {
+    width: auto;
+    border-top: 0;
+    box-shadow: none;
+  }
+.bootstrap   .navbar-collapse.collapse {
+    display: block !important;
+    visibility: visible !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+.bootstrap   .navbar-collapse.in {
+    overflow-y: visible;
+  }
+.bootstrap   .navbar-fixed-top .navbar-collapse,
+.bootstrap   .navbar-static-top .navbar-collapse,
+.bootstrap   .navbar-fixed-bottom .navbar-collapse {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+.bootstrap .navbar-fixed-top .navbar-collapse,
+.bootstrap .navbar-fixed-bottom .navbar-collapse {
+  max-height: 340px;
+}
+@media (max-device-width: 480px) and (orientation: landscape) {
+  .navbar-fixed-top .navbar-collapse,
+.bootstrap   .navbar-fixed-bottom .navbar-collapse {
+    max-height: 200px;
+  }
+}
+.bootstrap .container > .navbar-header,
+.bootstrap .container-fluid > .navbar-header,
+.bootstrap .container > .navbar-collapse,
+.bootstrap .container-fluid > .navbar-collapse {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+@media (min-width: 768px) {
+  .container > .navbar-header,
+.bootstrap   .container-fluid > .navbar-header,
+.bootstrap   .container > .navbar-collapse,
+.bootstrap   .container-fluid > .navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+.bootstrap .navbar-static-top {
+  z-index: 1000;
+  border-width: 0 0 1px;
+}
+@media (min-width: 768px) {
+  .navbar-static-top {
+    border-radius: 0;
+  }
+}
+.bootstrap .navbar-fixed-top,
+.bootstrap .navbar-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+@media (min-width: 768px) {
+  .navbar-fixed-top,
+.bootstrap   .navbar-fixed-bottom {
+    border-radius: 0;
+  }
+}
+.bootstrap .navbar-fixed-top {
+  top: 0;
+  border-width: 0 0 1px;
+}
+.bootstrap .navbar-fixed-bottom {
+  bottom: 0;
+  margin-bottom: 0;
+  border-width: 1px 0 0;
+}
+.bootstrap .navbar-brand {
+  float: left;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  height: 50px;
+}
+.bootstrap .navbar-brand:hover,
+.bootstrap .navbar-brand:focus {
+  text-decoration: none;
+}
+.bootstrap .navbar-brand > img {
+  display: block;
+}
+@media (min-width: 768px) {
+  .navbar > .container .navbar-brand,
+.bootstrap   .navbar > .container-fluid .navbar-brand {
+    margin-left: -15px;
+  }
+}
+.bootstrap .navbar-toggle {
+  position: relative;
+  float: right;
+  margin-right: 15px;
+  padding: 9px 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.bootstrap .navbar-toggle:focus {
+  outline: 0;
+}
+.bootstrap .navbar-toggle .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+}
+.bootstrap .navbar-toggle .icon-bar + .icon-bar {
+  margin-top: 4px;
+}
+@media (min-width: 768px) {
+  .navbar-toggle {
+    display: none;
+  }
+}
+.bootstrap .navbar-nav {
+  margin: 7.5px -15px;
+}
+.bootstrap .navbar-nav > li > a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 20px;
+}
+@media (max-width: 767px) {
+  .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+.bootstrap   .navbar-nav .open .dropdown-menu > li > a,
+.bootstrap   .navbar-nav .open .dropdown-menu .dropdown-header {
+    padding: 5px 15px 5px 25px;
+  }
+.bootstrap   .navbar-nav .open .dropdown-menu > li > a {
+    line-height: 20px;
+  }
+.bootstrap   .navbar-nav .open .dropdown-menu > li > a:hover,
+.bootstrap   .navbar-nav .open .dropdown-menu > li > a:focus {
+    background-image: none;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-nav {
+    float: left;
+    margin: 0;
+  }
+.bootstrap   .navbar-nav > li {
+    float: left;
+  }
+.bootstrap   .navbar-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+.bootstrap .navbar-form {
+  margin-left: -15px;
+  margin-right: -15px;
+  padding: 10px 15px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(255,255,255,0.1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1),0 1px 0 rgba(255,255,255,0.1);
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+@media (min-width: 768px) {
+  .navbar-form .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+.bootstrap   .navbar-form .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+.bootstrap   .navbar-form .form-control-static {
+    display: inline-block;
+  }
+.bootstrap   .navbar-form .input-group {
+    display: inline-table;
+    vertical-align: middle;
+  }
+.bootstrap   .navbar-form .input-group .input-group-addon,
+.bootstrap   .navbar-form .input-group .input-group-btn,
+.bootstrap   .navbar-form .input-group .form-control {
+    width: auto;
+  }
+.bootstrap   .navbar-form .input-group > .form-control {
+    width: 100%;
+  }
+.bootstrap   .navbar-form .control-label {
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+.bootstrap   .navbar-form .radio,
+.bootstrap   .navbar-form .checkbox {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+.bootstrap   .navbar-form .radio label,
+.bootstrap   .navbar-form .checkbox label {
+    padding-left: 0;
+  }
+.bootstrap   .navbar-form .radio input[type="radio"],
+.bootstrap   .navbar-form .checkbox input[type="checkbox"] {
+    position: relative;
+    margin-left: 0;
+  }
+.bootstrap   .navbar-form .has-feedback .form-control-feedback {
+    top: 0;
+  }
+}
+@media (max-width: 767px) {
+  .navbar-form .form-group {
+    margin-bottom: 5px;
+  }
+.bootstrap   .navbar-form .form-group:last-child {
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-form {
+    width: auto;
+    border: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+}
+.bootstrap .navbar-nav > li > .dropdown-menu {
+  margin-top: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+.bootstrap .navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.bootstrap .navbar-btn {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.bootstrap .navbar-btn.btn-sm {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.bootstrap .navbar-btn.btn-xs {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+.bootstrap .navbar-text {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+@media (min-width: 768px) {
+  .navbar-text {
+    float: left;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-left {
+    float: left !important;
+  }
+.bootstrap   .navbar-right {
+    float: right !important;
+    margin-right: -15px;
+  }
+.bootstrap   .navbar-right ~ .navbar-right {
+    margin-right: 0;
+  }
+}
+.bootstrap .navbar-default {
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+}
+.bootstrap .navbar-default .navbar-brand {
+  color: #777777;
+}
+.bootstrap .navbar-default .navbar-brand:hover,
+.bootstrap .navbar-default .navbar-brand:focus {
+  color: #5e5e5e;
+  background-color: transparent;
+}
+.bootstrap .navbar-default .navbar-text {
+  color: #777777;
+}
+.bootstrap .navbar-default .navbar-nav > li > a {
+  color: #777777;
+}
+.bootstrap .navbar-default .navbar-nav > li > a:hover,
+.bootstrap .navbar-default .navbar-nav > li > a:focus {
+  color: #333333;
+  background-color: transparent;
+}
+.bootstrap .navbar-default .navbar-nav > .active > a,
+.bootstrap .navbar-default .navbar-nav > .active > a:hover,
+.bootstrap .navbar-default .navbar-nav > .active > a:focus {
+  color: #555555;
+  background-color: #e7e7e7;
+}
+.bootstrap .navbar-default .navbar-nav > .disabled > a,
+.bootstrap .navbar-default .navbar-nav > .disabled > a:hover,
+.bootstrap .navbar-default .navbar-nav > .disabled > a:focus {
+  color: #cccccc;
+  background-color: transparent;
+}
+.bootstrap .navbar-default .navbar-toggle {
+  border-color: #dddddd;
+}
+.bootstrap .navbar-default .navbar-toggle:hover,
+.bootstrap .navbar-default .navbar-toggle:focus {
+  background-color: #dddddd;
+}
+.bootstrap .navbar-default .navbar-toggle .icon-bar {
+  background-color: #888888;
+}
+.bootstrap .navbar-default .navbar-collapse,
+.bootstrap .navbar-default .navbar-form {
+  border-color: #e7e7e7;
+}
+.bootstrap .navbar-default .navbar-nav > .open > a,
+.bootstrap .navbar-default .navbar-nav > .open > a:hover,
+.bootstrap .navbar-default .navbar-nav > .open > a:focus {
+  background-color: #e7e7e7;
+  color: #555555;
+}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #777777;
+  }
+.bootstrap   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+.bootstrap   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #333333;
+    background-color: transparent;
+  }
+.bootstrap   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+.bootstrap   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+.bootstrap   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #555555;
+    background-color: #e7e7e7;
+  }
+.bootstrap   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
+.bootstrap   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.bootstrap   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #cccccc;
+    background-color: transparent;
+  }
+}
+.bootstrap .navbar-default .navbar-link {
+  color: #777777;
+}
+.bootstrap .navbar-default .navbar-link:hover {
+  color: #333333;
+}
+.bootstrap .navbar-default .btn-link {
+  color: #777777;
+}
+.bootstrap .navbar-default .btn-link:hover,
+.bootstrap .navbar-default .btn-link:focus {
+  color: #333333;
+}
+.bootstrap .navbar-default .btn-link[disabled]:hover,
+.bootstrap fieldset[disabled] .navbar-default .btn-link:hover,
+.bootstrap .navbar-default .btn-link[disabled]:focus,
+.bootstrap fieldset[disabled] .navbar-default .btn-link:focus {
+  color: #cccccc;
+}
+.bootstrap .navbar-inverse {
+  background-color: #222222;
+  border-color: #080808;
+}
+.bootstrap .navbar-inverse .navbar-brand {
+  color: #9d9d9d;
+}
+.bootstrap .navbar-inverse .navbar-brand:hover,
+.bootstrap .navbar-inverse .navbar-brand:focus {
+  color: #ffffff;
+  background-color: transparent;
+}
+.bootstrap .navbar-inverse .navbar-text {
+  color: #9d9d9d;
+}
+.bootstrap .navbar-inverse .navbar-nav > li > a {
+  color: #9d9d9d;
+}
+.bootstrap .navbar-inverse .navbar-nav > li > a:hover,
+.bootstrap .navbar-inverse .navbar-nav > li > a:focus {
+  color: #ffffff;
+  background-color: transparent;
+}
+.bootstrap .navbar-inverse .navbar-nav > .active > a,
+.bootstrap .navbar-inverse .navbar-nav > .active > a:hover,
+.bootstrap .navbar-inverse .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #080808;
+}
+.bootstrap .navbar-inverse .navbar-nav > .disabled > a,
+.bootstrap .navbar-inverse .navbar-nav > .disabled > a:hover,
+.bootstrap .navbar-inverse .navbar-nav > .disabled > a:focus {
+  color: #444444;
+  background-color: transparent;
+}
+.bootstrap .navbar-inverse .navbar-toggle {
+  border-color: #333333;
+}
+.bootstrap .navbar-inverse .navbar-toggle:hover,
+.bootstrap .navbar-inverse .navbar-toggle:focus {
+  background-color: #333333;
+}
+.bootstrap .navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+.bootstrap .navbar-inverse .navbar-collapse,
+.bootstrap .navbar-inverse .navbar-form {
+  border-color: #101010;
+}
+.bootstrap .navbar-inverse .navbar-nav > .open > a,
+.bootstrap .navbar-inverse .navbar-nav > .open > a:hover,
+.bootstrap .navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: #080808;
+  color: #ffffff;
+}
+@media (max-width: 767px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
+    border-color: #080808;
+  }
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+    background-color: #080808;
+  }
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #9d9d9d;
+  }
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ffffff;
+    background-color: transparent;
+  }
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ffffff;
+    background-color: #080808;
+  }
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.bootstrap   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #444444;
+    background-color: transparent;
+  }
+}
+.bootstrap .navbar-inverse .navbar-link {
+  color: #9d9d9d;
+}
+.bootstrap .navbar-inverse .navbar-link:hover {
+  color: #ffffff;
+}
+.bootstrap .navbar-inverse .btn-link {
+  color: #9d9d9d;
+}
+.bootstrap .navbar-inverse .btn-link:hover,
+.bootstrap .navbar-inverse .btn-link:focus {
+  color: #ffffff;
+}
+.bootstrap .navbar-inverse .btn-link[disabled]:hover,
+.bootstrap fieldset[disabled] .navbar-inverse .btn-link:hover,
+.bootstrap .navbar-inverse .btn-link[disabled]:focus,
+.bootstrap fieldset[disabled] .navbar-inverse .btn-link:focus {
+  color: #444444;
+}
+.bootstrap .clearfix:before,
+.bootstrap .clearfix:after,
+.bootstrap .form-horizontal .form-group:before,
+.bootstrap .form-horizontal .form-group:after,
+.bootstrap .nav:before,
+.bootstrap .nav:after,
+.bootstrap .navbar:before,
+.bootstrap .navbar:after,
+.bootstrap .navbar-header:before,
+.bootstrap .navbar-header:after,
+.bootstrap .navbar-collapse:before,
+.bootstrap .navbar-collapse:after {
+  content: " ";
+  display: table;
+}
+.bootstrap .clearfix:after,
+.bootstrap .form-horizontal .form-group:after,
+.bootstrap .nav:after,
+.bootstrap .navbar:after,
+.bootstrap .navbar-header:after,
+.bootstrap .navbar-collapse:after {
+  clear: both;
+}
+.bootstrap .center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.bootstrap .pull-right {
+  float: right !important;
+}
+.bootstrap .pull-left {
+  float: left !important;
+}
+.bootstrap .hide {
+  display: none !important;
+}
+.bootstrap .show {
+  display: block !important;
+}
+.bootstrap .invisible {
+  visibility: hidden;
+}
+.bootstrap .text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.bootstrap .hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+.bootstrap .affix {
+  position: fixed;
+}
+.bootstrap 

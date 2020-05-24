@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html class="desktop landscape"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/seo/img/base.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/seo/img/style.css">
+    <script src="__PUBLIC__/seo/img/jquery-1.7.2.min.js"></script>
+	<style>
+		.banner { background-color: #ff5353; }
+		.banner .bt{ color:#ff5353;  }
+		.banner .s2 i { border-left: 16px solid #ff5353; }
+		.banner .s2 b { border-right: 15px solid #ff5353; }
+		.banner .s6{ margin-top: -60px;  }
+		.banner .s_qj{ top: 60px;  }
+		.banner .s7{ margin-top: -196px;  }
+		.banner-on .s_qj{ top: 85px;  }
+		.banner-on .s6{ margin-top: -83px;  }
+		.banner-on .s7{ margin-top: -186px;  }
+		.head_cy{ border-bottom:1px solid rgba(0,0,0,.1); height:60px;}
+			.head_box{ width:1200px; margin:0 auto}
+			.head_box>a{ line-height:60px; padding:0 50px; color:#333; font-size:16px;}
+			.head_box>a:hover{ color:#e25630;}
+			.box_xx{ float:right}
+			.box_xx2{ display:none}
+			.box_xx1 a{ display:inline-block; height:35px; background:#e25630; width:80px; text-align:center; line-height:35px; color:#fff; margin-top:13px; border-radius:5px; }
+			.box_xx2 a{ color:#e25630; line-height:60px; background: url(/Public/seo/img/pp.png) no-repeat center left; background-size:16px 16px;display:inline-block; padding-left:20px;}
+	</style>
+	<title>官网认证-品牌宝-安全联盟认证</title>
+    <body>
+    <div class="head_cy">
+    		<div class="head_box">
+                <a href="{:U('index/index')}">首页</a>
+                <a href="{:U('index',array('room'=>$_GET['room'],'id'=>2989))}">实名认证</a>
+                <a href="{:U('index',array('room'=>$_GET['room'],'id'=>2994))}">行业认证</a>
+                <a href="{:U('index',array('room'=>$_GET['room'],'id'=>2995))}">官网认证</a>
+                <notempty name="islogin">
+				<div class="box_xx">
+                		
+                        <div class="box_xx1">
+                        		<a href="{:U('User/index')}">个人中心</a>
+                        </div>
+                 </div>
+				 <else />
+                <div class="box_xx">
+                		<div class="box_xx1">
+                            <a href="{:U('User/login')}">登陆</a>
+                            <a href="{:U('User/reg')}">注册</a>
+                        </div>
+                        
+                 </div>
+				 </notempty>
+            </div>
+    </div>
+    <div class="banner banner-gw banner-on">
+		<i class="s7 pa l50p t50p trans"></i>
+		<i class="s6 pa l50p t50p trans"></i>
+		<div class="s_qj trans">
+			<p class="s1">帮助成长型企业、创新型企业快速占领市场</p>
+			<h3>安全联盟官网认证</h3>
+			<p class="s2"><i></i><strong>8</strong>大平台认可<b></b></p>
+			<div class="s5">
+				<img src="__PUBLIC__/seo/img/banner_s5.png" width="340" height="35" alt="">
+			</div>
+			<div class="tac s3">
+				<a class="bt" href="{:buy($_GET['id'])}" title="点击申请">立即申请</a>
+			</div>
+		</div>
+	</div>
+	<div id="page">
+    
+	<div class="nav-sub">
+		<a href="#" class="s_on">申请后可以获得展示及功能</a>
+		<a href="#" class="">认证效果对比</a>
+		<a href="#" class="">服务流程</a>
+		<a href="#" class="">申请条件</a>
+	</div>
+	<div id="mainPane1" style="display: block;">
+		<div class="screen screen-4 screen-first">
+			<div class="wrap cf">
+	<div class="text-box">
+		<h3>搜狗引擎展示</h3>
+		<p>搜索引擎挂官网标识 第一时间抓住流量来源</p>
+		<a href="#" title="免费申请初审">免费申请初审</a>
+	</div>
+	<div class="col2 vs-box clearfix">
+		<i class="vs">vs</i>
+		<div class="s_col">
+			<div class="thumb-box sg-before">
+				<img class="s_bg" width="360" height="272" src="__PUBLIC__/seo/img/sougou1.png" alt="">
+				<i class="badge badge-before">使用前</i>
+			</div>
+		</div>
+		<div class="s_col">
+			<div class="thumb-box sg-after">
+				<img class="s_bg" width="360" height="272" src="__PUBLIC__/seo/img/sougou1.png" alt="">
+				<img class="s_thumb ani_boun animated bounceIn" src="__PUBLIC__/seo/img/sougou2.png" alt="">
+				<span class="mark trans mark2 trans-delayd5"><span>满足条件</span>赠送</span>
+				<i class="badge badge-after">使用后</i>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="screen screen-1 screen-gray">
+			<div class="wrap cf">
+	<div class="text-box">
+		<h3>QQ可信名片展示</h3>
+		<p>可以让您的网站快速地在9亿QQ用户传播扩散</p>
+	</div>
+	<div class="col2 vs-box clearfix">
+		<i class="vs">vs</i>
+		<div class="s_col">
+			<div class="thumb-box qq-before">
+				<img class="s_bg" width="364" height="275" src="__PUBLIC__/seo/img/qq.png" alt="">
+				<img class="s_thumb ani_boun animated bounceIn" src="__PUBLIC__/seo/img/qq1.png" alt="">
+				<i class="badge badge-before">使用前</i>
+			</div>
+		</div>
+		<div class="s_col">
+			<div class="thumb-box qq-after">
+				<img class="s_bg" width="375" height="283" src="__PUBLIC__/seo/img/qq.png" alt="">
+				<img class="s_thumb ani_boun animated bounceIn" src="__PUBLIC__/seo/img/qq2.png" alt="">
+				<span class="mark trans5 trans-delay1d5">新</span>
+				<i class="badge badge-after">使用后</i>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="screen screen-2">
+			<div class="wrap cf">
+	<div class="text-box">
+		<h3>手机QQ可信名片展示</h3>
+		<p>可信名片，自由编辑，一次点击，快速进入。</p>
+		<a href="#" title="免费申请初审">免费申请初审</a>
+	</div>
+	<div class="col2 vs-box cf">
+		<i class="vs">vs</i>
+		<div class="s_col">
+			<div class="thumb-box qq-m-before">
+				<img class="s_bg" width="277" height="316" src="__PUBLIC__/seo/img/mobileqq.png" alt="">
+				<img class="s_thumb ani_boun animated bounceIn" src="__PUBLIC__/seo/img/mobileqq1.png" alt="">
+				<i class="badge badge-before">使用前</i>
+			</div>
+		</div>
+		<div class="s_col">
+			<div class="thumb-box qq-m-after">
+				<img class="s_bg" width="277" height="316" src="__PUBLIC__/seo/img/mobileqq.png" alt="">
+				<img class="s_thumb ani_boun animated bounceIn" src="__PUBLIC__/seo/img/mobileqq2.png" alt="">
+				<span class="mark trans mark2 trans-delayd5"><span>提高</span>转化率</span>
+				<i class="badge badge-after">使用后</i>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="screen screen-3 screen-gray">
+			<div class="wrap cf">
+	<div class="text-box">
+		<h3>4大浏览器展示</h3>
+		<p>4大浏览器网址加v展示，覆盖全网91%流量入口</p>
+		<a href="#" title="免费申请初审">免费申请初审</a>
+	</div>
+	<div class="img-box browser">
+		<span class="mark trans mark2 trans-delayd5"><span>提高</span>点击率</span>
+		<div class="vs-box">
+			<i class="vs">vs</i>
+			<ul class="s_pane">
+				<li id="browserI1" class="trans5 s_active"><img width="896" height="277" src="__PUBLIC__/seo/img/qq_browser.png" alt=""></li>
+				<li id="browserI2" class="trans5"><img width="893" height="277" src="__PUBLIC__/seo/img/sougou_browser.png" alt=""></li>
+				<li id="browserI3" class="trans5"><img width="884" height="276" src="__PUBLIC__/seo/img/qq_mobile_browser.png" alt=""></li>
+				<li id="browserI4" class="trans5"><img width="893" height="277" src="__PUBLIC__/seo/img/yy_browser.png" alt=""></li>
+			</ul>
+		</div>
+		<div class="s_tab">
+			<a href="#" class="s_active"><i><b class="i-b-qq"></b></i><span>QQ</span><span>浏览器</span></a>
+			<a href="#"><i><b class="i-b-sg"></b></i><span>搜狗</span><span>浏览器</span></a>
+			<a href="#"><i><b class="i-b-qq"></b></i><span>QQ手机</span><span>浏览器</span></a>
+			<a href="#"><i><b class="i-b-yy"></b></i><span>YY</span><span>浏览器</span></a>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="screen screen-5">
+			<div class="wrap cf">
+	<div class="text-box">
+		<h3>手机工具展示</h3>
+		<p>官方电话实名显示，不再担心被当作诈骗电话</p>
+		<a href="#" title="免费申请初审">免费申请初审</a>
+	</div>
+	<div id="phoneToolTx" class="phone-tool-pane col2 vs-box clearfix">
+		<i class="vs">vs</i>
+		<div class="s_col">
+			<div class="thumb-box tx-before">
+				<img class="s_bg" width="184" height="354" src="__PUBLIC__/seo/img/t.png" alt="">
+				<img class="s_thumb ani_boun animated bounceIn" src="__PUBLIC__/seo/img/t1.png" alt="">
+				<img class="phone-tool-logo" src="__PUBLIC__/seo/img/t_logo.png" alt="">
+				<i class="badge badge-before">使用前</i>
+			</div>
+		</div>
+		<div class="s_col">
+			<div class="thumb-box tx-after">
+				<img class="s_bg" width="184" height="354" src="__PUBLIC__/seo/img/t.png" alt="">
+				<img class="s_thumb ani_boun animated bounceIn" src="__PUBLIC__/seo/img/t2.png" alt="">
+				<img class="phone-tool-logo" src="__PUBLIC__/seo/img/t_logo.png" alt="">
+				<span class="mark trans5 trans-delay1d5">新</span>
+				<i class="badge badge-after">使用后</i>
+			</div>
+		</div>
+	</div>
+	<div id="phoneToolSg" class="phone-tool-pane col2 vs-box clearfix dn">
+		<i class="vs">vs</i>
+		<div class="s_col">
+			<div class="thumb-box sg-num-before">
+				<img class="s_bg" width="184" height="354" src="__PUBLIC__/seo/img/s.png" alt="">
+				<img class="s_thumb ani_boun animated bounceIn" src="__PUBLIC__/seo/img/s1.png" alt="">
+				<img class="phone-tool-logo" src="__PUBLIC__/seo/img/s_logo.png" alt="">
+				<i class="badge badge-before">使用前</i>
+			</div>
+		</div>
+		<div class="s_col">
+			<div class="thumb-box sg-num-after">
+				<img class="s_bg" width="184" height="354" src="__PUBLIC__/seo/img/s.png" alt="">
+				<img class="s_thumb ani_boun animated bounceIn" src="__PUBLIC__/seo/img/s2.png" alt="">
+				<img class="phone-tool-logo" src="__PUBLIC__/seo/img/s_logo.png" alt="">
+				<span class="mark trans5 trans-delay1d5">新</span>
+				<i class="badge badge-after">使用后</i>
+			</div>
+		</div>
+	</div>
+	<div class="phone-tool-nav tac mt20">
+		<a href="#" title="腾讯手机管家展示效果" class="s_on">腾讯手机管家展示效果</a>
+		<a href="#" title="搜狗号码通展示效果">搜狗号码通展示效果</a>
+	</div>
+</div>
+		</div>
+		<div class="screen screen-8 screen-gray">
+			<div class="wrap">
+	<div class="text-box">
+		<h3>QQ网址热度指数</h3>
+		<p>网址被关注，传播有热度</p>
+	</div>
+	<div class="thumb-box">
+		<img style="margin-left:40px;" width="952" height="426" src="__PUBLIC__/seo/img/website.png">
+	</div>
+</div>
+		</div>
+		<div class="screen screen-6">
+			<div class="wrap cf">
+	<div class="text-box">
+		<h3>企业信誉评级证书</h3>
+		<p>诚信可查询，交易更安心</p>
+	</div>
+	<div class="thumb-box">
+		<img class="s_bg" width="377" height="461" src="__PUBLIC__/seo/img/gwyz.png">
+		<img class="s_thumb _hyl" width="378" height="282" src="__PUBLIC__/seo/img/gwl.png">
+		<img class="s_thumb _hyr" width="423" height="268" src="__PUBLIC__/seo/img/gwr.png">
+	</div>
+</div>
+		</div>
+		<div class="screen screen-12 screen-gray">
+			<div class="wrap cf">
+	<div class="text-box">
+		<h3>网站可用性监控</h3>
+		<p>7*24小时模拟访客请求访问被监控站点，实时获取响应状态和请求结果，网站故障随时知晓</p>
+		<div class="u-nav">
+			<a class="" href="javascript:;">特色</a>
+			<a class="_on" href="javascript:;">服务内容</a>
+		</div>
+	</div>
+	<div class="m-content">
+		<ul class="g27_r characteristic">
+			<li class="g27_4">
+				<i class="i1"></i>
+				<span>7*24小时自动监控并警告</span>
+			</li>
+			<li class="g27_4">
+				<i class="i2"></i>
+				<span>多探测集群云端监控</span>
+			</li>
+			<li class="g27_4">
+				<i class="i3"></i>
+				<span>24小时邮件告警</span>
+			</li>
+		</ul>
+		<ul class="g27_r ser-content _on">
+			<li class="g27_4">
+				<span class="f-ser f1"></span>
+				<p class="list2">
+					<span>／个</span>
+					<span>监控点</span>
+				</p>
+			</li>
+			<li class="g27_4">
+				<span class="f-ser f2"></span>
+				<p class="list2">
+					<span>／分钟</span>
+					<span>监测频率</span>
+				</p>
+			</li>
+			<li class="g27_4">
+				<span class="f-ser f3"></span>
+				<p class="list2">
+					<span>无限量</span>
+					<span>告警邮件</span>
+				</p>
+			</li>
+		</ul>
+	</div>			
+</div>
+		</div>
+		<div class="screen screen-11">
+			<div class="wrap cf">
+	<div class="text-box">
+		<h3>网站安全立体监测</h3>
+		<p>专业多维度网站安全掌控，网站安全威胁及时告警送达</p>
+	</div>
+	<div class="secure-box pr">
+		<div class="fr">
+			<div class="_nav tac">
+				<a class="">网页挂马监测</a>
+				<a class="">Web应用程序</a>
+				<a class="">DNS劫持分析</a>
+				<a class="_on">网页暗链监测</a>
+			</div>
+			<ul class="_text">
+				<li class="">
+					<p><span class="db mb5"><i></i>网页挂马监测</span>通过安全引擎检测判断页面是否存在木马，保护网站用户隐私。</p>
+					<img class="pa _img1" src="__PUBLIC__/seo/img/site1.png" alt="网页挂马监测">
+				</li>
+				<li class="">
+					<p><span class="db mb5"><i></i>Web应用程序</span>通过扫描探测网站框架所采用应用版本，帮助网站进行漏洞修复检测。</p>
+					<img class="pa" src="__PUBLIC__/seo/img/site2.png" alt="Web应用程序">
+				</li>
+				<li class="">
+					<p><span class="db mb5"><i></i>DNS劫持分析</span>探测全站链接，分析DNS解析情况，对网站页面被篡改，出错，无法打开进行判断。</p>
+					<img class="pa _img3" src="__PUBLIC__/seo/img/site3.png" alt="DNS劫持分析">
+				</li>
+				<li class="_on">
+					<p><span class="db mb5"><i></i>网页暗链监测</span>采用多种浏览器引擎解析网页，检测不可见链接。</p>
+					<img class="pa" src="__PUBLIC__/seo/img/site4.png" alt="网页暗链监测">
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="screen screen-10 screen-gray">
+			
+<div class="wrap cf">
+	<div class="text-box">
+		<h3>网址访问异常检测 </h3>
+		<p><span class="pr10">即时发送告警邮件</span><span class="pr10">7×24小时不定时检测恶意数据库</span><span class="pr10">有效缩短问题处理周期</span></p>
+	</div>
+	<div class="pr detect-box">
+		<div class="pa s_p s_p1"><strong>网站访问风险检测</strong><p>每日两次不定时，通过安全联盟恶意网址数据库对认证网站进行风险检测。</p></div>
+		<div class="pa s_p s_p2"><strong>即时告警邮件通知 </strong><p>检测发现企业网站异常情况后，第一时间发送告警邮件通知企业网站运营者。</p></div>
+		<div class="pa s_p s_p3"><strong>有效缩短问题处理周期</strong><p>7×24小时不定时检测恶意数据库，有效降低企业网站流量风险、缩短异常情况处理周期。</p></div>
+	</div>
+</div>
+
+		</div>
+	</div>
+	<div id="mainPane2" class="auto pack-wrap" style="display: none;">
+    <table cellspacing="0" cellpadding="0" class="yz-table">
+        <thead>
+            <tr class="hd">
+                <th colspan="2" class="pack-a pr">
+                    <span class="s1 pa">等级及价格</span>
+                    <span class="s2 pa">展示平台</span>
+                    <i class="s3 pa"><b></b></i>
+                </th>
+                <th class="s_th trans list2">
+                    <div class="c_bd pr trans">
+                        <div class="s_a">
+                            <strong>官网认证</strong>
+                        </div>
+                        <div class="s_c">
+                            <img width="124" height="47" src="__PUBLIC__/seo/img/gw.png" alt="">
+                        </div>
+                        <div class="s_d">
+                                <a title="立即申请" href="{:U('index',array('room'=>$_GET['room'],'id'=>2995))}" class="bt-3 trans fs14">立即申请</a>
+                        </div>
+                        <i class="tb-shadow trans"></i>
+                    </div>
+                </th>
+                <th class="s_th trans list2">
+                    <div class="c_bd pr trans">
+                        <div class="s_a">
+                                <strong>行业认证</strong>
+                        </div>
+                        <div class="s_c">
+                            <img width="124" height="47" src="__PUBLIC__/seo/img/hy.png" alt="">
+                        </div>
+                        <div class="s_d">
+                                <a title="立即申请" href="{:U('index',array('room'=>$_GET['room'],'id'=>2994))}" class="bt-3 trans fs14">立即申请</a>
+                        </div>
+                        <i class="tb-shadow trans"></i>
+                    </div>
+                </th>
+                <th class="s_th  trans list2">
+                    <div class="c_bd pr trans">
+                        <div class="s_a">
+                                <strong>实名认证</strong>
+                        </div>
+                        <div class="s_c">
+                            <img width="124" height="47" src="__PUBLIC__/seo/img/sm.png" alt="">
+                        </div>
+                        <div class="s_d">
+                                <a title="立即申请" href="{:U('index',array('room'=>$_GET['room'],'id'=>2989))}" class="bt-3 trans fs14">立即申请</a>
+                        </div>
+                        <i class="tb-shadow trans"></i>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2" class="list1"><span>基础服务</span></td>
+                <td class="list3">信誉评级证书</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+            </tr>
+            <tr>
+                <td class="list3">认证标识</td> 
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+            </tr>
+            <tr>
+                <td rowspan="4" class="list1"><span>浏览器</span></td>
+                <td class="list3">搜狗浏览器信誉展示</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+            </tr>
+            <tr>
+                <td class="list3">QQ浏览器信誉展示</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+            </tr>
+            <tr>
+                <td class="list3">手机QQ浏览器信誉展示</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td class="list3">YY浏览器信誉展示</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td rowspan="3" class="list1"><span>社交工具</span></td>
+                <td class="list3">QQ聊天窗口认证展示</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+            </tr>
+            <tr>
+                <td class="list3">QQ可信名片<em>内测</em></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td class="list3">手机QQ窗口展示<em>内测</em></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="list1"><span>手机工具</span></td>
+                <td class="list3">腾讯手机管家来电展示</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td class="list3">搜狗号码通认证展示</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td rowspan="3" class="list1"><span>搜索引擎</span></td>
+                <td class="list3">搜狗搜索企业官方号码展示</td>
+                <td class="list2"><strong class="a">-</strong></td>
+                <td class="list2"><strong class="a">-</strong></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td class="list3">搜狗搜索官网认证展示</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td class="list3">搜狗搜索官网展示</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td rowspan="6" class="list1"><span><i class="vip">VIP</i>服务</span></td>
+                <td class="list3">QQ热度指数<em>Beta</em></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+            </tr>
+            <tr>
+                <td class="list3">网址访问异常检测</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td class="list3">网站安全立体监测</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td class="list3">网站可用性监控</td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><div class="i-1">赠</div></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td class="list3">实体证书</td>
+                <td class="list2"><strong class="a">-</strong></td>
+                <td class="list2"><strong class="a">-</strong></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr>
+                <td class="list3">品牌保护</td>
+                <td class="list2"><strong class="a">-</strong></td>
+                <td class="list2"><strong class="a">-</strong></td>
+                <td class="list2"><strong class="a">-</strong></td>
+            </tr>
+            <tr class="tb_r">
+                <td class="list1">&nbsp;</td>
+                <td class="list3">适合企业推荐</td>
+                <td class="list2 tb_b"><p>展示平台覆盖全网，帮助成长型企业、创新型企业快速占领市场</p></td>
+                <td class="list2 tb_b"><p>覆盖主流互联网产品，各种中小企业的品牌推广首选</p></td>
+                <td class="list2 tb_b"><p>助力小微企业、初创企业、创新企业玩转互联网+时代的品牌营销和推广</p></td>
+            </tr>
+        </tbody>
+    </table>
+    <ol class="attention fs12 lh1d8">
+        <li><strong>注：</strong>1、QQ可信名片、手机QQ窗口、QQ聊天窗口V标、QQ浏览器V标、手机QQ浏览器V标，对以下类型网站暂不支持展示：论坛类、社交网络、博客等其他UGC类型网站；</li>
+        <li>2、对以下类型网站需获得“行业验证”，方可展示：金融行业、虚拟币交易、第三方游戏充值（点卡）、药品销售（含兽类）、医疗器械销售、化妆品销售、娱乐场所、保健食品销售、母婴食品生产、母婴食品销售等。</li>
+    </ol>
+</div>
+	<div id="mainPane3" class="auto process" style="display: none;">
+    <img style="width:800px;height:auto;" src="__PUBLIC__/seo/img/flow2.png" alt="">
+    <ol class="_text auto">
+        <li class="_list">初审
+            <ol>
+                <li>1.1 你只需要填写你要验证的网站的网址和必要信息，就可以提交申请。验证初审将在一个工作日内完成。（在工作日提交初审，通常只需2个小时就可以完成初审。）</li>
+            </ol>
+        </li>
+        <li class="_list">支付费用
+            <ol>
+                <li>2.1 初审通过，你就可以支付验证服务费用进入复审流程。</li>
+            </ol>
+        </li>
+        <li class="_list">复审
+            <ol>
+                <li>3.1 初审通过后你可以提交所需的验证材料后提交复审、具体要求您可以<a href="#">点击这里</a>。</li>
+                <li>3.2 提交资料后，可以看到你目前的排队人数，即排在你前台等待审核的人数，此时，只需要等待审核即可。</li>
+                <li>3.3 人工审核：审核排队到你的订单后，我们会为你安排一位专属审客服为你服务，审核客服会与你进行一对一的沟通，帮助你快速通过验证。</li>
+            </ol>
+        </li>
+        <li class="_list">验证正式生效
+            <ol>
+                <li>4.1 审核通过后，你需要将验证标识部署到你的网站上，激活你的验证展示，你的网站将成功加入安全联盟信誉档案库。</li>
+            </ol>
+        </li>
+    </ol>
+</div>
+	<div id="mainPane4" class="application auto" style="display: none;">
+	<p>官网验证申请条件：</p>
+	<ol>
+		<li>网站备案必须是申请备案的主办方，未备案的网站不能申请，个人备案的企业官网（含个体工商户），可以申请，其他备案为个人的网站暂不支持；</li>
+		<li>博客类网站（含个人或企业博客）、医疗机构类网站、金融理财类网站、P2P网贷类网站暂不支持；</li>
+		<li>网站无政治敏感、色情、欺诈、违禁等内容及广告链接；</li>
+		<li>网站主办方需要真实有效，且需要向审核方提供主办方基本资质，如《工商营业执照》、《组织机构代码证》、《行业特殊资质》等；</li>
+		<li>官网命名需符合《官网名称审核要求》官网名称涉及到品牌等侵权风险的，需要提供《商标注册证》；</li>
+		<li>网站内容在行政许可范围内，涉及政治敏感、色情、欺诈、违禁、违规等网站不予提交申请；</li>
+		<li>官网名称搜狗搜索结果需唯一且网站名称对应的申请域名在搜狗搜索排名靠前。</li>
+	</ol>
+</div>
+	
+	</div>
+</div>
+</body>
+<script>
+		$('.nav-sub a').click(function(){
+				$(this).addClass('s_on').siblings().removeClass('s_on')	
+				$('.nav-sub').siblings('div').not('.aaa').css('display','none')
+				$('.nav-sub').siblings('div').eq($(this).index()).css('display','block')
+		})
+		$('.u-nav a').click(function(){
+				$(this).addClass('_on').siblings().removeClass('_on')	
+				$('.m-content ul').eq($(this).index()).addClass('_on').siblings().removeClass('_on')
+		})
+		$('._nav.tac a').click(function(){
+				$(this).addClass('_on').siblings().removeClass('_on')
+				$('._text li').eq($(this).index()).addClass('_on').siblings().removeClass('_on')
+		})
+</script>
+</html>

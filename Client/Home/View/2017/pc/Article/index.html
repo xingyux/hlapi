@@ -1,0 +1,114 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$newsview.type}{$type}-{$sitename}</title>
+<link href="__PUBLIC__/web/css/style.css" type="text/css" rel="stylesheet">
+<link href="__PUBLIC__/web/css/iconfont.css" type="text/css" rel="stylesheet">
+<link href="__PUBLIC__/web/css/page.css" type="text/css" rel="stylesheet">
+<script src="//cache-code-ui.html5ui.org/jQuery/jquery-1.9.1.min.js"></script>
+<link href="//cache-code-ui.html5ui.org/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen" />
+<script>
+$(function(){
+	$('.nav li').hover(
+		function(){
+			$(this).find('.dropmenu').stop().slideDown()
+
+		},
+		function(){
+			$(this).find('.dropmenu').stop().slideUp('fast')
+	    }
+    )
+	$(window).scroll(function(){
+		var scollT=$(this).scrollTop();
+		if(scollT>$('.nav').height()){
+				$('.nav').addClass('small')
+				$('nav').addClass('fix');
+				$('.dropmenu').addClass('small_dropmenu')
+		}else{
+				$('.nav').removeClass('small')
+				$('nav').removeClass('fix');
+				$('.dropmenu').removeClass('small_dropmenu')
+		}
+	})
+/*页面页脚居中*/
+	$('.pageBox').css('width',$('.pageBox>ul').width()+$('.pageBox>p').width())
+	
+	
+/*条件选择*/	
+	
+	$('.conditions span').click(function(){
+		$(this).addClass('active').siblings().removeClass('active');	
+	})
+})
+</script>
+</head>
+
+<body>
+	<include file="Common/nav" />
+    <notempty name="newsview">
+	   <section class="asdl_main">
+    	<div class="asdl_main_wrap">
+        	<p class="posion">您当前的位置:<a href="{:U('Index/index')}">首页</a> ><a href="{:U('index',array('type'=>$newsview['type']))}">{$newsview.type}</a></p>
+            
+          <div class="list-group">
+    <a class="list-group-item active">
+        <h4 class="list-group-item-heading">
+            {$newsview.title}
+        </h4>
+    </a>
+	
+    <a class="list-group-item">
+   
+        <p class="list-group-item-text">
+            {$newsview.content|htmlspecialchars_decode}<p>[{$newsview.tim|date='Y-m-d H:i',###}]</p>
+        </p>
+    </a>
+
+</div>
+
+           
+        </div>
+        
+    </section>
+	<else />
+    <section class="asdl_main">
+    	<div class="asdl_main_wrap">
+        	<p class="posion">您当前的位置:<a href="{:U('index')}">首页</a> ><a>文章中心</a> >{$type}</p>
+            
+          <div class="list-group">
+    <a class="list-group-item active">
+        <h4 class="list-group-item-heading">
+            {$type}
+        </h4>
+    </a>
+	<foreach name="news" item="vo">
+    <a href="{:U('view',array('id'=>$vo['id']))}" class="list-group-item">
+        <h4 class="list-group-item-heading">
+            {$vo.title}
+        </h4>
+        <p class="list-group-item-text">
+            [{$vo.tim|date='Y-m-d H:i',###}]{$vo.content|htmlspecialchars_decode|strip_tags|mb_substr=0,50,"UTF-8"}
+        </p>
+    </a>
+   </foreach>
+</div>
+
+           
+        </div>
+        <section class="page">
+        	<div class="pageBox clear">
+                <ul class="clear badoo">
+                    {$page}
+                </ul>
+                
+            </div>
+        </section>
+    </section>
+	</notempty>
+<include file="Common/webfooter" />
+</body>
+</html>
+
+
+

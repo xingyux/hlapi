@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>工单列表-{$sitename}</title>
+<include file="Common/head" />
+<link href="__RESOURE__/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="__RESOURE__/tablecloth/tablecloth.js"></script>
+
+<script>
+$(function(){
+
+
+
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+
+        <div class="content">
+		
+		<div class="bootstrap">
+		
+        <ul  class="nav nav-pills">
+		<li class=""><a>工单中心</a></li>  
+		<notempty name="res['GPC']['get']['id']"><li class=""><a href="{:U('add',array('id'=>$res['GPC']['get']['id']))}">提交工单</a></li></notempty>
+        </ul>	
+		
+	</div>
+  <div>
+  
+         	
+      
+            <div class="table">
+
+
+
+
+            	<table>
+                	<tr>
+                    	<th>ID</th>
+						<th>标题</th>
+                        <th>提交时间</th>
+                        <th>提交用户</th>
+                        <th>查看</th>
+                     
+                    </tr>
+                    <foreach name="res['aws']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						<td>{$vo.title} </td>
+                        <td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.username}</td>
+                        <td class="cz">
+                        	<a href="{:U('add',array('opid'=>$vo['id']))}" data-id="{$vo.id}" data-domain="{$vo.domain}" class="_info" target="_bank">查看</a>
+                          
+
+                        </td></tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            <include file="Common/ui-page" />
+                 
+            </div>
+  
+  </div>
+  
+		
+		
+		
+		
+ 
+        </div>
+    </section>
+   
+</body>
+</html>

@@ -1,0 +1,147 @@
+<extend name="mobile/Layout/base" />
+<block name="title">订单管理-</block>
+<block name="style">
+	<style>
+        .top-nav{
+            text-align: center;
+            background-color: #524F4F;
+        }
+        .top-nav a{
+            line-height: 30px;
+            display: inline-block;
+            padding: 0 5px;
+            color: #FFF;
+        }
+        .top-nav a.activi{
+            background-color: #03b3ff;
+            color: #FFF;
+        }
+        .form_group{
+            width: 95%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            padding-top: 10px;
+            font-size: 1.3em;
+            color: #5F5F5F;
+        }
+        .form_group select,.form_group input{
+            float: right;
+            width: 60%;
+            line-height: 30px;
+            padding: 0 5px;
+        }
+        .form_group button{
+            display: block;
+            width: 90%;
+            margin: 0 auto;
+            border: none;
+            background: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            background-color: #03b3ff;
+            color: #FFF;
+            font-size: 1.3em;
+            line-height: 30px;
+            text-align: center;
+        }
+    </style>
+</block>
+<block name="content">
+	<a name="top"></a>
+    <nav class="top-nav">
+        <a href="{:U('order')}" <empty name="res['GPC']['get']['state']"> class="active"</empty>>全部订单</a>
+        <a href="{:U('order',array('state'=>1))}" <eq name="res['GPC']['get']['state']" value="1"> class="active"</eq>>未完成订单</a>
+        <a href="{:U('refun')}">退款状态</a>
+    </nav>
+    <div class="select_choose">
+        <form id="form" action="{:U('Search/index')}" method="post">
+            <div class="form_group">
+                <label>机房：</label>
+                <select name="search_keyword[servers]">
+                    <option value="">全部</option>
+                    <foreach name="servers" item="servers">
+                        <option value="{$servers['flag']}" <eq name="res['search_keyword']['servers']" value="$servers['flag']"> selected</eq>>{$servers['name']}</option>
+                    </foreach>
+                </select>
+            </div>
+            <div class="form_group">
+                <label>操作人：</label>
+                <input type="text" name="search_keyword[username]" value="{$res['search_keyword']['username']}">
+            </div>
+            <div class="form_group">
+                <label>交易号：</label>
+                <input type="text" name="search_keyword[pkey]" value="{$res['search_keyword']['pkey']}">
+            </div>
+            <div class="form_group">
+                <label>域名//IP：</label>
+                <input type="text" name="search_keyword[ip]" value="{$res['search_keyword']['ip']}">
+            </div>
+            <div class="form_group">
+                <label>状态：</label>
+                <select name="search_keyword[state]">
+                    <option value="">订单状态</option>
+                    <option value="999" <eq name="res['search_keyword']['state']" value="999"> selected</eq>>正常</option>
+                    <option value="2" <eq name="res['search_keyword']['state']" value="2"> selected</eq>>过期</option>
+                    <option value="998" <eq name="res['search_keyword']['state']" value="998"> selected</eq>>已取消</option>
+                    <option value="0" <eq name="res['search_keyword']['state']" value="0"> selected</eq>>待付款</option>
+                    <option value="997" <eq name="res['search_keyword']['state']" value="997"> selected</eq>>等待退款</option>
+                </select>
+                <button type="submit">查询</button>
+            </div>
+            <input type="hidden" name="search_keyword[model_name]" value="{$Think.const.MODULE_NAME}">
+            <input type="hidden" name="search_keyword[controller_name]" value="{$Think.const.CONTROLLER_NAME}">
+            <input type="hidden" name="search_keyword[action_name]" value="{$Think.const.ACTION_NAME}">
+            <input type="hidden" name="show" value="{$show}">
+        </form>
+    </div>
+    <div class="table">
+        <table>
+            <tr>
+                <th>交易号</th>
+                <th>品牌</th>
+                <th>用户</th>
+                <th>消费时间</th>
+                <th>消费方式</th>
+                <th>官方标志</th>
+                <th>产品名称</th>
+                <th>起始时间</th>
+                <th>到期时间</th>
+                <th>运行状态</th>
+                <th>操作</th>
+            </tr>
+            <foreach name="res['product']" item="vo">
+                <tr>
+                    <td>
+                        <input type="checkbox">{$vo.id} </td>
+                    <td>{$vo.s_agent|ReadServersCache='name'}|{$vo.s_pid|ReadProductCache=$vo['s_agent'],'name'} </td>
+                    <td>{$vo.username}</td>
+                    <td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                    <td>{$vo.tag}</td>
+                    <td>
+                        <div style="max-width:100px;word-break:break-all;">{$vo.domainname}</div>
+                    </td>
+                    <td>{$vo.domain} </th>
+                        <td>{$vo.starttime|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.endtime|date='Y-m-d H:i',###}</td>
+                        <td>{:getState($vo['iserr'])}</td>
+                        <td class="cz">
+                            <a href="#" data-id="{$vo.s_id}" data-domain="{$vo.s_domain}" class="_info">管理</a>
+                            <a href="#" data-id="{$vo.s_id}" data-domain="{$vo.$_domain}" class="_renew">续费</a>
+                            <if condition="$vo['iserr'] neq 997 AND $vo['iserr'] neq 998">
+                                <a href="#" data-id="{$vo.id}" data-refunuser="{$vo.refun_user}" data-refunagent="{$vo.refun_agent}" data-domain="{$vo.domain}" class="_refun">退款</a>
+                                <elseif condition="$vo['iserr'] eq 997 AND $vo['iserr'] neq 998" />
+                                <a href="#" data-id="{$vo.id}" data-refunuser="{$vo.refun_user}" data-refunagent="{$vo.refun_agent}" data-domain="{$vo.domain}" class="_quitrefun">取消退款</a>
+                            </if>
+                        </td>
+                </tr>
+            </foreach>
+        </table>
+    </div>
+    <include file="Common/ui-page" />
+	<a href="#top" name="top" id="go-top"><i class="iconfont">&#xe61e;</i></a>
+</block>
+<block name="script">
+    <script>
+        
+    </script>
+</block>

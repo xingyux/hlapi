@@ -1,0 +1,72 @@
+<extend name="mobile/Layout/base" />
+<block name="title">新闻动态-</block>
+<block name="style">
+	<style>
+        #show_block{
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .6);
+            z-index: 5;
+        }
+        #show_block .c{
+            position: absolute;
+            width: 85%;
+            top: 50%;
+            left: 50%;
+            color: #5F5F5F;
+            transform: translate(-50%, -50%);
+            background-color: #FFF;
+            box-shadow: 0 0 30px rgba(255, 255, 255, .4);
+            overflow: auto;
+            padding: 10px;
+        }
+        #show_block.show{
+            display: block;
+        }
+	</style>
+</block>
+<block name="content">
+	<a name="top"></a>
+    <div class="table">
+        <table>
+            <tr>
+                <th>编号</th>
+                <th>发布时间</th>
+                <th>标题</th>
+                <th>分类</th>
+            </tr>
+            <foreach name="news" item="vo">
+                <tr>
+                    <td>{$vo.id} </td>
+                    <td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                    <td>
+                        <a href="#" class="notice-info" data-title="{$vo.title|urlencode}" data-time="{$vo.tim|date='Y-m-d H:i',###}" data-id="{$vo.id}">{$vo.title|mb_substr=0,15,"UTF-8"}</a>
+                    </td>
+                    <td>{$vo.type}</td>
+                </tr>
+            </foreach>
+        </table>
+    </div>
+    <include file="mobile/Common/ui-page" />
+	<a href="#top" name="top" id="go-top"><i class="iconfont">&#xe61e;</i></a>
+    <div id="show_block">
+        <div id="content"></div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(".notice-info").click(function(){
+            var content=$(this).attr('data-content');
+            $("#content").html(decodeURIComponent(content));
+            $("#show_block")[0].classList.toggle('show');
+        });
+        $("#show_block").click(function(){
+            $(this)[0].classList.toggle('show');
+        });
+        $("#content").click(function(){
+            return false;
+        });
+    </script>
+</block>

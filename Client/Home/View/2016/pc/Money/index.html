@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>财务管理-{$sitename}</title>
+<include file="Common/head" />
+<link href="__RESOURE__/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="__RESOURE__/tablecloth/tablecloth.js"></script>
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script><style>
+  .ui-tooltip, .arrow:after {
+    background: black;
+    border: 2px solid white;
+  }
+  .ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    font: bold 14px "Helvetica Neue", Sans-Serif;
+    text-transform: uppercase;
+    box-shadow: 0 0 7px black;
+  }
+  .arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+  }
+  .arrow.top {
+    top: -16px;
+    bottom: auto;
+  }
+  .arrow.left {
+    left: 20%;
+  }
+  .arrow:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -20px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 6px 5px 9px -9px black;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .arrow.top:after {
+    bottom: -20px;
+    top: auto;
+  }
+  </style>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+		        			<div class="bootstrap">
+		
+        <ul  class="nav nav-pills">
+		<li class=""><a>财务信息</a></li>
+          <li class="active"><a>财务信息</a></li>
+		  <li><a href="{:U('paylog')}" >充值记录</a></li>
+		  <li><a href="{:U('buy')}" >消费记录</a></li>
+		  <li><a href="{:U('refun')}" >退款记录</a></li>
+		  <li><a href="{:U('pay')}"  target="_bank">在线充值</a></li>
+        </ul>	
+		
+	</div>
+        	
+            <div class="select_choose">
+			<form id="form" action="{:U('Search/index')}" method="post">
+			
+       
+              
+
+               
+                <label>
+                     任务ID：<input type="number" name="search_keyword[pid]" value="{$res['search_keyword']['pid']}">
+                </label>
+                
+          <input type="hidden" name="search_keyword[model_name]" value="{$Think.const.MODULE_NAME}">
+		  <input type="hidden" name="search_keyword[controller_name]" value="{$Think.const.CONTROLLER_NAME}">
+		  <input type="hidden" name="search_keyword[action_name]" value="{$Think.const.ACTION_NAME}">
+		  
+                <button type="submit">查询</button>
+				
+				
+				</form>
+            </div>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>编号</th>
+						<th>操作时间</th>
+                        <th>金额</th>
+                        <th>结余余额</th>
+                        <th>预存金额</th>
+                        <th>结余预存余额</th>						
+                        <th>说明</th>
+                        <th>操作人</th>
+                      
+                    </tr>
+                    <foreach name="res['Log']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						<td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.money}</td>
+                        <td>{$vo.usermoney}  </td>
+                        <td>{$vo.paymoney} </td>
+                        <td>{$vo.userpaymoney}  </td>						
+                        <td style="word-wrap: break-word;word-break:break-all;width:300px;" class="_tip" data-html="true" title="{$vo.title}">{$vo.infos}</td>
+                        <td>{$vo.opuser}</td>
+                        </tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+
+			$("._tip").tooltip({
+      position: {
+        my: "center bottom-20",
+        at: "center top",
+        using: function( position, feedback ) {
+          $( this ).css( position );
+          $( "<div>" )
+            .addClass( "arrow" )
+            .addClass( feedback.vertical )
+            .addClass( feedback.horizontal )
+            .appendTo( this );
+        }
+      }
+    });
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                <include file="Common/ui-page" />
+            </div>
+        </div>
+    </section>
+   
+
+	
+</body>
+</html>

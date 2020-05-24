@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户注册-{$sitename}</title>
+<include file="Common/head" />
+<style>
+*{ padding:0; margin:0;font-family:yahei, '微软雅黑', arial, '宋体'; font-size:14px;}
+.clear{zoom:1}
+.clear:after{ content:'';height:0;visibility:hidden;display:block;clear:both;  }
+header{ background:#1db0f6; height:60px; padding:10px 0;}
+.header_main{ width:1000px; margin:0 auto;}
+.header_main ul{ float:right;}
+.header_main ul li{ float:left; list-style:none; padding:0 16px; height:60px; line-height:60px;}
+.header_main ul li a{ text-decoration:none; color:#fff; font-size:14px; }
+
+.wrap{  padding:40px 0;}
+.wrap_main{ width:900px; margin:0 auto; background:#fff; padding:50px;}
+.wrap_main h2{ font-size:24px; color:#383838; font-weight:200; padding-bottom:10px; border-bottom:1px solid #ccc; margin-bottom:40px; }
+.wrap_main span{ color:#383838; font-size:14px; display:inline-block; float:right; line-height:40px;}
+.wrap_main span a{ text-decoration:none; color:#0fa5f9}
+
+.form-box{ padding-bottom:20px;}
+.form-box span{ display:inline-block; width:100px; margin-right:15px; text-align:right; font-size:18px; color:#383838; float:left}
+.form-box img{ vertical-align:super; margin-right:8px; border:0;}
+.form-box  .form-ipt-short{ width:150px;}
+.form-ipt {width: 450px;padding-left: 10px;height: 40px;line-height: 40px;border: 1px solid #dcdcdc; border-radius: 5px;}
+.form-ipt{ width:450px; padding-left:10px; height:40px; line-height:40px; border:1px solid #dcdcdc; border-radius:5px;}
+.form-box font{ margin-left:10px; font-size:14px; color:#666;}
+.error span, .error font, .error input { color: #b94a48!important;}
+#password{ width:250px;}
+.hide{ display:none!important;}
+ .form-ipt {
+    width: 250px;
+}
+.form-sel {
+    padding-left: 10px;
+    height: 40px;
+    border: 1px solid #dcdcdc;
+    margin-right: 3px;
+}
+.sent-code, .form-sel {
+    width: 150px;
+    line-height: 40px;
+    border-radius: 5px;
+}
+button, select {
+    text-transform: none;
+}
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+.form-sub, .success-box {
+    text-align: center;
+}
+.form-sub {
+    width: 280px;
+    height: 45px;
+    font-size: 20px;
+    color: #fff;
+    background-color: #27a9f2;
+    border-radius: 5px;
+    border: 0;
+    margin-left: 115px;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body style="background:#f6f6f6;">
+	<include file="Common/nav" />
+    <section class="wrap">
+    	<div class="wrap_main">
+        	<h2>
+            	<img src="__PUBLIC__/user/images/reg_icon.png">注册
+                <span>我已经注册了，<a href="{:U('login')}">马上登录</a></span>
+            </h2>
+            <form id="form" action="" method="post">
+                  <div class="form-box clear">
+                        <span><img src="__PUBLIC__/user/images/reg_icon.jpg">邮箱</span>
+                        <input class="form-ipt form-ipt-short" name="username" placeholder="邮箱" type="text">
+                        <font>长度为6~16位字符，可以为“数字/字母/中划线/下划线/@”组成</font>
+                  </div>
+                  <div class="form-box">
+                            <span><img src="__PUBLIC__/user/images/reg_icon.jpg">设置密码</span>
+                            <input class="form-ipt" id="password" name="password" placeholder="设置密码" type="password">
+                            <font>长度为6~16位字符 </font>
+                            <font class="hide" id="pwdtips" style="
+                                color: #b94a48;
+                                display: block;
+                                margin-top: 15px;
+                                margin-left: 120px;
+                                margin-bottom: 6px;
+                                ">密码过于简单 建议加上字母或者特殊字符!
+                            </font>
+                  </div>
+                  <div class="form-box">
+                            <span><img src="__PUBLIC__/user/images/reg_icon.jpg">确认密码</span>
+                            <input class="form-ipt" name="repassword" placeholder="确认密码" type="password">
+                            <font>与设置密码一致</font>
+                  </div>
+                  <div class="form-box">
+                            <span><img src="__PUBLIC__/user/images/reg_icon.jpg">手机</span>
+                            <input class="form-ipt" name="phone" placeholder="手机" type="text"><!--  ipt-short -->
+                            <font>请输入正确的手机号码</font>
+                  </div>
+                  <div class="form-box">
+                            <span><img src="__PUBLIC__/user/images/reg_icon.jpg">真实姓名</span>
+                            <input class="form-ipt" name="name" placeholder="真实姓名" type="text">
+                         
+                  </div>
+                  <div class="form-box">
+                            <span><img src="__PUBLIC__/user/images/reg_icon.jpg">QQ</span>
+                            <input class="form-ipt" name="qq" placeholder="QQ" type="text">
+                            <font></font>
+                  </div>
+     
+                  <div class="form-box clear" >
+                  		<input type="submit" value="立即注册" style="text-align:center; line-height:40px; width:140px; background:#1db0f6; border-radius:5px; margin-top:40px; margin-left:114px; color:#fff; border:0; ">
+                  </div>
+             </form>
+        </div>
+    </section>
+
+
+</body>
+</html>

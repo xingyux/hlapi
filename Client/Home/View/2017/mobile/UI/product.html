@@ -1,0 +1,154 @@
+
+
+
+
+
+
+<div id="info_dialog_tmpl">
+<img src="__PUBLIC__/user/images/loading.gif" style="width:90%" class="showloginqrcode-img-login qrimg">
+
+<table class="tip">
+
+</table>
+<div class="alert alert-warning alert-info" style="display:none;"><strong class="errtitle"></strong><span class="errmsg"></span></div>
+</div>
+
+
+<script>
+
+
+$(function(){
+
+	$("a._info").click(function(){
+	var _domain=$(this).attr("data-domain");
+	var _pid=$(this).attr("data-id");
+	
+	
+	var dialogObj=$("#info_dialog_tmpl");
+	var buttons={};
+	buttons.关闭=function() {dialogObj.dialog( "close" );};
+	dialogObj.dialog({
+			title: _domain+"管理",
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			buttons:buttons,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		dialogObj.find(".tip").empty();
+		dialogObj.find(".qrimg").show();
+		dialogObj.find(".tip").hide();
+		dialogObj.find(".alert-info").hide();
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+
+
+		getPost(
+		"{:U('App/info')}",
+		{"product_id":_pid},
+		function(data,field){
+		field.find(".qrimg").hide();
+		if(data.code!=0){
+			alert(data.message);
+			field.dialog( "close" );
+			return false;
+		}
+		field.find(".tip").show();
+		var s=data.product_result;
+		$.each(s,function(n,v){
+			if(typeof(v)=="object"){
+				var html="";
+				$.each(v,function(nn,vv){
+				html+=nn+":"+vv+"/"
+					
+				});
+				field.find(".tip").append("<tr><td>"+n+"</td><td>"+html+"</td></tr>");
+			}else{
+				field.find(".tip").append("<tr><td>"+n+"</td><td>"+v+"</td></tr>");
+			}
+			
+		});
+		field.find(".tip").append("<tr><td>面板</td><td>"+data.product_panel+"</td></tr>");
+		
+		tablecloth();
+		
+		if(field.find(".btn-initialize").size()>0){
+			field.find(".btn-initialize").hide();
+			
+			var product_id=field.find(".btn-initialize").attr("data-product-id");
+			var passwd=field.find(".btn-initialize").attr("data-passwd");			
+			
+	
+			buttons.初始化面板密码=function() {
+
+							field.find(".errtitle").html("声明：");
+							field.find(".errmsg").html("初始化中……");				
+							field.find(".alert-info").show();	
+			
+			getPost(
+			"{:U('App/info',array('action'=>'initializepanel'))}",
+			{"product_id":product_id,"passwd":passwd},
+			function(data,field){
+				if(data.code!=0){
+								field.find(".errtitle").html("错误：");
+								field.find(".errmsg").html(data.message);	
+					return false;
+				}
+				field.find(".errtitle").html("成功");
+				field.find(".errmsg").html("初始化面板密码成功");
+			},
+			field,
+			"json",
+			function(e,field){
+							field.find(".errtitle").html("错误：");
+							field.find(".errmsg").html("未知错误");	
+			}
+			)			
+			
+			}
+			
+			field.dialog( "option", "buttons", buttons );
+		
+		}
+		/*
+		field.find(".btn-initialize").click(function(){
+		$(this).val("初始化中……");
+		var product_id=$(this).attr("data-product-id");
+		var passwd=$(this).attr("data-passwd");
+			getPost(
+			"{:U('App/info',array('action'=>'initializepanel'))}",
+			{"product_id":product_id,"passwd":passwd},
+			function(data,obj){
+				if(data.code!=0){
+					alert(data.message);return false;
+				}
+				obj.val("初始化成功");
+			},
+			$(this),
+			"json",
+			function(e,obj){
+				obj.val("初始化面板密码");
+				alert("未知错误");return false;
+			}
+			)
+		})*/
+		
+		},
+		dialogObj,
+		"json",
+		function(e,field){
+			alert("未知错误01");
+			field.dialog( "close" );
+		}
+		
+		);
+
+
+
+			return false;
+
+});
+
+})
+</script>

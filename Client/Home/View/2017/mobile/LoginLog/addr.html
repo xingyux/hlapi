@@ -1,0 +1,49 @@
+<extend name="mobile/Layout/base" />
+<block name="title">信任地区管理-</block>
+<block name="style">
+	<style>
+        .top-nav{
+            text-align: center;
+            background-color: #524F4F;
+        }
+        .top-nav a{
+            line-height: 30px;
+            display: inline-block;
+            padding: 0 5px;
+            color: #FFF;
+        }
+        .top-nav a.activi{
+            background-color: #03b3ff;
+            color: #FFF;
+        }
+	</style>
+</block>
+<block name="content">
+	<a name="top"></a>
+    <nav class="top-nav">
+        <a href="{:U('index')}">登录记录</a>
+        <a class="activi">信任地区管理</a>
+    </nav>
+	<div class="table">
+        <table>
+            <tr>
+                <th>地区</th>
+                <th>是否信任</th>
+                <th>操作</th>
+            </tr>
+            <foreach name="res['list']" item="vo" key="key">
+                 <tr>
+                    <td>{$vo.addr}  </th>
+                    <td><empty name="vo.islogin">未信任<else />已信任</empty></td>
+                    <td><a href="{:U('addr',array('addrname'=>$vo['addr']))}"><empty name="vo.islogin">设为信任<else />取消信任</empty></a></td>
+               </tr>
+            </foreach>
+        </table>
+    </div>
+    <include file="mobile/Common/ui-page" />
+	<a href="#top" name="top" id="go-top"><i class="iconfont">&#xe61e;</i></a>
+</block>
+<block name="script">
+	<script>
+	</script>
+</block>

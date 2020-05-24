@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品管理-{$sitename}</title>
+<include file="Common/head" />
+<link href="__RESOURE__/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="__RESOURE__/tablecloth/tablecloth.js"></script>
+
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">产品管理</p>
+            <div class="select_choose">
+			<form id="form" action="{:U('Search/index')}" method="post">
+			
+               <label>
+                    机房：<select name="search_keyword[servers]">
+                            <option value="">全部</option>
+							<foreach name="servers" item="servers">
+							<option value="{$servers['flag']}"<eq name="res['search_keyword']['servers']" value="$servers['flag']"> selected</eq>>{$servers['name']}</option>
+							</foreach>
+                         </select>
+                </label>
+              
+                <label>
+                     操作人：<input type="text" name="search_keyword[username]" value="{$res['search_keyword']['username']}">
+                </label>
+                <label>
+                     交易号：<input type="text" name="search_keyword[pkey]" value="{$res['search_keyword']['pkey']}">
+                </label>
+                <label>
+                     域名//IP：<input type="text" name="search_keyword[ip]" value="{$res['search_keyword']['ip']}">
+                </label>
+                <label>
+                      状态：<select name="search_keyword[state]">
+                            <option value="">机器运行状态</option>
+							
+                            <option value="999"<eq name="res['search_keyword']['state']" value="999"> selected</eq>>正常</option>
+                            <option value="2"<eq name="res['search_keyword']['state']" value="2"> selected</eq>>过期</option>
+                            <option value="998"<eq name="res['search_keyword']['state']" value="998"> selected</eq>>已取消</option>
+                            <option value="0"<eq name="res['search_keyword']['state']" value="0"> selected</eq>>待付款</option>
+                         </select>
+                </label>
+          <input type="hidden" name="search_keyword[model_name]" value="{$Think.const.MODULE_NAME}">
+		  <input type="hidden" name="search_keyword[controller_name]" value="{$Think.const.CONTROLLER_NAME}">
+		  <input type="hidden" name="search_keyword[action_name]" value="{$Think.const.ACTION_NAME}">
+		  <input type="hidden" name="show" value="{$show}">
+                <button type="submit">查询</button>
+				</form>
+            </div>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>交易号</th>
+						<th>机房</th>
+                        <th>用户</th>
+                        <th>类型</th>
+                        <th>产品名称</th>
+                        <th>时间</th>
+                        <th>运行状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="res['product']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						<td>{$vo.agent|ReadServersCache='name'} </td>
+                        <td>{$vo.username}</td>
+                        <td>{$vo.domain}  </th>
+                        <td>{$vo.starttime|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.endtime|date='Y-m-d H:i',###}</td>
+                        <td>{:getState($vo['iserr'])}</td>
+                        <td class="cz">
+                        	<a href="#" data-id="{$vo.id}" data-domain="{$vo.domain}" class="_info">管理</a>
+                            <a href="#" data-id="{$vo.id}" data-domain="{$vo.domain}" class="_renew">续费</a>
+                            <a href="#">转移</a>
+                            
+                            <a href="#" data-id="{$vo.id}" data-domain="{$vo.domain}" class="_mark">
+                            	备注
+                                
+                            </a>
+                            <a href="{:U('order',['orderid'=>$vo['id']])}">订单</a>
+                            
+                        </td></tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 <div style="float:right">
+                 	第{$res['pagelink']['page']}/{$res['pagelink']['pagecount']}页<a href="{$res['pagelink']['lastpage']}" class="next">上一页</a><a href="{$res['pagelink']['nextpage']}">下一页</a> <label>直接跳第<input type="text">页</label>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+<include file="UI/product" />
+	
+</body>
+</html>

@@ -1,0 +1,142 @@
+<extend name="mobile/Layout/base" />
+<block name="style">
+	<style>
+		#product-list{width:100%;background-color: #FFF;padding: 10px 0;}
+		.product-block{background-color: #EEE;padding-top: 30px;}
+		h1{font-size: 1.3em;font-weight: 800;text-align: center;margin-top: 10px;}
+		h3{font-size: 1em;text-align: center;}
+		.product{background-color: #FFF;width: 25%;border:2px solid #EEE;padding: 10px 0;}
+		.product h6{text-align: center;color: #5F5F5F;margin-top: 10px;}
+		.product img{display: block;width:45%;height: 10vw;margin:0 auto;}
+		.product input[type=checkbox]{display: none;}
+		.product-details{position: fixed;background-color: rgba(0, 0, 0, .5);z-index: 1;top: 40px;height: calc(100vh - 40px);width:100vw;left:-100%;opacity: 0;-webkit-transition: all 0.2s  linear;-moz-transition: all 0.2s  linear;-ms-transition: all 0.2s  linear;-o-transition: all 0.2s  linear;transition: all 0.2s  linear;}
+		.product-details .details{width:80vw;position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);background-color: #FFF;border-radius: 5px;padding: 15px;box-shadow: 1px 1px 20px #FFF;}
+		.product-details .details p{text-align: center;color: #5F5F5F;font-size: 1.3em;margin-bottom: 10px;}
+		.product-details .details a{position: absolute;display: block;width: 100%;text-align: center;font-size:1.5em;left:0;border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;background-color: #03b3ff;color: #FFF;border-top: 1px solid #000;bottom:0;line-height: 60px;}
+		.product input[type=checkbox]:checked ~ .product-details{opacity: 1;left:0;}
+		h1{font-size: 1.5em;border-bottom: 1px solid #DDD;line-height: 50px;margin-bottom: 10px;}
+		.desc>.iconfont{display: inline-block;vertical-align: top;width:15%;padding: 10px;text-align: center;font-size: 2em;color: #03b3ff;}
+		.desc>div{display: inline-block;vertical-align: top;width:65%;}
+		.desc p{line-height: 20px;margin-bottom: 10px;text-indent: 2em;}
+		.desc h2{font-size: 1.1em;font-weight: 800;margin-bottom: 10px;margin-top: 10px;}
+		.desc{padding-bottom: 5px;border-bottom: 1px solid #DDD;}
+	</style>
+</block>
+<block name="content">
+	<img src="__PUBLIC__/web/images/jf_banner.png" style="width:100%;">
+	<table id="product-list" cellspacing>
+		<tr>
+			<td class="product">
+				<label>
+    				<img src="__PUBLIC__/web/images/jm_1.png" alt="">
+    				<h6>品牌保证</h6>
+    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+    				<div class="product-details">
+    					<div class="details">
+    						<p>ICANN、CNNIC双认证顶级域名注册服务机构、AAA级信用企业，全国十强，获得多项荣誉奖项。</p>
+    					</div>
+    				</div>
+				</label>
+			</td>
+			<td class="product">
+				<label>
+    				<img src="__PUBLIC__/web/images/jm_2.png" alt="">
+    				<h6>品牌保证</h6>
+    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+    				<div class="product-details">
+    					<div class="details">
+    						<p>ICANN、CNNIC双认证顶级域名注册服务机构、AAA级信用企业，全国十强，获得多项荣誉奖项。</p>
+    					</div>
+    				</div>
+				</label>
+			</td>
+			<td class="product">
+				<label>
+    				<img src="__PUBLIC__/web/images/jm_3.png" alt="">
+    				<h6>品牌保证</h6>
+    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+    				<div class="product-details">
+    					<div class="details">
+    						<p>ICANN、CNNIC双认证顶级域名注册服务机构、AAA级信用企业，全国十强，获得多项荣誉奖项。</p>
+    					</div>
+    				</div>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<td class="product">
+				<label>
+    				<img src="__PUBLIC__/web/images/jm_4.png" alt="">
+    				<h6>品牌保证</h6>
+    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+    				<div class="product-details">
+    					<div class="details">
+    						<p>ICANN、CNNIC双认证顶级域名注册服务机构、AAA级信用企业，全国十强，获得多项荣誉奖项。</p>
+    					</div>
+    				</div>
+				</label>
+			</td>
+			<td class="product">
+				<label>
+    				<img src="__PUBLIC__/web/images/jm_5.png" alt="">
+    				<h6>品牌保证</h6>
+    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+    				<div class="product-details">
+    					<div class="details">
+    						<p>ICANN、CNNIC双认证顶级域名注册服务机构、AAA级信用企业，全国十强，获得多项荣誉奖项。</p>
+    					</div>
+    				</div>
+				</label>
+			</td>
+			<td class="product">
+				<label>
+    				<img src="__PUBLIC__/web/images/jm_6.png" alt="">
+    				<h6>品牌保证</h6>
+    				<input type="checkbox" autocomplete="off" unchecked class="show-details">
+    				<div class="product-details">
+    					<div class="details">
+    						<p>ICANN、CNNIC双认证顶级域名注册服务机构、AAA级信用企业，全国十强，获得多项荣誉奖项。</p>
+    					</div>
+    				</div>
+				</label>
+			</td>
+		</tr>
+	</table>
+	<h1>诚招代理分销商</h1>
+	<div class="desc">
+		<div class="iconfont">&#xe72a;;</div>
+		<div>
+			<h2>代理商无级别划分,一次给您最有竞争力的代理价格</h2>
+			<p>分销商演示站点: www.00lu.com</p>
+		</div>
+	</div>
+	<div class="desc">
+		<div class="iconfont">&#xe74c;</div>
+		<div>
+			<h2>开通条件</h2>
+			<p>预付款：1000元即可获得代理资格（也可以凭其他IDC消费记录，免费开启代理资格，注：消费记录2千以上）</p>
+		</div>
+	</div>
+	<div class="desc">
+		<div class="iconfont">&#xe6a8;</div>
+		<div>
+			<h2>相关说明</h2>
+			<p>·预付款用于所有代理产品的消费，预付款消费不受时间限制，代理级别没任务。</p>
+			<p>·代理应该遵守我司规定，维护我司名誉。有利用我司信誉欺诈客户，一经发现，取消代理资格。</p>
+			<p>·所有分销商均可拥有自己独立管理的代理平台，可自行绑定自定义域名以及logo等。</p>
+			<p>·分销商需要对其子用户所做的内容进行监管。内容规范要求：遵守各家IDC的放置规定，在开机前，都会有明确的放置说明和退款政策说明</p>
+		</div>
+	</div>
+	<div class="desc">
+		<div class="iconfont">&#xe61d;</div>
+		<div>
+			<h2>代理平台介绍</h2>
+			<p>1、代理即可获赠代理平台，实现自己的客户自己管理，完美的在线支付系统，即时到账，解决代理资金积压问题。</p>
+			<p>2、完美的工单系统，直接让客户提交工单到各家厂商，和在官方购买无任何区别，让客户自由管理，售后无忧。</p>
+			<p>3、淘宝自助发货系统，让您睡觉也可以24小时正常经营淘宝店。 </p>
+			<p>4、代理程序针对只发展直接客户购买是完全免费的，如需无限极发展下级代理，请激活程序，一次激活可终身升级使用。</p>
+			<p>5、无论您是淘宝店主，网络建站公司，我们的产品的多样化，都能让您轻松获取更高的利润; 我们将不断整合国内优质IDC资源，让您代理一家即可省去代理多家的费用，解决资金积压问题，人人都可以成为专业IDC</p>
+		</div>
+	</div>
+</block>
+<block name="script"></block>
