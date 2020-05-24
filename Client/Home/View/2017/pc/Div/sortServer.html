@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>服务器选购-{$sitename}</title>
+    <include file="Div/header"/>
+    <link href="__PUBLIC__/web/css/style.css" type="text/css" rel="stylesheet">
+    <link href="__PUBLIC__/web/css/iconfont.css" type="text/css" rel="stylesheet">
+
+    <script src="__RESOURE__/jQuery/jquery-1.9.1.min.js"></script>
+    <script>
+        $(function () {
+            $('.nav li').hover(
+                function () {
+                    $(this).find('.dropmenu').stop().slideDown();
+                },
+                function () {
+                    $(this).find('.dropmenu').stop().slideUp('fast');
+                }
+            );
+            $(window).scroll(function () {
+                var scollT = $(this).scrollTop();
+                if (scollT > $('.nav').height()) {
+                    $('.nav').addClass('small');
+                    $('nav').addClass('fix');
+                    $('.dropmenu').addClass('small_dropmenu');
+                } else {
+                    $('.nav').removeClass('small');
+                    $('nav').removeClass('fix');
+                    $('.dropmenu').removeClass('small_dropmenu');
+                }
+            })
+            /*页面页脚居中*/
+            $('.pageBox').css('width', $('.pageBox>ul').width() + $('.pageBox>p').width());
+
+            /*条件选择*/
+            $('.conditions span').click(function () {
+                $(this).addClass('active').parent().siblings().find('span').removeClass('active');
+            })
+        })
+    </script>
+</head>
+<body>
+<include file="Div/nav"/>
+<section class="asdl_main">
+    <div class="asdl_main_wrap">
+        <p class="posion">您当前的位置:<a href="{:U('index')}">首页</a> ><a href="{:U('Vps')}">产品中心</a> >服务器选购</p>
+        <include file="Common/check.server"/>
+        <div id="vps">
+            <ul class="clear">
+                <foreach name="product" item="vo">
+                    <li>
+                        <div class="li_t">
+                            <h3>{$vo.name}</h3>
+                        </div>
+                        <div class="adsl_info">
+                            <b>CPU : </b>{$vo.cpu}<br/>
+                            <b>内存 : </b>{$vo.ram}<br/>
+                            <b>硬盘 : </b>{$vo.hdinfo}<br/>
+                            <b>带宽 : </b>{$vo.bdinfo}<br/>
+                            <b>IP地址 : </b> {$vo.ipinfo}<br/>
+                            <b>说明 : </b> {$vo.infos|mb_substr=0,120,"UTF-8"}
+                        </div>
+                        <p class="adsl_price">
+                            <eq name="vo.monthprice" value="0.00"><b>¥ {$vo.yearprice}元 </b>年/起
+                                <else/>
+                                <b>¥ {$vo.monthprice}元 </b>月/起
+                            </eq>
+                        </p>
+                        <a href="{:buy($vo['id'])}">立即选购</a>
+                    </li>
+                </foreach>
+            </ul>
+        </div>
+    </div>
+    <section class="page">
+        <div class="pageBox clear">
+            <ul class="clear badoo">
+                {$page}
+            </ul>
+        </div>
+    </section>
+</section>
+<include file="Div/footer"/>
+</body>
+</html>
+
+
+
