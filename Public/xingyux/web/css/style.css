@@ -831,6 +831,22 @@ footer {
     color: #fff;
 }
 
+/*星宇*/
+.index_server_wrap li:hover .li_server_ali {
+    background: url(../images/server2_ali.png) no-repeat 250px 16px #03b0ff;
+    color: #fff;
+}
+
+.index_server_wrap li:hover .li_server_qq {
+    background: url(../images/server2_qq.png) no-repeat 250px 16px #03b0ff;
+    color: #fff;
+}
+
+.index_server_wrap li:hover .li_server_baidu {
+    background: url(../images/server2_baidu.png) no-repeat 250px 16px #03b0ff;
+    color: #fff;
+}
+
 .index_server_wrap li:hover h3 {
     color: #fff;
 }
@@ -1982,6 +1998,28 @@ footer {
 
 .li_server_t {
     background: url(../images/server1.png) no-repeat 250px 16px #fff;
+    padding: 16px 16px 30px 16px;
+    position: relative;
+    transition: .9s
+}
+
+/*星宇*/
+.li_server_ali {
+    background: url(../images/server1_ali.png) no-repeat 250px 16px #fff;
+    padding: 16px 16px 30px 16px;
+    position: relative;
+    transition: .9s
+}
+
+.li_server_qq {
+    background: url(../images/server1_qq.png) no-repeat 250px 16px #fff;
+    padding: 16px 16px 30px 16px;
+    position: relative;
+    transition: .9s
+}
+
+.li_server_baidu {
+    background: url(../images/server1_baidu.png) no-repeat 250px 16px #fff;
     padding: 16px 16px 30px 16px;
     position: relative;
     transition: .9s
