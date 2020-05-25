@@ -1,8 +1,0 @@
-<div class="notice">
-    <div class="notice_wrap">
-        <foreach name="notice" item="vo">
-            <a href="{:U('Article/view',array('id'=>$vo['id']))}"><span>{$vo.title}</span><b>{$vo.tim|date='Y-m-d',###}</b></a>
-        </foreach>
-        <a href="{:U('Article/index',array('type'=>'网站公告'))}" class="more">MORE>></a>
-    </div>
-</div>
