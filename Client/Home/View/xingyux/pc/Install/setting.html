@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>代理平台安装-{$sitename}</title>
+<link href="__PUBLIC__/install/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!-- -->
+<script>var __links = document.querySelectorAll('a');function __linkClick(e) { parent.window.postMessage(this.href, '*');} ;for (var i = 0, l = __links.length; i < l; i++) {if ( __links[i].getAttribute('data-t') == '_blank' ) { __links[i].addEventListener('click', __linkClick, false);}}</script>
+<script src="//cache-code-ui.html5ui.org/jQuery/jquery-1.9.1.min.js"></script>
+<script>$(document).ready(function(c) {
+	$('.alert-close').on('click', function(c){
+		$('.message').fadeOut('slow', function(c){
+	  		$('.message').remove();
+		});
+	});	  
+});
+</script>
+</head>
+<body>
+<!-- contact-form -->	
+<div class="message warning">
+<div class="inset">
+	<div class="login-head">
+		<h1>API配置</h1>
+		 			
+	</div>
+		<form class="form-horizontal" role="form" action="{:U('index')}" method="post">
+		
+		<li>
+				<input type="text" class="text" name="apiurl" value="http://new.api.hlapi.com"  placeholder="API地址"><a href="#" class=" icon lock"></a>
+			</li>
+			<li>
+				上方的API地址不需要改动
+			</li>
+		<li>
+				<input type="text" class="text" name="webname" value=""  placeholder="网站名称"><a href="#" class=" icon lock"></a>
+			</li>
+			
+					<div class="clear"> </div>
+			<li>
+				<input type="text" class="text" value="" name="acname"  placeholder="API用户"><a href="#" class=" icon lock"></a>
+			</li>
+					<div class="clear"> </div>	
+			<li>
+				<input type="text" value="" placeholder="APIKEY" name="ackey"> <a href="#" class="icon user"></a>
+			</li>
+	
+			
+				<div class="clear"> </div>		
+			<div class="submit">
+				<input type="submit" value="API配置" >
+				<input type="hidden" value="apisetting" name="action">
+						  <div class="clear">  </div>	
+			</div>
+				
+		</form>
+		</div>					
+	</div>
+	</div>
+	<div class="clear"> </div>
+<!--- footer --->
+
+</body>
+</html>

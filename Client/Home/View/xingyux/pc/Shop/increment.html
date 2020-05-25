@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<include file="Common/head" />
+<script src="__PUBLIC__/user/js/shop_car.js"></script>
+<title>产品购买-{$sitename}</title>
+<script>
+var count=function(){
+	var num_choose=parseInt($("input[name='num_choose']").val());
+	var price=$("select[name='time_choose'] option:selected").attr("data-price");
+	
+	$("#totalypice,#paypice").html(num_choose*price);
+}
+$(function(){
+	$('.nav li').hover(
+		function(){
+			$(this).find('.dropmenu').stop().slideDown()
+
+		},
+		function(){
+			$(this).find('.dropmenu').stop().slideUp('fast')
+	    }
+    )
+	count();
+	$("input[name='num_choose']").blur(function(){count();});
+	$("select[name='time_choose']").change(function(){count();});
+})
+
+</script>
+</head>
+
+<body>
+<include file="Common/nav" />
+<section class="shopping_lc">
+	<div class="shopping_lc_wrap">
+    	<img src="__PUBLIC__/user/images/shopping_lc1.png">
+    </div>
+</section>
+<section class="shopping_main">
+	<div class="shopping_main_wrap">
+    	<h2>我的购物车</h2>
+        <table>
+        	<tr>
+            	<th class="product_all">
+                	产品名称
+                </th>
+                <th class="model">
+                	型号/参数     
+                </th>
+                <th>
+                	类型
+                </th>
+				<notempty name="res.oscheck">
+				 <th class="time">
+                	操作系统
+                </th>
+				</notempty>
+                <th class="time">
+                	时长
+                    
+                </th>
+                <th>
+                	数量
+                </th>
+                <th>
+                	价格（元）
+                </th>
+                
+            </tr>
+        </table>
+		<form class="form-horizontal" role="form" action="" method="post"<eq name="res['Info']['Server']['flag']" value="server"> onsubmit="if(document.getElementById('bz_choose').value==''){alert('请输入要安装的操作系统');return false;}"</eq>>
+        <table>
+            <tr>
+            	<td class="product_name">
+                	<span>{$res['Info']['name']}</span>
+                </td>
+                <td class="model">
+                	<ul>
+					<foreach name="res['Info']['Set']" item="vo" key="key">
+                    	<li>{$key}：<span>{$vo}</span></li>
+					</foreach>	
+                
+                    </ul> 
+                </td>
+                <td>
+                	<ul>
+					<foreach name="res['Info']['Server']" item="vo" key="key">
+                    	<li>{$key}：<span>{$vo}</span></li>
+					</foreach>	
+                
+                    </ul>
+                </td>
+				
+				<notempty name="res.oscheck">
+				<td class="time">
+					<select class="" name="os_choose">
+					<foreach name="res['oscheck']" item="vo" key="key">
+                        <option value="{$vo['osid']}">{$vo["osname"]}</option>
+                     </foreach>
+					</select>	
+					</td>
+				</notempty>
+                <td class="time">
+					<notempty name="res['Info']['servercheck']">
+					<select class="" name="server_choose">
+					<foreach name="res['Info']['servercheck']" item="vo" key="key">
+                        <option value="{$vo['id']}">{$vo["name"]}</option>
+                     </foreach>
+					</select><br>
+					</notempty>
+                	<select class="time_choose" name="time_choose">
+					<foreach name="res['Info']['Price']" item="vo" key="key">
+                        <option value="{$key}" data-price="{$vo["price"]}">{$vo["price"]}元/{$vo["name"]}</option>
+                     </foreach>	
+                    </select>
+					<eq name="res['Info']['Server']['flag']" value="server">
+					<br><br>操作系统：<input type="text" value="" class="" name="bz_choose" id="bz_choose"  placeholder="要装的操作系统" style="border: 1px solid #333333;">
+					</eq>
+                </td>
+                <td class="product_num">
+
+                        <input type="number" value="1" class="num" name="num_choose">
+                </td>
+                <td>
+                	￥：<span class="price" id="paypice">200</span>
+                </td>
+                
+            </tr>
+        </table>
+    	<div style='background:#fff; margin:20px 0; padding:20px;'>
+		注意事项：<span>{$res["Info"]["remarks"]}</span>
+	</div>    
+    
+        
+            <div class="shopping_r">
+                <span>总价：<b class="total" id="totalypice">￥0.00</b></span>
+                <input type="button" value="去结算" class="submit busubmit" >			<input type="button" value="取消购买" style="width:190px; text-align:center; height:50px; background:#ccc; color:#fff; font-size:22px; position:relative; top:-1px; right:-1px; " onclick="window.history.go(-1);">
+            </div>
+			<input type="hidden" value="1" name="buy_choose">
+			<input type="hidden" value="{$mt_rand}" name="mt_rand">
+			</form>
+        </div>
+    </div>
+</section>
+
+<div id="dialog-confirm" title="您是否确认购买?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>您是否确认购买所选择的配置?</p>
+</div>
+ <script>
+  $( function() {
+  
+  $(".busubmit").click(function(){
+  
+     $( "#dialog-confirm" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        "确认购买": function() {
+          $( ".form-horizontal" ).submit();
+        },
+        "退出": function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    }); 
+  
+  })
+  
+
+  } );
+  </script>
+
+<include file="Common/webfooter" />
+</body>
+</html>

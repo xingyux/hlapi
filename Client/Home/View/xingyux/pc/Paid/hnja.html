@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>产品管理-{$sitename}</title>
+    <include file="Common/head"/>
+    <link href="__RESOURE__/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="__PUBLIC__/home/css/style.css">
+    <link rel="stylesheet" href="__PUBLIC__/home/css/css/iconfont.css">
+    <script type="text/javascript" src="__RESOURE__/tablecloth/tablecloth.js"></script>
+
+    <script>
+        $(function () {
+
+
+            $('.menu').css('minHeight', $('.content').height() + 20);
+            $(function () {
+                $('.nav li').hover(
+                        function () {
+                            $(this).find('.dropmenu').stop().slideDown()
+
+                        },
+                        function () {
+                            $(this).find('.dropmenu').stop().slideUp('fast')
+                        }
+                )
+
+            })
+            $('.menu li div').click(function () {
+                $(this).parents('ul').find('li').removeClass('active')
+                $(this).parent().addClass('active')
+                $(this).parents('ul').find('p').slideUp()
+                if ($(this).parent().find('p').length) {
+
+                    $(this).parent().find('p').slideDown()
+                }
+            })
+
+        })
+
+
+    </script>
+</head>
+
+<body>
+<include file="User/nav"/>
+
+<section class="main clear">
+    <include file="Common/menu"/>
+
+    <script>
+        $(function(){
+            $('.nav li').hover(
+                    function(){
+                        $(this).find('.dropmenu').stop().slideDown()
+
+                    },
+                    function(){
+                        $(this).find('.dropmenu').stop().slideUp('fast')
+                    }
+            )
+        })
+    </script>
+    <div class="content">
+        <div class="df_main">
+            <div class="df_main_wrap">
+                <div class="df_notice">
+                    <h3>注意事项&nbsp;:</h3>
+                    <p>
+                        景安快云服务器代理链接 http://www.kuaiyun.cn/kyunmember/kuaiyunregister?agentpand=327701新客户请先同意加入。
+                    </p>
+                </div>
+                <div class="df_flow">
+                    <h3>景安快云服务器购买流程</h3>
+                    <ul>
+                        <li>
+                            <span class="li_h">01</span>
+                            <div>
+                                <h4>注册与登陆（新客户）</h4>
+                                <a href="http://www.kuaiyun.cn/kyunmember/kuaiyunregister?agentpand=327701" target="_bank">点击前往http://www.kuaiyun.cn/kyunmember/kuaiyunregister?agentpand=327701</a>
+                                <p>使用您的账号登陆(若没有账号可直接注册)</p>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <span class="li_h">03</span>
+                            <div>
+                                <h4>申请代付</h4>
+                                <a href="http://www.kuaiyun.cn/" target="_bank">前往景安快云服务器挑选产品</a>
+                                <p>选择好配置之后点击购买，然后选择代理商支付，复制好订单号。</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="li_h">04</span>
+                            <div>
+                                <h4>提交订单</h4>
+                                
+                                <p>提交订单时选择代理商支付，然后在下方输入帐号或者帐号+订单号提交，只要在账户中准备好足够的款项，即可付款成功。</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <br>
+
+                    <style>
+                        .paid{
+                            text-align: center;
+                        }
+                        .paid form p{
+                            font-size: 20px;
+                        }
+                        .paid form input,.paid form select{
+                            font-family: "Microsoft YaHei";
+                            border: 1px solid #EEEEEE;
+                            height: 50px;
+                            width: 60%;
+                            border-radius: 4px;
+                            font-size: 20px;
+                            padding: 0 10px;
+                        }
+
+                        .paid form .sub{
+                            font-family: "Microsoft YaHei";
+                            isplay: block;
+                            margin: 0 auto;
+                            width: 240px;
+                            height: 44px;
+                            background: #d9534f;
+                            color: #fff;
+                            text-align: center;
+                            line-height: 44px;
+                            border-radius: 4px;
+                            font-size: 20px;
+                        }
+                    </style>
+
+                    <div class="paid">
+                        <form method="post" action="{:U('paid/add')}">
+                            <p>
+                                服务商：<input type="text" readonly name="server_name" value="景安快云服务器">
+                            </p>
+                            <br>
+                            <p>
+                                订单号：<input type="text" name="paid_sn"><br>*不输入订单号将查询下方景安快云服务器帐号所有的订单
+                            </p>
+                            <br>
+                            <p>
+                                景安快云服务器帐号：<input type="text" name="paid_qq">
+                            </p>
+                            <br>
+                            <p><input type="hidden" name="paid_version" value="201700703">
+                                <input type="submit" class="sub" value="立即代付">
+                            </p>
+                        </form>
+                    </div>
+
+                    <br>
+
+    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+<include file="ui_renew"/>
+<include file="ui_mark"/>
+<include file="ui_info"/>
+</body>
+</html>

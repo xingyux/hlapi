@@ -1,0 +1,71 @@
+	<div id="mark_dialog" style="display: none"></div>
+	<script id="mark_dialog_tmpl" type="text/x-jquery-tmpl">
+<textarea placeholder='没有备注，请填写，比如客户的联系方式，部分没有IP的机器的IP等等，此备注仅对您有效，其他代理包括您的上下级代理和客户无法查看' style="width:100%;height:200px;"></textarea>
+					<div class="alert alert-warning btnn-check-pay-alert" style="display:none;">
+
+	<strong class="errtitle"></strong><span class="errmsg"></span>
+</div>	
+</script>
+<script>
+
+
+$(function(){
+	$("a._mark").click(function(){
+	var _domain=$(this).attr("data-domain");
+	var _content=decodeURIComponent($(this).data("content"));
+	var id=$(this).data("id");
+	var dialogObj=$("#mark_dialog");dialogObj.empty();$("#mark_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+	
+	dialogObj.find("textarea").val(_content);
+	dialogObj.dialog({
+			title: _domain+"备注",
+			width: 400,
+			
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			buttons:{
+				"修改备注":function(){
+					dialogObj.find(".btnn-check-pay-alert").show();
+					var _contents=dialogObj.find("textarea").val();
+					if(_contents==""||_contents==_content){
+						dialogObj.find(".errtitle").html("错误");
+						dialogObj.find(".errmsg").html("请修改后再提交");
+						return false;
+					}
+					getPost(
+					window.location.href,
+					{"id":id,"content":_contents,"submit":"editbz","json":1},
+					function(data){
+						if(data.code==0){
+							dialogObj.find(".errtitle").html("成功");
+							dialogObj.find(".errmsg").html("提交数据成功");												
+						}else{
+							dialogObj.find(".errtitle").html("错误");
+							dialogObj.find(".errmsg").html(data.message);
+						}
+					},"","json",function(e){
+						dialogObj.find(".errtitle").html("错误");
+						dialogObj.find(".errmsg").html("未知错误");						
+					}
+					);
+				},
+				"关闭":function(){
+				dialogObj.dialog("close");
+				}
+			},
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );
+		setTimeout(function(){dialogObj.find(".qrimg").hide();
+		dialogObj.find(".tip").show();},1000);
+
+			return false;
+
+});
+
+});
+
+</script>

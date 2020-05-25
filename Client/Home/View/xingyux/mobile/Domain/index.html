@@ -1,0 +1,178 @@
+<extend name="mobile/Layout/base" />
+<block name="style">
+	<style>
+		h1{
+			font-size: 1.5em;
+			color: #003333;
+			line-height: 50px;
+			text-align: center;
+		}
+		#domain-input{
+			margin: 5%;
+			width: 90%;
+			height: 80px;
+			font-size: 1.2em;
+			padding: 10px;
+			color: #5F5F5F;
+			border: 1px solid #DDD;
+			border-radius: 5px;
+			margin-bottom: 0px;
+		}
+		#query{
+			line-height: 40px;
+			text-align: center;
+			display: block;
+			border-radius: 0;
+			border: none;
+			background-color: #03b3ff;
+			color: #FFF;
+			font-size: 1.5em;
+			width: 90%;
+			margin: 5%;
+		}
+		.pc-img{
+			width: 10vw;
+			height: 10vw;
+			display: block;
+			margin: 0 auto;
+		}
+		h2{
+			font-size: 1.2em;
+			font-weight: bolder;
+			color: #5F5F5F;
+			text-align: center;
+		}
+		p{
+			color: #5F5F5F;
+			text-align: center;
+			margin-bottom: 10px;
+			padding: 10px;
+			border-bottom: 1px solid #DDD;
+		}
+		#domain-list{
+			width: 90%;
+			margin: 0 auto;
+			display: none;
+		}
+		#domain-list td{
+			text-align: center;
+			line-height: 30px;
+			color: #5F5F5F;
+			border: 1px solid #DDD;
+		}
+		.choose-select{
+			border: none;
+			color: #5F5F5F;
+		}
+		#buy-form button{
+			line-height: 40px;
+			text-align: center;
+			display: block;
+			border-radius: 0;
+			border: none;
+			background-color: #03b3ff;
+			color: #FFF;
+			font-size: 1.5em;
+			width: 100%;
+		}
+		.th{
+			background-color: #03b3ff;
+			color: #FFF;
+		}
+		#domain-list .th td{
+			color: #FFF;
+		}
+	</style>
+</block>
+<block name="content">
+	<h1>批量注册查询</h1>
+	<textarea id="domain-input" placeholder="最多只能输入15个域名，如baidu.com，请以逗号或者换行分开">wwwdsadsads.com,aaa.com</textarea>
+	<button id="query">查询</button>
+	<form action="{:U('Shop/domain')}" id="buy-form" method="POST">
+		<table id="domain-list" cellspacing="0">
+		</table>
+		<input type="hidden" name="domain_choose_all" id="domain_choose_all">
+	</form>
+
+	<h1>我们的优势</h1>
+	<img src="__PUBLIC__/web/images/pc1.png" class="pc-img">
+	<h2>开通迅速</h2>
+	<p>测试网站产品在线自助开通，最快1分钟即可开通使用。其他传统独立服务器需要1工作日或者更长时间测试网站</p>
+	<img src="__PUBLIC__/web/images/pc2.png" class="pc-img">
+	<h2>多达10个不同数据中心</h2>
+	<p>我们在全球拥有多个数据中心，每个数据中心均设置有自己的机柜，更快更安心</p>
+	<img src="__PUBLIC__/web/images/pc3.png" class="pc-img">
+	<h2>免费快速备案</h2>
+	<p>我们针对我们的国内产品客户提供免费快速备案服务，我们的备案专员会协助处理</p>
+	<img src="__PUBLIC__/web/images/pc4.png" class="pc-img">
+	<h2>自主管理</h2>
+	<p>强大的自主管理后台，可实时查看服务器状态，开关机、重启、重装系统、更改密码等均可在线操作</p>
+</block>
+<block name="script">
+	
+	<script>
+		$("#query").click(function(){
+			var domainArray=$("#domain-input").val().split(',');
+			var queryList=[];
+			for(var i=0;i<domainArray.length;i++){
+				var domain=domainArray[i].split('.');
+				if(domain.length<2)
+					continue;
+
+				queryList.push({
+					domain:domainArray[i],
+					suffix:domain[1]
+				});
+			}
+			var table=
+				'<tr class="th">'
+					+"<td>域名</td>"
+					+"<td>状态</td>"
+					+"<td>注册商</td>"
+				+"</tr>";
+			var tableTpl='<tr class="domain" data-domain="__domain__" data-key="__suffix__"><td>__domain__</td><td class="state">查询中</td><td class="check"></td></tr>';
+			for(var i in queryList)
+				table+=Template(tableTpl,{domain:queryList[i].domain,suffix:queryList[i].suffix});
+			table+='<tr><td colspan="4"><button type="submit">注册</button></td></tr>';
+			$("#domain-list").html(table).show();
+			$.each($("#domain-list").find('tr.domain'), function(index, val) {
+				checkDomainState($(val),index);
+			});
+		});
+
+		function checkDomainState(domainEle,index){
+			getPost("{:U('check')}",{"domainname":domainEle.attr('data-domain'), "json":1},function(data,param){
+				if(data.code!=0){
+					param.ele.find(".state").html(data.message);
+				}else{
+					var s=data.price;
+					var option="";
+					var html='<select class="choose-select" name="domain_choose['+index+']">';
+					$.each(s,function(item,value){
+						option+='<option value="'+value.pid+'" data-price="'+value.price+'">'+value.price+'元/'+value.name+'</option>';
+					});
+					
+					html+=option+'</select>';
+					
+					param.ele.find(".state").html("可注册<input name='domain["+index+"]' value='"+data.domain+"' type='hidden'>");
+					param.ele.find(".check").html(html);
+				}
+			},{domain:domainEle.attr('data-domain'),suffix:domainEle.attr('data-key'),ele:domainEle},"json",function(err,arr){
+				ele.find(".state").html("查询出错".err);
+			})
+		}
+
+		$("#buy-form").submit(function(event) {
+			var data=re_serialize($(this).serializeArray());
+			var isNull=false;
+			for(var i in data)
+				isNull=true;
+			if(!isNull){
+				show_msg('没有可注册的域名');
+				return false;
+			}
+			$("#domain_choose_all").val(data['domain_choose[0]']);
+			return true;
+		});
+	</script>
+</block>

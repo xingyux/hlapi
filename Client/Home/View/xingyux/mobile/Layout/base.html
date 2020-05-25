@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>
+        <block name="title"></block>
+        {$sitename}
+    </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+	<meta name="description" content="星宇云,星宇数码,星宇主机,提供虚拟主机,域名注册,腾讯云,阿里云,百度云,等全球知名云计算产品。IDC服务器租用,服务器托管等,高防服务器等,我们以高性价比、一流服务和强大的管理功能赢得数十万客户！晏宇科技(嘉和数码)合作伙伴。"/>
+	<meta name="keywords" content="星宇云,星宇科技,星宇互联,星宇数码,星宇主机,动态拨号VPS,PPTP,香港VPS,拨号vps,Hlapi晏宇科技,嘉和数码"/>
+	<link rel="dns-prefetch" href="//cache-code-ui.html5ui.org"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" sizes="any" href="/favicon.svg"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/web/css/mobile_common.css">
+    <style>
+        .cls {
+            clear: both;
+        }
+    </style>
+    <block name="style"></block>
+</head>
+<body>
+<header id="com_header">
+    <a href="/"><img src="/logo.png" class="logo"></a>
+    <notempty name="islogin">
+        <span id="com-header-main" class="iconfont">&#xe606;</span>
+    </notempty>
+    <span id="com-header-nav-but" class="iconfont">&#xe602;</span>
+    <nav id="com-header-nav">
+        <ul>
+            <li><a href="/">首页</a></li>
+            <li><a href="{:U('Domain/index')}">域名注册</a></li>
+            <li><a href="{:U('Host/index')}">虚拟主机</a></li>
+            <li><a href="{:U('Vps/index')}">VPS</a></li>
+            <li><a href="{:U('Cloud/index')}">弹性云</a></li>
+            <li><a href="{:U('Adsl/index')}">ADSL</a></li>
+            <li><a href="{:U('Server/index')}">服务器</a></li>
+            <li><a href="{:U('Seo/index')}">营销推广</a></li>
+            <li><a href="{:U('Website/index')}">网站建设</a></li>
+            <li><a href="{:U('Join/index')}">代理加盟</a></li>
+            <li>
+                <label>
+                    <span class="child-nav">其他</span>
+                    <input type="checkbox" unchecked>
+                    <ul>
+                        <li><a href="{:U('Article/index',array('type'=>'网站公告'))}">网站公告</a></li>
+                        <li><a href="{:U('Article/index',array('type'=>'最新促销'))}">最新促销</a></li>
+                        <li><a href="{:U('Article/index',array('type'=>'技术文章'))}">技术文章</a></li>
+                    </ul>
+                </label>
+            </li>
+        </ul>
+    </nav>
+    <div class="mark" id="nav-mark"></div>
+    <label id="user_enter">
+        <span class="iconfont">&#xe61a;</span>
+        <input type="checkbox" unchecked>
+        <div>
+            <notempty name="islogin">
+                <a href="{:U('User/index')}" class="login-but">管理中心</a>
+                <a href="{:U('Money/pay')}" class="register-but">在线充值</a>
+                <else/>
+                <a href="{:U('User/login')}" class="login-but">登录</a>
+                <a href="{:U('User/reg')}" class="register-but">注册</a>
+            </notempty>
+        </div>
+    </label>
+</header>
+<notempty name="islogin">
+    <nav id="com-slider-menu">
+        <ul>
+            <li><a href="{:U('User/index')}">后台主页</a></li>
+            <li><a href="{:U('Money/index')}">财务管理</a></li>
+            <li><a href="{:U('DomainUser/index')}">域名注册信息</a></li>
+            <li><a href="{:U('LoginLog/index')}">登录记录</a></li>
+            <li><a href="{:U('Notice/index')}">后台公告</a></li>
+            <li><a href="{:U('News/index')}">新闻动态</a></li>
+            <li><a href="{:U('Product/index')}">产品管理</a></li>
+            <li><a href="{:U('Product/order')}">订单管理</a></li>
+            <li><a href="{:U('Paid/lists')}">商品代付</a></li>
+            <li><a href="{:U('User/logout')}">安全退出</a></li>
+        </ul>
+    </nav>
+</notempty>
+<div class="main">
+    <block name="content"></block>
+</div>
+<script src="__PUBLIC__/web/js/jquery.1.9.js"></script>
+<script src="__PUBLIC__/web/js/layer.js"></script>
+<script src='//cache-code-ui.html5ui.org/ajax/ajax.js'></script>
+<script>
+    function re_serialize(data, isre) {
+        var result;
+        if (isre === true) {
+            result = [];
+            for (var i in data)
+                result.push({name: i, value: data[i]});
+        } else {
+            result = {};
+            for (var i = 0; i < data.length; i++) {
+                var l = data[i];
+                result[l.name] = $.trim(l.value);
+            }
+        }
+        return result;
+    }
+
+    function show_error(msg, title) {
+        title = typeof title === 'undefined' ? '错误提示' : title;
+        layer.open({
+            title: [
+                title,
+                'background-color: #FF4351; color:#fff;'
+            ]
+            , content: msg
+        });
+    }
+
+    function show_msg(msg, title) {
+        title = typeof title === 'undefined' ? '提示' : title;
+        layer.open({
+            title: [
+                title,
+                'background-color: #03b3ff; color:#fff;'
+            ]
+            , content: msg
+        });
+    }
+
+    function Template(tpl, data) {
+        for (var i in data) {
+            tpl = tpl.replace(new RegExp('__' + i + '__', 'g'), data[i]);
+        }
+        return tpl;
+    }
+
+    (function () {
+        function showNav() {
+            document.getElementById('com-header-nav').classList.toggle('show');
+        }
+
+        document.getElementById('com-header-nav-but').onclick = showNav;
+        document.getElementById('nav-mark').onclick = showNav;
+    })();
+    $("#com-header-main").click(function () {
+        document.getElementById('com-slider-menu').classList.toggle('show');
+    });
+</script>
+<block name="script"></block>
+</body>
+</html>
+

@@ -1,0 +1,135 @@
+<extend name="mobile/Layout/base" />
+<block name="title">帐号验证系统-</block>
+<block name="style">
+	<style>
+		h1{
+			font-size: 1.5em;line-height: 60px;border-bottom: 1px solid #FFF;color: #FFF;margin-bottom: 20px;text-align: center;
+		}
+		body{background-image: url('__PUBLIC__/server/img/backgrounds/1.jpg');position: fixed;background-position: 50%;background-color: #FFF;width: 100%;height: 100%;
+		}
+		.check-btn{border: none;display: block;background-color: #4aaf51;color: #FFF;line-height: 50px;height: 50px;text-align: center;font-size: 1.3em;margin-bottom: 15px;width: 90vw;margin-left: 5vw;border-radius: 5px;
+		}
+		.check-form{
+			width: 90%;
+			margin: 0 auto;
+		}
+		.check-form .check-btn{
+			margin-left: 0;
+		}
+		.form-control{
+			border-radius: 5px;
+			line-height: 40px;
+			height: 40px;
+			display: block;
+			font-size: 1.3em;
+			padding: 0 10px;
+			border: 1px solid;
+			margin-bottom: 10px;
+			width: 100%;
+		}
+	</style>
+</block>
+<block name="content">
+	<if condition="$type eq 'moblie'">
+		<h1>手机验证</h1>
+		<form role="form" action="" method="post" class="check-form">
+            <div class="form-group">
+                <input type="number" name="form-moblie" placeholder="请输入完整手机号码{$typeinfo.info}" class="form-username form-control" id="form-username" value="">
+            </div>
+            <button type="button" class="check-btn btnn-sendsms">发送验证码</button>
+            <div class="form-group">
+                <input type="number" name="form-code" placeholder="手机中收到的验证码" class="form-password form-control" id="form-password">
+            </div>
+            <button type="submit" class="check-btn">确认验证</button>
+            <a href="{:U('logout')}" class="check-btn">退出登录</a>
+        </form>
+	<elseif condition="$type eq 'email'" />
+		<h1>邮箱验证</h1>
+		<form role="form" action="" method="post" class="check-form">
+            <div class="form-group">
+                <input type="text" name="form-moblie" placeholder="请输入完整邮箱{$typeinfo.info}" class="form-username form-control" id="form-username" value="">
+            </div>
+            <button type="button" class="check-btn btnn-sendsms">发送验证码</button>
+            <div class="form-group">
+                <input type="number" name="form-code" placeholder="邮箱中收到的验证码" class="form-password form-control" id="form-password">
+            </div>
+            <button type="submit" class="check-btn">确认验证</button>
+            <a href="{:U('logout')}" class="check-btn">退出登录</a>
+        </form>
+	<elseif condition="$type eq 'ask'" />
+		<h1>问题验证</h1>
+		<form role="form" action="" method="post" class="check-form">
+            <button type="button" class="btn">{$typeinfo.info}</button>
+            <div class="form-group">
+                <input type="text" name="form-code" placeholder="请输入问题答案" class="form-password form-control" id="form-password">
+            </div>
+            <button type="submit" class="check-btn">确认验证</button>
+            <a href="{:U('logout')}" class="check-btn">退出登录</a>
+        </form>
+	<elseif condition="$type eq 'wechat'" />
+		<h1>微信验证</h1>
+		<form role="form" action="" method="post" class="check-form">
+            <button type="button" class="btn btn-primary">微信昵称:{$res['checked']['wechat']['wechatname']}</button>
+            <div class="form-group">
+                <center><img src="{$res['checked']['wechat']['url']}" style="width:200px; margin:auto;"></center>
+            </div>
+            <input type="hidden" name="form-code" placeholder="" class="form-password form-control" id="form-password" value="1">
+            <button type="submit" class="check-btn">确认验证</button>
+            <a href="{:U('logout')}" class="check-btn">退出登录</a>
+        </form>
+	<else />
+		<h1>帐号验证系统</h1>
+		<foreach name="res['checked']" item="value" key="key">
+	        <a href="{:U('check',array('type'=>$key,'bind'=>$bind))}" class="check-btn">验证{$value.name}【{$value.info}】</a>
+	    </foreach>
+	    <a href="{:U('logout')}" class="check-btn">退出登录</a>
+	</if>
+</block>
+<block name="script">
+	<script>
+		(function(){
+			var type="{$type}";
+			var is_send=false;
+			$(".btnn-sendsms").click(function(){
+				var object={};
+				object.moblie=$(this).closest("form").find("input[name='form-moblie']").val();
+				object.is_checked=2;
+	
+				getPost(window.location.href,object,function(data){
+						if(data.code!=0){
+							show_error(data.message);
+						}else{
+							is_send=true;
+							show_msg("发送成功");
+						}
+					},null,"json",function(e){
+						show_error("未知错误，请重试");
+					}
+				);
+				return false;	
+			});
+			$(".check-form").submit(function(){
+				var object={};
+				if(type!="ask"&&type!="wechat"){
+				if(!is_send){show_error("请先发送验证码");return false;}
+				}
+				
+				object.code=$(this).find("input[name='form-code']").val();
+				
+				object.is_checked=1;
+				getPost(window.location.href,object,function(data){
+						if(data.code!=0){
+							show_error(data.message);
+						}else{
+							show_msg("验证通过");
+							window.location.href="{:U('index',array('bind'=>$bind))}";
+						}
+					},null,"json",function(e){
+						show_error("未知错误，请重试");
+					}
+				);
+				return false;
+			});
+		})();
+	</script>
+</block>

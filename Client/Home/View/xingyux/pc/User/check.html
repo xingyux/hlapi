@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>帐号验证系统-{$sitename}</title>
+
+        <!-- CSS -->
+     
+        <link rel="stylesheet" href="__RESOURE__/bootstrap-3.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="__RESOURE__/Font-Awesome-3.2.1/css/font-awesome.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/server/css/form-elements.css?201">
+        <link rel="stylesheet" href="__PUBLIC__/server/css/style.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="__RESOURE__/html5shiv/html5shiv.js"></script>
+            <script src="__RESOURE__/html5shiv/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="__PUBLIC__/server/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__PUBLIC__/server/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__PUBLIC__/server/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__PUBLIC__/server/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="__PUBLIC__/server/ico/apple-touch-icon-57-precomposed.png">
+
+    </head>
+
+    <body>
+
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                 
+                    <div class="row">
+					
+					<if condition="$type eq 'moblie'">
+					<div class="col-sm-6 col-sm-offset-3 form-box">
+					                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>手机号验证</h3>
+                            		<p class="info" style="color:#F00;"></p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-key"></i>
+                        		</div>
+                            </div>
+							<div class="form-bottom">
+			                    <form role="form" action="" method="post" class="login-form btnn-checked">
+			                    	<div class="form-group">
+			                    		<label class="sr-only" for="form-moblie">手机号码</label>
+			                        	<input type="number" name="form-moblie" placeholder="请输入完整手机号码{$typeinfo.info}" class="form-control" value="">
+			                        </div>
+									<button type="button" class="btn btnn-sendsms">请输入完整手机号码{$typeinfo.info}发送验证码</button>
+									<div class="form-group">
+			                        	<label class="sr-only" for="form-code">验证码</label>
+			                        	<input type="number" name="form-code" placeholder="手机中收到的验证码" class="form-control">
+			                        </div>											
+			                        <button type="submit" class="btn ">确认验证</button>
+									<a href="{:U('logout')}"><button type="button" class="btn" style="margin:5px 0;">退出登录</button></a>
+			                    </form>
+		                    </div>							
+					</div>
+
+
+<elseif condition="$type eq 'email'" />
+					<div class="col-sm-6 col-sm-offset-3 form-box">
+					                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>邮箱验证</h3>
+                            		<p class="info" style="color:#F00;"></p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-key"></i>
+                        		</div>
+                            </div>
+							<div class="form-bottom">
+			                    <form role="form" action="" method="post" class="login-form btnn-checked">
+			                    	<div class="form-group">
+			                    		<label class="sr-only" for="form-moblie">邮箱</label>
+			                        	<input type="text" name="form-moblie" placeholder="请输入完整邮箱{$typeinfo.info}" class="form-control" value="">
+			                        </div>
+									<button type="button" class="btn btnn-sendsms">请输入完整邮箱{$typeinfo.info}发送验证码</button>
+									<div class="form-group">
+			                        	<label class="sr-only" for="form-code">验证码</label>
+			                        	<input type="number" name="form-code" placeholder="邮箱中收到的验证码" class="form-control">
+			                        </div>											
+			                        <button type="submit" class="btn ">确认验证</button>
+									<a href="{:U('logout')}"><button type="button" class="btn" style="margin:5px 0;">退出登录</button></a>
+			                    </form>
+		                    </div>							
+					</div>
+				<elseif condition="$type eq 'ask'" />
+					<div class="col-sm-6 col-sm-offset-3 form-box">
+					                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>问题答案</h3>
+                            		<p class="info" style="color:#F00;"></p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-key"></i>
+                        		</div>
+                            </div>
+							<div class="form-bottom">
+			                    <form role="form" action="" method="post" class="login-form btnn-checked">
+									<button type="button" class="btn">{$typeinfo.info}</button>
+			            
+									<div class="form-group">
+			                        	<label class="sr-only" for="form-code">答案</label>
+			                        	<input type="text" name="form-code" placeholder="请输入问题答案" class="form-control" id="form-password">
+			                        </div>											
+			                        <button type="submit" class="btn ">确认验证</button>
+									<a href="{:U('logout')}"><button type="button" class="btn" style="margin:5px 0;">退出登录</button></a>
+			                    </form>
+		                    </div>							
+					</div>
+				<elseif condition="$type eq 'wechat'" />
+					<div class="col-sm-6 col-sm-offset-3 form-box">
+					                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>微信认证</h3>
+                            		<p class="info" style="color:#F00;">扫描下方二维码后点确认验证</p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-key"></i>
+                        		</div>
+                            </div>
+							<div class="form-bottom">
+			                    <form role="form" action="" method="post" class="login-form btnn-checked">
+									<button type="button" class="btn btn-primary">微信昵称:{$res['checked']['wechat']['wechatname']}</button>
+			            
+									<div class="form-group">
+			                        	<center><img src="{$res['checked']['wechat']['url']}" style="width:200px; margin:auto;"></center>
+			                        	
+			                        </div>
+									<input type="hidden" name="form-code" placeholder="" class="form-password form-control" id="form-password" value="1">
+			                        <button type="submit" class="btn ">确认验证</button>
+									<a href="{:U('logout')}"><button type="button" class="btn" style="margin:5px 0;">退出登录</button></a>
+			                    </form>
+		                    </div>							
+					</div>					
+					<else />
+					
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>帐号验证系统</h3>
+                            		
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-key"></i>
+                        		</div>
+                            </div>
+							
+                            <div class="form-bottom">
+			                    <form role="form" action="" method="post" class="login-form">
+			                    	<foreach name="res['checked']" item="value" key="key">
+									<a href="{:U('check',array('type'=>$key,'bind'=>$bind))}" class="btn" style="margin:5px 0;">验证{$value.name}【{$value.info}】</a>
+									</foreach>
+										<a href="{:U('logout')}" class="btn" style="margin:5px 0;">退出登录</a>
+			                    </form>
+		                    </div>
+                        </div>
+						</if>
+						
+						
+                    </div>
+          
+                </div>
+            </div>
+            
+        </div>
+
+
+        <!-- Javascript -->
+        <script src="__RESOURE__/jQuery/jquery-1.11.3.min.js"></script>
+        <script src="__RESOURE__/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+        <script src="__PUBLIC__/server/js/jquery.backstretch.min.js"></script>
+        <script src="__PUBLIC__/server/js/scripts.js?2017"></script>
+        <script src='__RESOURE__/ajax/ajax.js'></script>
+        <!--[if lt IE 10]>
+            <script src="__PUBLIC__/server/js/placeholder.js"></script>
+        <![endif]-->
+<script>
+var type="{$type}";
+var is_send=false;
+$(function(){
+$(".btnn-sendsms").click(function(){
+	var object={};
+	object.moblie=$(this).closest("form").find("input[name='form-moblie']").val();
+	object.is_checked=2;
+	
+	getPost(
+		window.location.href,
+		object,
+		function(data){
+			if(data.code!=0){
+				$("p.info").html(data.message);
+			}else{
+				is_send=true;
+				$("p.info").html("发送成功");
+			}
+		},
+		null,
+		"json",
+		function(e){
+			$("p.info").html("未知错误，请重试");
+		}
+	);
+	return false;	
+})
+$(".btnn-checked").submit(function(){
+	var object={};
+	if(type!="ask"&&type!="wechat"){
+	if(!is_send){$("p.info").html("请先发送验证码");return false;}
+	}
+	
+	object.code=$(this).find("input[name='form-code']").val();
+	
+	object.is_checked=1;
+	getPost(
+		window.location.href,
+		object,
+		function(data){
+			if(data.code!=0){
+				$("p.info").html(data.message);
+			}else{
+			$("p.info").html("验证通过");
+				window.location.href="{:U('index',array('bind'=>$bind))}";
+			}
+		},
+		null,
+		"json",
+		function(e){
+			$("p.info").html("未知错误，请重试");
+		}
+	);
+	return false;
+});
+
+})
+</script>
+    </body>
+
+</html>

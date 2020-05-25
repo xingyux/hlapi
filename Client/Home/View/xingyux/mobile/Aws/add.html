@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>提交工单-{$sitename}</title>
+<link href="__PUBLIC__/aws/css/style.css" rel="stylesheet" type="text/css">
+<script src="//cache-code-ui.html5ui.org/jQuery/jquery-1.9.1.min.js"></script>
+<link href="//cache-code-ui.html5ui.org/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen" />
+
+<script src="//cache-code-ui.html5ui.org/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="//cache-code-ui.html5ui.org/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src='//cache-code-ui.html5ui.org/ajax/ajax.js'></script>
+<script src='//cache-code-ui.html5ui.org/jquery-ui-1.12.1.custom/jquery-ui.min.js'></script>
+<script src='//cache-code-ui.html5ui.org/CommonJS/common.min.js'></script>
+</head>
+
+<body>
+	<div id="main_top">
+            <div id="top_logo"><img alt="cndns" src="__PUBLIC__/web/images/logo.png"></div>
+            <div id="top_nav">
+                <ul>
+                    <li><a href="javascript:;" id="xa5">提交问题</a></li>
+                    <li><a href="{:U('index',array('id'=>$res['GPC']['get']['id']))}" id="xa6" class="liahover">问题列表</a></li>
+                </ul>
+        </div>
+    </div>
+    <br>
+    <div id="outer_input">
+        <notempty name="res['aws']['content']">
+        <div class="ask">
+            <div class="ask_main">
+                
+                <div class="ask_font">
+                   {$head}
+                </div>
+            </div>
+        </div>
+        <foreach name="content" item="vo">
+        <div class="reply">
+            <div class="reply_main">
+                
+                <div class="reply_font">
+                    {$vo|strip_tags}
+                </div>
+            </div>
+        </div></foreach>
+        </notempty><form id="form" action="?" method="post" role="form">
+        <div id="revert" style=" margin-top:10px;">
+             标题：<input type="text" name="title" placeholder="标题" style="border:1px solid #ccc;width:300px" /><br>
+                       <notempty name="res['awslist']">
+	 分类：<select name="awslistid" class="form-control"><foreach name="res['awslist']" item="vo" key="key">
+<option value="{$key}">{$vo}</option></foreach>
+</select></notempty><br>
+            <h5>
+                提交问题</h5>
+            <textarea id="rcnt" name="content" cols="80" rows="10"></textarea>
+            
+            <div class="div_FilesBox">
+     
+								
+						
+				<br>
+						<div class="alert alert-warning" style="display:none;" id="btnn-check-pay-alert">
+	<a href="#" class="close">
+		&times;
+	</a>
+	<strong id="errtitle"></strong><span id="errmsg"></span>
+</div>		     <br>                   
+			<input type="hidden" name="submit" value="add">			
+						<button type="button" class="botton_add btnn-save" >提交工单</button>
+               
+            </div>
+            
+        </div></form>
+        
+    </div>
+	 <script>
+
+
+
+
+
+$(function(){
+
+
+
+$(".btnn-save").click(function(){
+//$("#form").submit(function(){
+
+	$("#errtitle").html("声明：");
+	$("#errmsg").html("正在提交");
+	$("#btnn-check-pay-alert").show();		
+	var object = $(this).closest("form").serializeArray();
+	if(object.title==""){
+		$("#errtitle").html("错误：");
+		$("#errmsg").html("请输入标题");
+		return false;
+	}
+	if(object.content==""){
+		$("#errtitle").html("错误：");
+		$("#errmsg").html("请输入内容");
+		return false;
+	}
+	object.json=1;
+	getPost(
+	window.location.href,
+	object,
+	function(data){
+
+		if(data.code==0){
+		$("#errtitle").html("成功：");
+		$("#errmsg").html("提交成功");
+		window.location.href="{:U('index',array('id'=>$_GET['id']))}";
+			}else{
+				$("#errtitle").html("错误：");
+		$("#errmsg").html(data.message);		
+			}	
+	
+	},
+	"",
+	"json",
+	function(e){
+			$("#errtitle").html("错误：");
+		$("#errmsg").html("未知错误");		
+	}
+	);
+
+	return false;
+});
+
+})
+</script> 
+</body>
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <style>
+    .combo-nav {
+        background-color: #EEE;
+        width: 1200px;
+        margin: 0 auto;
+        margin-top: 10px;
+        height: 50px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        box-sizing: border-box;
+    }
+    
+    .combo-nav * {
+        font-family: 'Tahoma', 'arial', 'Microsoft Yahei', 'Simsun';
+        box-sizing: border-box;
+    }
+    
+    .combo-nav a {
+        flex-grow: 1;
+        color: #198ede;
+        line-height: 50px;
+        padding: 0 10px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 20px;
+    }
+    
+    .combo-nav a.activi {
+        background-color: #198ede;
+        color: #FFF;
+    }
+    
+    .combo-box {
+        width: 1200px;
+        border: 1px solid #DDD;
+        margin: 0 auto;
+        margin-top: 20px;
+        z-index: 0;
+    }
+    
+    .combo-box .header {
+        background-color: #198ede;
+        height: 160px;
+    }
+    
+    .combo-box .header>div:first-child {
+        width: 220px;
+        line-height: 160px;
+        color: #FFF;
+        font-size: 19px;
+        text-align: center;
+    }
+    
+    .combo-box .header>div {
+        position: relative;
+        float: left;
+        height: 160px;
+        border-right: 1px solid rgb(56, 164, 238);
+        margin-left: -1px;
+    }
+    
+    .combo-box .price {
+        font-size: 20px;
+        color: red;
+    }
+    
+    .combo-box table {
+        clear: both;
+        border-collapse: collapse;
+        text-align: center;
+        z-index: 1;
+    }
+    
+    .combo-box table td {
+        line-height: 40px;
+        font-size: 14px;
+        color: #5F5F5F;
+        border-left: 1px solid #DDD;
+        border-right: 1px solid #DDD;
+        font-family: 'Tahoma', 'arial', 'Microsoft Yahei', 'Simsun';
+        -webkit-transition: all 0.2s  linear;
+           -moz-transition: all 0.2s  linear;
+            -ms-transition: all 0.2s  linear;
+             -o-transition: all 0.2s  linear;
+                transition: all 0.2s  linear;
+    }
+    .combo-box table td.activi{
+        background-color: #FFF;
+        transform: scale(1.1, 1.1);
+    }
+    
+    .combo-box table tr:nth-child(odd) {
+        background-color: #EEE;
+    }
+    
+    .combo-box .header h1 {
+        font-family: 'Tahoma', 'arial', 'Microsoft Yahei', 'Simsun';
+        color: #FFF;
+        font-size: 18px;
+        overflow: hidden;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        font-weight: normal;
+    }
+    
+    .combo-box .header .place {
+        text-align: center;
+        height: 45px;
+        overflow-y: hidden;
+    }
+    
+    .combo-box .header .place a {
+        font-family: 'Tahoma', 'arial', 'Microsoft Yahei', 'Simsun';
+        text-decoration: none;
+        color: #DDD;
+        font-size: 12px;
+        display: inline-block;
+        padding-right: 4px;
+    }
+    
+    .combo-box .select {
+        display: block;
+        position: relative;
+        border-radius: 5px;
+        background-color: #FFF;
+        max-width: 100px;
+        margin: 0 auto;
+        overflow: hidden;
+        margin-top: 20px;
+        z-index: 1;
+        font-family: 'Tahoma', 'arial', 'Microsoft Yahei', 'Simsun';
+    }
+    
+    .combo-box .select span,
+    .combo-box .select li {
+        color: rgb(56, 164, 238);
+        font-family: 'Tahoma', 'arial', 'Microsoft Yahei', 'Simsun';
+        line-height: 30px;
+        display: block;
+        text-align: center;
+        overflow: hidden;
+        cursor: pointer;
+        height: 30px;
+    }
+    
+    .combo-box .select span {
+        padding: 0 10px;
+        font-size: 14px;
+    }
+    
+    .combo-box .select span:after {
+        content: '▼';
+        position: absolute;
+        right: 5px;
+        line-height: 30px;
+        top: 0;
+    }
+    
+    .combo-box .select li {
+        width: 100%;
+        font-size: 15px;
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid #DDD;
+        border-bottom: 1px solid #DDD;
+        margin-top: -1px;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -ms-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+    
+    .combo-box .select li:hover {
+        padding-left: 5px;
+    }
+    
+    .combo-box .select ul {
+        width: 100%;
+        position: relative;
+        list-style: none;
+        display: none;
+        padding: 0;
+        margin: 0;
+        border: 1px solid #DDD;
+    }
+    
+    .combo-box .select.open ul {
+        display: block;
+    }
+    
+    .combo-box .buy-details {
+        text-decoration: none;
+        z-index: 1;
+        color: #5F5F5F;
+        font-size: 13px;
+        display: block;
+        text-align: center;
+        color: rgb(56, 164, 238);
+        font-family: 'Tahoma', 'arial', 'Microsoft Yahei', 'Simsun';
+    }
+    
+    .combo-box .buy-details:hover {
+        text-decoration: underline;
+    }
+    
+    .combo-box .buy-but {
+        z-index: 1;
+        font-family: 'Tahoma', 'arial', 'Microsoft Yahei', 'Simsun';
+        border: none;
+        background: none;
+        color: #FFF;
+        border-radius: 5px;
+        background-color: #198ede;
+        line-height: 30px;
+        padding: 0 20px;
+        cursor: pointer;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -ms-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+    
+    .combo-box .buy-but:hover {
+        padding: 0 25px;
+        background-color: rgb(56, 164, 238);
+    }
+    
+    .combo-box .border {
+        width: 100%;
+        top: -11px;
+        display: none;
+        border: 1px solid rgb(56, 164, 238);
+        position: absolute;
+        z-index: 0;
+    }
+    
+    .combo-box .border:before {
+        content: '';
+        height: 10px;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: rgb(56, 164, 238);
+    }
+    
+    .combo-box .combo-plan {
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -ms-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+    }
+    
+    .combo-box .combo-plan.activi .border {
+        display: block;
+    }
+    
+    .combo-box .combo-plan.activi {
+        background-color: rgb(56, 164, 238);
+    }
+    </style>
+</head>
+
+<body>
+    <div class="combo-nav">
+        <a href="{:U('combobox',array('t'=>'host'))}"<eq name="t" value="host"> class="activi"</eq>>虚拟主机</a>
+        <a href="{:U('combobox',array('t'=>'vps'))}"<eq name="t" value="vps"> class="activi"</eq>>VPS</a>
+        <a href="{:U('combobox',array('t'=>'adsl'))}"<eq name="t" value="adsl"> class="activi"</eq>>ADSL</a>
+        <a href="{:U('combobox',array('t'=>'server'))}"<eq name="t" value="server"> class="activi"</eq>>服务器</a>
+    </div>
+    <div class="combo-box">
+        <div class="box">
+            <div class="header">
+                <div>配置计划项</div>
+                <volist name="servers" key="index" id="server">
+                    <if condition="!empty($productList[$index-1])">
+                        <div class="combo-plan plan-td-{$index-1}" index="{$index-1}">
+                            <h1>{$server.name}</h1>
+                            <div class="place">
+                                <volist name="regionList[$index-1]" id="place">
+                                    <a href="{:U('',array('t'=>$t,'get'=>1,'room'=>$server['flag'],'address'=>$place))}" class="address-link" server-index="{$index-1}">{$place}</a>
+                                </volist>
+                            </div>
+                            <div class="select" id="select-{$index-1}">
+                                <if condition="!empty($productList[$index-1])">
+                                    <span data-index="{$index-1}" data-i="0">{$productList[$index-1][0].name}</span>
+                                    <ul>
+                                        <volist name="productList[$index-1]" id="product">
+                                            <li data-index="{$index-1}" data-i="{$i-1}">{$product.name}</li>
+                                        </volist>
+                                    </ul>
+                                </if>
+                            </div>
+                            <div class="border"></div>
+                        </div>
+                    </if>
+                </volist>
+            </div>
+            <if condition="$t=='host'">
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td rowspan="8" class="field" style="width:110px;background-color: #FFF;">计划</td>
+                        <td class="field" style="width:110px;">空间大小：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].hostsize}M</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">MSSQL：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].mssqlsize}M</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">MYSQL：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].mysqlsize}M</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">流量：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].flow}G</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">防火墙：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].firewall}G</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">说明：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].infos|mb_substr=0,80,"UTF-8"}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">价格：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1} price">
+                                    <span class="price">￥{$productList[$key][0].yearprice}元</span>/年起
+                                    <a href="" class="buy-details">详细配置</a>
+                                    <button class="buy-but">立即购买</button>
+                                </td>
+                            </if>
+                        </volist>
+                    </tr>
+                </table>
+            <elseif condition="$t=='vps'"/>
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td rowspan="8" class="field" style="width:110px;background-color: #FFF;">计划</td>
+                        <td class="field" style="width:110px;">C P U：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].cpu}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">内存：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].ram}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">硬盘：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].hdinfo}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">宽带：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].bdinfo}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">IP地址：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].ipinfo}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">说明：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].infos|mb_substr=0,80,"UTF-8"}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">价格：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1} price">
+                                    <span class="price">￥{$productList[$key][0].monthprice}元</span>/月起
+                                    <a href="" class="buy-details">详细配置</a>
+                                    <button class="buy-but">立即购买</button>
+                                </td>
+                            </if>
+                        </volist>
+                    </tr>
+                </table>
+            <elseif condition="$t=='adsl'"/>
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td rowspan="8" class="field" style="width:110px;background-color: #FFF;">计划</td>
+                        <td class="field" style="width:110px;">C P U：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].cpu}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">内存：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].ram}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">硬盘：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].hdinfo}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">宽带：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].bdinfo}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">IP地址：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].ipinfo}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">说明：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].infos|mb_substr=0,80,"UTF-8"}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">价格：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1} price">
+                                    <span class="price">￥{$productList[$key][0].monthprice}元</span>/月起
+                                    <a href="" class="buy-details">详细配置</a>
+                                    <button class="buy-but">立即购买</button>
+                                </td>
+                            </if>
+                        </volist>
+                    </tr>
+                </table>
+            <elseif condition="$t=='server'"/>
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td rowspan="8" class="field" style="width:110px;background-color: #FFF;">计划</td>
+                        <td class="field" style="width:110px;">C P U：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].cpu}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">内存：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].ram}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">硬盘：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].hdinfo}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">宽带：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].bdinfo}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">IP地址：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].ipinfo}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">说明：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1}">{$productList[$key][0].infos|mb_substr=0,80,"UTF-8"}</td>
+                            </if>
+                        </volist>
+                    </tr>
+                    <tr>
+                        <td class="field" style="width:110px;">价格：</td>
+                        <volist name="servers" id="server">
+                            <if condition="!empty($productList[$key])">
+                                <td index="{$i-1}" class="td-{$i-1} price">
+                                    <span class="price">￥{$productList[$key][0].monthprice}元</span>/月起
+                                    <a href="" class="buy-details">详细配置</a>
+                                    <button class="buy-but">立即购买</button>
+                                </td>
+                            </if>
+                        </volist>
+                    </tr>
+                </table>
+            </if>
+        </div>
+    </div>
+    <if condition="$t=='host'">
+        <script>
+            var fieldList=[
+                {"field":"hostsize",'unit':'M'},
+                {"field":"mssqlsize",'unit':'M'},
+                {"field":"mysqlsize",'unit':'M'},
+                {"field":"flow",'unit':'G'},
+                {"field":"firewall",'unit':'G'},
+                {"field":"infos",'unit':''}
+            ];
+        </script>
+    <elseif condition="$t=='vps'"/>
+        <script>
+            var fieldList=[
+                {"field":"cpu","unit":""},
+                {"field":"ram","unit":""},
+                {"field":"hdinfo","unit":""},
+                {"field":"bdinfo","unit":""},
+                {"field":"ipinfo","unit":""},
+                {"field":"infos","unit":""}
+            ];
+        </script>
+    <elseif condition="$t=='adsl'"/>
+        <script>
+            var fieldList=[
+                {"field":"cpu","unit":""},
+                {"field":"ram","unit":""},
+                {"field":"hdinfo","unit":""},
+                {"field":"bdinfo","unit":""},
+                {"field":"ipinfo","unit":""},
+                {"field":"infos","unit":""}
+            ];
+        </script>
+    <elseif condition="$t=='server'"/>
+        <script>
+            var fieldList=[
+                {"field":"cpu","unit":""},
+                {"field":"ram","unit":""},
+                {"field":"hdinfo","unit":""},
+                {"field":"bdinfo","unit":""},
+                {"field":"ipinfo","unit":""},
+                {"field":"infos","unit":""}
+            ];
+        </script>
+    </if>
+    <script>
+    (function() {
+        var productList = {$productList|json_encode};
+
+        function getStyle(el, attr) {
+            return el.currenStyle ? el.currenStyle[attr] : getComputedStyle(el, null)[attr];
+        }
+
+        function addComboBoxActivi(combox) {
+            for (var i = 0; i < combox.parentNode.childNodes.length; i++) {
+                var node = combox.parentNode.childNodes[i];
+                if (node.nodeName.toLowerCase() == 'div' && node.classList.contains('combo-plan')) {
+                    node.classList.remove('activi');
+
+                    var index = parseInt(node.getAttribute('index'));
+                    var td = document.querySelectorAll('td.td-' + index);
+                    for (var l = 0; l < td.length; l++)
+                        td[l].classList.remove('activi');
+                }
+            }
+            combox.classList.add('activi');
+            var index = parseInt(combox.getAttribute('index'));
+            var td = document.querySelectorAll('td.td-' + index);
+            for (var l = 0; l < td.length; l++)
+                td[l].classList.add('activi');
+        }
+
+        var td = document.querySelectorAll('.combo-box td');
+        var comboplan = document.querySelectorAll('.combo-plan');
+        var width = (1200 - 220) / comboplan.length;
+        for (var i = comboplan.length - 1; i >= 0; i--) {
+            comboplan[i].style.width = width + 'px';
+            comboplan[i].onmouseenter = function() {
+                addComboBoxActivi(this);
+            }
+        }
+        for(var i=0;i<td.length;i++){
+            if(!td[i].classList.contains('field'))
+                td[i].style.width=width+'px';
+        }
+        var select = document.querySelectorAll('.combo-box div.select');
+        for (var i = select.length - 1; i >= 0; i--) {
+            select[i].onclick = function(e) {
+                var option = e.target || e.srcElement;
+                this.classList.toggle('open');
+                if (option.tagName.toLowerCase() == 'li') {
+                    var label;
+                    for (var i = 0; i < this.childNodes.length; i++) {
+                        if (this.childNodes[i].nodeName.toLowerCase() == 'span') {
+                            label = this.childNodes[i];
+                            break;
+                        }
+                    }
+                    label.innerText = option.innerText;
+
+                    var i = option.getAttribute('data-index');
+                    var l = option.getAttribute('data-i');
+                    var product = productList[i][l];
+                    var td = document.querySelectorAll('.td-' + i);
+
+                    setTimeout((function(product,td){
+                        return function (){
+                            for (var i = 0; i < fieldList.length; i++){
+                                td[i].innerHTML = product[fieldList[i].field] + fieldList[i].unit;
+                            }
+                        }
+                    })(product,td),500);
+                }
+            }
+        }
+        document.querySelector('table').onmousemove = function(e) {
+            var target = e.target || e.srcElement;
+            if (target.tagName.toLowerCase() == 'td') {
+                var index = parseInt(target.getAttribute('index'));
+                if (isNaN(index))
+                    return;
+                addComboBoxActivi(document.querySelector('.plan-td-' + index));
+            }
+        }
+        document.querySelector('.combo-box .header').onclick=function(e){
+            var target = e.target || e.srcElement;
+            if(target.classList.contains('address-link')){
+                flushList(target.getAttribute('href'),target.getAttribute('server-index'));
+                return false;
+            }
+        }
+        function flushList(href,index){
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', href, true);
+            xhr.send();
+            xhr.onreadystatechange=function(){
+                if (xhr.readyState == 4) {
+                    if (xhr.status != 200)
+                        alert(xhr.responseText);
+                    else{
+                        var data=JSON.parse(xhr.responseText);
+                        if(!data)
+                            alert('数据解析失败');
+                        else{
+                            if(data.length>0){
+                                productList[index]=data;
+                                var html='<span data-index="'+index+'" data-i="0">'+data[0].name+'</span>';
+                                html+='<ul>';
+                                for(var i=0;i<data.length;i++){
+                                    html+='<li data-index="'+index+'" data-i="'+i+'">'+data[i].name+'</li>';
+                                }
+                                html+='</ul>';
+                                document.querySelector('#select-'+index).innerHTML=html;
+
+                                var td = document.querySelectorAll('.td-' + index);
+                                for (var i = 0; i < fieldList.length; i++){
+                                    td[i].innerHTML = data[0][fieldList[i].field] + fieldList[i].unit;
+                                }
+                            }else{
+                                alert('该地区无数据');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        var iframe=window.parent.document.getElementById('iframe-combobox');
+        iframe.style.height=parseInt(getStyle(document.querySelector('body'),'height'))+50+'px';
+    })();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<style>
+    .cy_box {
+        float: right;
+        margin-left: 40px;
+    }
+
+    .cy_box a {
+        line-height: 24px;
+        margin-top: 22px;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        margin-left: 10px;
+    }
+
+    .small .cy_box a {
+        margin-top: 10px;
+    }
+</style>
+<nav style="background:#03a1e5;">
+    <div class="nav clear">
+        <a href="/" class="logo"><img src="/logo.png" style="height: 100%;"></a>
+        <div class='cy_box'>
+            <notempty name="islogin">
+                <a href="{:U('User/index')}">管理中心</a>
+                <a href="{:U('Money/pay')}" target="_bank">在线充值</a>
+                <else/>
+                <a href="{:U('User/login')}">登录</a>
+                <a href="{:U('User/reg')}">注册</a>
+            </notempty>
+        </div>
+        <ul class="clear">
+            <li>
+                <a href="{:U('/index')}">首页</a>
+                <div class="dropmenu">
+                    <ol>
+                        <li>
+                            <h4>网站动态</h4>
+                            <ul>
+                                <li><a href="{:U('Article/index',array('type'=>'网站公告'))}">网站公告</a></li>
+                                <li><a href="{:U('Article/index',array('type'=>'最新促销'))}">最新促销</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <h4>技术文章</h4>
+                            <ul>
+                                <li><a href="{:U('Article/index',array('type'=>'技术文章'))}">技术文章</a></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </li>
+            <li><a href="{:U('Domain/index')}">域名注册</a></li>
+            <li><a href="{:U('Host/index')}">虚拟主机</a></li>
+            <li><a href="{:U('Vps/index')}">VPS</a></li>
+            <li><a href="{:U('Cloud/index')}">弹性云</a></li>
+            <li><a href="{:U('Adsl/index')}">ADSL</a></li>
+            <li><a href="{:U('Server/index')}">服务器</a></li>
+            <li><a href="{:U('Seo/index')}">营销推广</a></li>
+            <li><a href="{:U('Website/index')}">网站建设</a></li>
+            <li><a href="{:U('Join/index')}">代理加盟 </a></li>
+        </ul>
+    </div>
+</nav>

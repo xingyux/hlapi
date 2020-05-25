@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>营销推广-{$sitename}</title>
+<link href="__PUBLIC__/web/css/style.css" type="text/css" rel="stylesheet">
+<link href="__PUBLIC__/web/css/iconfont.css" type="text/css" rel="stylesheet">
+<link href="__PUBLIC__/web/css/page.css" type="text/css" rel="stylesheet">
+<style>
+	.block{
+		width: 100%;
+		background-color: #FFF;
+		padding: 20px 0;
+		position: relative;
+	}
+	.cls{
+		clear: both;
+	}
+	.block>div{
+		width: 1200px;
+		margin: 0 auto;
+	}
+	.block>div .l,.block>div .r{
+		float: left;
+		width: 49%;
+		height: 300px;
+		margin-top: 30px;
+	}
+	.block>div .r a{
+		border-radius: 5px;
+		line-height: 40px;
+		display: inline-block;
+		font-size: 18px;
+		padding: 0 25px;
+		color: #FFF;
+		background-color: #03a1e5;
+		-webkit-transition: all 0.2s  linear;
+	       -moz-transition: all 0.2s  linear;
+	        -ms-transition: all 0.2s  linear;
+	         -o-transition: all 0.2s  linear;
+	            transition: all 0.2s  linear;
+	}
+	.block>div .r a:hover{
+		background-color: #40AEDE;
+	}
+	.block>div .r p{
+		width: 70%;
+		font-size: 13px;
+		margin: 25px 0;
+		color: #5F5F5F;
+		line-height: 20px;
+	}
+</style>
+<script src="//cache-code-ui.html5ui.org/jQuery/jquery-1.9.1.min.js"></script>
+<script>
+$(function(){
+	$('.nav li').hover(
+		function(){
+			$(this).find('.dropmenu').stop().slideDown()
+
+		},
+		function(){
+			$(this).find('.dropmenu').stop().slideUp('fast')
+	    }
+    )
+	$(window).scroll(function(){
+		var scollT=$(this).scrollTop();
+		if(scollT>$('.nav').height()){
+				$('.nav').addClass('small')
+				$('nav').addClass('fix');
+				$('.dropmenu').addClass('small_dropmenu')
+		}else{
+				$('.nav').removeClass('small')
+				$('nav').removeClass('fix');
+				$('.dropmenu').removeClass('small_dropmenu')
+		}
+	})
+	/*页面页脚居中*/
+	$('.pageBox').css('width',$('.pageBox>ul').width()+$('.pageBox>p').width())
+	
+	
+	/*条件选择*/	
+	
+	$('.conditions span').click(function(){
+		$(this).addClass('active').siblings().removeClass('active');	
+	})
+})
+</script>
+</head>
+
+<body>
+	<include file="Common/nav" />
+ 	<img src="__PUBLIC__/seo/img/txcp_top_banner.png" width="100%">
+    <div class="block">
+    	<div>
+    		<div class="l">
+    			<img src="__PUBLIC__/seo/img/txcp_img1.png" alt="">
+    		</div>
+    		<div class="r">
+    			<img src="__PUBLIC__/seo/img/txcp_img1_title.png" alt="">
+    			<p>以企业QQ原有功能为基础，融合Tita的成熟功能，帮助企业进行有序的工作计划和动态的项目管理，实时掌握各项工作进度。实现提升企业办公效率，以及管理者和员工的统筹管理能力。</p>
+    			<a href="">立即购买</a>
+    		</div>
+    	</div>
+    </div>
+    <div class="cls"></div>
+    <div class="block">
+    	<div>
+    		<div class="l">
+    			<img src="__PUBLIC__/seo/img/txcp_img2.png" alt="">
+    		</div>
+    		<div class="r">
+    			<img src="__PUBLIC__/seo/img/txcp_img2_title.png" alt="">
+    			<p>为企业提供安全快捷支付解决方案。结合“数据管理”、“客服运营”、“市场运营”的平台化运作，通过企业自营“维商城”、“微电商”完成最终支付闭环。</p>
+    			<a href="">立即购买</a>
+    		</div>
+    	</div>
+    </div>
+    <div class="cls"></div>
+    <div class="block">
+    	<div>
+    		<div class="l">
+    			<img src="__PUBLIC__/seo/img/txcp_img3.png" alt="">
+    		</div>
+    		<div class="r">
+    			<img src="__PUBLIC__/seo/img/txcp_img3_title.png" alt="">
+    			<p>不论您身处那个行业，腾讯企点都能帮助你洞察客户需求，安全高效地管理客户资源，多样化的社交方式提升生意转化。</a>
+    		</div>
+    	</div>
+    </div>
+    <div class="cls"></div>
+<include file="Common/webfooter" />
+</body>
+</html>
+
+
+

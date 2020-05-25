@@ -1,0 +1,91 @@
+<extend name="mobile/Layout/base" />
+<block name="title">财务管理-</block>
+<block name="style">
+	<style>
+        #form input{
+            width: 70%;
+            border: none;
+            border-bottom: 1px solid #DDD;
+        }
+        #form{
+            padding: 10px;
+        }
+        #form button{
+            display: block;
+            border: none;
+            background: none;
+            border-radius: 5px;
+            background-color: #03b3ff;
+            width: 90%;
+            text-align: center;
+            color: #FFF;
+            line-height: 30px;
+            margin-top: 10px;
+        }
+        #form label{
+            color: #5F5F5F;
+        }
+        .top-nav{
+            text-align: center;
+            background-color: #524F4F;
+        }
+        .top-nav a{
+            line-height: 30px;
+            display: inline-block;
+            padding: 0 5px;
+            color: #FFF;
+        }
+        .top-nav a.activi{
+            background-color: #03b3ff;
+            color: #FFF;
+        }
+	</style>
+</block>
+<block name="content">
+	<a name="top"></a>
+    <nav class="top-nav">
+        <a href="{:U('index')}">财务信息</a>
+        <a class="activi">充值记录</a>
+        <a href="{:U('buy')}">消费记录</a>
+        <a href="{:U('refun')}">退款记录</a>
+        <a href="{:U('pay')}">在线充值</a>
+    </nav>
+    <div class="table">
+        <table cellpadding="0">
+            <tr>
+                <th>编号</th>
+                <th>操作时间</th>
+                <th>金额</th>
+                <th>充值方式</th>
+                <th>官方订单号</th>
+                <th>充值成功时间</th>
+                <th>充值状态</th>
+                <th>备注</th>
+            </tr>
+            <foreach name="res['Log']" item="vo">
+                <tr>
+                <td>{$vo.id} </td>
+                <td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                <td>{$vo.money}</td>
+                <td>{$vo.paytype}  </th>
+                <td>{$vo.order}</td>
+                <td>{$vo.succtim|date='Y-m-d H:i',###}</td>
+                <td>        <if condition="$vo['state'] eq 1">
+                        <span class="label label-sm label-success">等待支付</span>
+                    <elseif condition="$vo['state'] eq 2" />
+                        <span class="label label-sm label-warning">成功</span>
+                    <else /> 
+                        <span class="label label-sm label-warning">失败</span>
+                        
+                    </if></td><td>{$vo.info}</td>
+                </tr>
+            </foreach>
+        </table>
+        <include file="mobile/Common/ui-page" />
+    </div>
+	<a href="#top" name="top" id="go-top"><i class="iconfont">&#xe61e;</i></a>
+</block>
+<block name="script">
+	<script>
+	</script>
+</block>

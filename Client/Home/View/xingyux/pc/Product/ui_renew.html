@@ -1,0 +1,138 @@
+<div id="renew_dialog" style="display: none"></div>
+<script id="renew_dialog_tmpl"  type="text/x-jquery-tmpl">
+<div style="text-align:center" class="showregqrcode" id="logininfo">
+<img src="__PUBLIC__/user/images/loading.gif" style="width:90%" class="showloginqrcode-img-login qrimg">
+<br><br>
+<div class="select_choose" style="display:none;">
+			<form id="form" action="?" method="post">
+
+续费周期：<select class="time_choose" name="time_choose" style="font-size:16px;">
+
+</select><br>
+
+<div class="alert alert-warning alert-info" style="display:none;"><strong class="errtitle"></strong><span class="errmsg"></span></div>
+
+</form>
+</div>
+</div>
+</script>
+<script>
+
+
+$(function(){
+	$("a._renew").click(function(){
+	
+	var dialogObj=$("#renew_dialog");dialogObj.empty();$("#renew_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+	
+	var _domain=$(this).attr("data-domain");
+	var _pid=$(this).attr("data-id");
+
+		dialogObj.dialog({
+			title: _domain+"续费",
+			width: 300,
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		
+
+		dialogObj.find(".alert-info").hide();	
+
+	getPost(
+		"{:U('Shop/renew')}",
+		{
+		"product_id":_pid,
+
+		},
+		function(data,field){
+			
+			if(data.code!=0){
+				alert(data.message);
+				field.dialog( "close" );
+				return false;
+			}
+			field.find(".qrimg").hide();
+			field.find(".select_choose").show();
+			field.find("select.time_choose").empty();
+				
+			var s=data.Info.Price;
+			var mt_rand=data.mt_rand;
+			$.each(s,function(m,v){
+	
+				field.find("select.time_choose").append("<option value='"+m+"'>"+v.price+"元/"+v.name+"</option>");
+			})
+				field.dialog( "option", "buttons", 
+
+				{
+				"提交续费": function() {
+				  
+							field.find(".qrimg").show();
+							field.find(".select_choose").hide();
+
+							field.find(".errtitle").html("声明：");
+							field.find(".errmsg").html("正在提交");				
+							field.find(".alert-info").show();	
+							var time_choose=field.find("select.time_choose option:selected").val();
+							
+							getPost("{:U('Shop/renew')}",{
+							"product_id":_pid,
+							"time_choose":time_choose,
+							"buy_choose":1,
+							"mt_rand":mt_rand,
+							},
+							function(data,field){
+							field.find(".qrimg").hide();
+							field.find(".select_choose").show();					
+								if(data.code!=0){
+								field.find(".errtitle").html("错误：");
+								field.find(".errmsg").html(data.message);	
+									return false;
+								}
+								field.find(".errtitle").html("成功");
+								field.find(".errmsg").html("请稍候等待微信通知或查看任务状态");		
+								field.dialog( "option", "buttons", {
+				"关闭": function() {
+				  $( this ).dialog( "close" );
+				}
+			  } );	
+							},
+							field,
+							"json",
+							function(e){
+							field.find(".qrimg").hide();
+							field.find(".select_choose").show();	
+							field.find(".errtitle").html("错误：");
+							field.find(".errmsg").html("未知错误");	
+							})				
+			
+				},
+				"关闭": function() {
+				  $( this ).dialog( "close" );
+				}
+			  }
+
+
+				);
+		},
+		dialogObj,
+		"json",
+		function(e,field){
+			alert("未知错误01");
+			field.dialog( "close" );
+		}
+		);	
+	
+
+
+			return false;
+
+});
+
+});
+
+</script>

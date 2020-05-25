@@ -1,0 +1,90 @@
+<div id="dialog_dialog" style="display: none"></div>
+<script id="lv_dialog_tmpl" type="text/x-jquery-tmpl">
+<div style="text-align:center" class="showregqrcode" id="logininfo">
+<div class="select_choose" style="display:;">
+			<form id="form" action="?" method="post">
+级别：<select class="time_choose" name="lv_choose" style="font-size:16px;"><option value="0">取消代理(代理无下级可用)</option>
+<foreach name="res['pricetype']" item="lv">
+<option value="{$lv.id}">{$lv.name}</option>
+</foreach>
+</select>
+<div class="alert alert-warning alert-info" style="display:none;"><strong class="errtitle"></strong><span class="errmsg"></span></div>	                        
+
+</form>
+</div>
+</div>
+</script>
+
+<script>
+
+$(function(){
+	$("a.change_lv").click(function(){
+	
+	
+	
+	
+	var _lv=$(this).attr("data-lv");
+	var _username=$(this).attr("data-username");
+	var _id=$(this).attr("data-id");
+	
+var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#lv_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+
+		dialogObj.find("select[name='lv_choose']").val(_lv);
+
+			dialogObj.find("form").unbind("submit");
+			dialogObj.find("form").submit(function(){
+			
+							dialogObj.find(".errtitle").html("声明：");
+							dialogObj.find(".errmsg").html("正在提交");				
+							dialogObj.find(".alert-info").show();				
+			
+				var lv=$(this).find("select[name='lv_choose']").val();
+				getPost(
+				"{:U('changelv')}",
+				{"id":_id,"lv":lv, "json":1},
+				function(data){
+					if(data.code==0){
+			
+						dialogObj.find(".errtitle").html("成功：");
+					dialogObj.find(".errmsg").html("调整成功");					
+					}else{
+					dialogObj.find(".errtitle").html("错误：");
+					dialogObj.find(".errmsg").html(data.message);	
+					}
+				},
+				"",
+				"json",
+				function(e){
+				dialogObj.find(".errtitle").html("错误：");
+				dialogObj.find(".errmsg").html("未知错误");
+				}
+				);
+				return false;
+			});		
+		
+		
+		dialogObj.dialog({
+			title: _username+"代理级别调整",
+			width: 300,
+	
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		
+		dialogObj.dialog( "option", "buttons", {"调整":function(){dialogObj.find("form").submit();},"关闭":function(){dialogObj.dialog("close");}});	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		return false;	
+	
+	
+
+});
+
+
+
+
+})
+</script>

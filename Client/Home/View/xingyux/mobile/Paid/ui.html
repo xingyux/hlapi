@@ -1,0 +1,105 @@
+	<div id="dialog_dialog" style="display: none"></div>
+	
+	
+<script id="notice_dialog_tmpl" type="text/x-jquery-tmpl">
+
+			<form id="form" action="?" method="post" role="form">
+
+			
+	
+			
+<table>
+                	
+                         <tr>
+                    	<td>电子邮箱</td><td><input type="text" name="notice-title" value="" placeholder="电子邮箱" class="form-control"></td></tr>
+                        <tr><td></td><td>
+						<input type="hidden" name="paidinfo" value="阿里">
+						<div class="alert alert-warning" style="display:none;" id="btnn-check-pay-alert">
+	<a href="#" class="close">
+		&times;
+	</a>
+	<strong id="errtitle"></strong><span id="errmsg"></span>
+</div>		                        
+				
+						</td></tr>
+						
+                    
+                </table>
+
+</form>
+
+</div>
+</script>	
+
+
+<script>
+
+$(function(){
+
+
+
+	$(".bindali").click(function(){
+
+$("#btnn-check-pay-alert .close").unbind("click");
+$("#btnn-check-pay-alert .close").click(function(){
+	$("#btnn-check-pay-alert").hide();
+	return false;
+});	
+	
+var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#notice_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+
+
+		dialogObj.find("form").submit(function(){
+		
+	$("#errtitle").html("声明：");
+	$("#errmsg").html("正在提交");
+	$("#btnn-check-pay-alert").show();		
+		
+		var object=$(this).serializeArray();
+		
+		getPost(
+		"{:U('bind')}",
+		object,
+		function(data){
+			if(data.code==0){
+				$("#errtitle").html("成功：");
+				$("#errmsg").html("请等待邮件通知关联。");
+				dialogObj.dialog( "option", "buttons", {"关闭":function(){dialogObj.dialog("close");}});	
+			}else{
+				$("#errtitle").html("错误：");
+		$("#errmsg").html(data.message);		
+			}
+		},"","json",function(e){
+		
+		
+			$("#errtitle").html("错误：");
+		$("#errmsg").html("未知错误");
+		
+		}
+		
+		);
+		return false;
+		});
+	
+		dialogObj.dialog({
+			title: "阿里关联申请",
+			width: 400,
+
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		
+		dialogObj.dialog( "option", "buttons", {"确认申请":function(){dialogObj.find("form").submit();},"关闭":function(){dialogObj.dialog("close");}});	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		return false;	
+
+
+});
+
+
+})
+</script>

@@ -1,0 +1,118 @@
+<extend name="mobile/Layout/base" />
+<block name="title">公告信息-</block>
+<block name="style">
+	<style>
+        #show_block{
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, .6);
+            z-index: 5;
+        }
+        #show_block .c{
+            position: absolute;
+            width: 85%;
+            top: 50%;
+            left: 50%;
+            color: #5F5F5F;
+            transform: translate(-50%, -50%);
+            background-color: #FFF;
+            box-shadow: 0 0 30px rgba(255, 255, 255, .4);
+            overflow: auto;
+            padding: 10px;
+        }
+        #show_block.show{
+            display: block;
+        }
+	</style>
+</block>
+<block name="content">
+	<a name="top"></a>
+	<div class="table">
+        <table>
+            <tr>
+                <th>编号</th>
+                <th>发布时间</th>
+                <th>发布人</th>
+                <th>标题</th>
+                <th>阅读权限</th>
+                <notempty name="checkAgent">
+                    <eq name="AgentInfo.username" value="$vo['username']">
+                        
+                        <th>操作</th>
+                    </eq>
+                </notempty>
+            </tr>
+            <foreach name="res['Notice']" item="vo">
+                <tr>
+                    <td>{$vo.id} </td>
+                    <td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                    <td>{$vo.username}</td>
+                    <td>
+                        <a href="javascript:;" class="notice-info" 
+                            data-title="{$vo.title|urlencode}" 
+                            data-time="{$vo.tim|date='Y-m-d H:i',###}" 
+                            data-content="{$vo.content|urlencode}" 
+                            data-id="{$vo['id']}">{$vo.title|mb_substr=0,15,"UTF-8"}</a>
+                    <td>
+                        <if condition="$vo['islook'] eq 1">代理
+                            <elseif condition="$vo['islook'] eq 2" />会员
+                            <else />所有人
+                        </if>
+                    </td>
+                    <td>
+                        <notempty name="checkAgent">
+                            <eq name="AgentInfo.username" value="$vo['username']">
+                                <a href="javascript:;" class="delnotice" data-id="{$vo.id}">删除</a>
+                            </eq>
+                        </notempty>
+                    </td>
+                </tr>
+            </foreach>
+        </table>
+    </div>
+    <include file="mobile/Common/ui-page" />
+	<a href="#top" name="top" id="go-top"><i class="iconfont">&#xe61e;</i></a>
+    <div id="show_block">
+        <div id="content" class="c"></div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(".delnotice").click(function(){
+            var id=$(this).data("id");
+            var object={"id":id,"submit":"del","json":1};
+            layer.open({
+                content:'你确认要删除此条公告？',
+                btn:['确定','取消'],
+                yes:function(index){
+                    layer.close(index);
+
+                    $.post(window.location.href, object, function(data, textStatus, xhr) {
+                        if(data.code==0){
+                            show_msg('删除成功');
+                            window.location.reload();
+                        }else{
+                            show_error(data.message);
+                        }
+                    });
+                }
+            });
+            return false;
+        });
+        $(".notice-info").click(function(){
+            var content=$(this).attr('data-content');
+            $("#content").html(decodeURIComponent(content));
+            $("#show_block")[0].classList.toggle('show');
+        });
+        $("#show_block").click(function(){
+            $(this)[0].classList.toggle('show');
+        });
+        $("#content").click(function(){
+            return false;
+        });
+    </script>
+</block>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>产品授权管理-{$sitename}</title>
+<include file="Common/head" />
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">{$servers["name"]}产品授权管理</p>
+     
+            <div class="table">
+            	<table>
+                	<tr>
+                    	
+                        <th>userid</th>
+                       <th>acname</th>
+					   <th>ackey</th>
+					   <th>面板域名</th>
+					   <th>激活</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="res['apiset']" item="vo">
+					<form id="form{$vo.id}" action="" method="post">
+                         <tr>
+                    	
+						<td><input type="text" name="api_userid" value="{$vo['userid']}" placeholder="userid" style=" border:1px solid #000;"> </td>
+						<td><input type="text" name="api_acname" value="{$vo['acname']}" placeholder="userid" style=" border:1px solid #000;"> </td>
+						<td><input type="text" name="api_ackey" value="{$vo['ackey']}" placeholder="userid" style=" border:1px solid #000;"> <input type="hidden" name="agent" value="{$vo['agent']}"></td>
+						<td><input type="text" name="api_panel" value="{$vo['panel']}" placeholder="userid" style=" border:1px solid #000;"> </td>
+						<td><input type="checkbox" name="api_active" value="1"<eq name="vo['active']" value="1"> checked</eq>></td>
+                   
+                        
+                        <td class="cz">
+                        	
+                            
+                            <button type="submit">设置</button>
+							
+                        </td></tr></form>
+						</foreach>
+				
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

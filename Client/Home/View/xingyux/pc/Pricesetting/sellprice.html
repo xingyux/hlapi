@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>价格管理-{$sitename}</title>
+<include file="Common/head" />
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">{$servers["name"]}代理价格管理</p>
+          <div class="select_choose">
+               此价格为在您的价格的基础上增加的%比，如您的代理价格是 100，您设置 10%，那么此代理级别的价格为 110。
+            </div>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>ID</th>
+                        <th>级别名称</th>
+                       <th>价格设置</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="res['pricetype']" item="vo">
+					<form id="form{$vo.id}" action="" method="post">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						<td>{$vo.name} </td>
+                        <td>
+						<input type="number" name="discount" value="{$vo['discount']['discount']}" placeholder="价格设置" style=" border:1px solid #000;">%
+						<input type="hidden" name="typeid" value="{$vo.id}">
+						<input type="hidden" name="agent" value="{$vo['discount']['agent']}">
+						</td>
+                        
+                        <td class="cz">
+                        	
+                            
+                            <button type="submit">设置</button>
+							
+                        </td></tr></form>
+						</foreach>
+				
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked)	
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

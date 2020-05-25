@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>腾讯云服务器</title>
+    <link href="__PUBLIC__/web/css/style.css" type="text/css" rel="stylesheet">
+    <link href="__PUBLIC__/web/css/iconfont.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/cloud/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/cloud/css/calculate.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/cloud/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/cloud/css/common.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/cloud/fontes/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/cloud/css/jquery-ui.css">
+    <style>
+        .room-list{
+            display: block;
+            margin: 0 auto 2px auto;
+            width: 1200px;
+            background-color: #FFF;
+            box-sizing: border-box;
+            padding: 20px 0 20px 50px;
+        }
+        .room-item{
+            display: inline-block;
+            padding: 0 20px;
+            line-height: 30px;
+            transition:all .3s linear;
+            border-bottom: 1px solid #FFF;
+            position: relative;
+        }
+        .room-item::after{
+            content: '';
+            height: 15px;
+            width: 1px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            background-color: #e3e8ee;
+            transform: translate(0,-50%);
+        }
+        .room-item:last-child::after{
+            display: none;
+        }
+        .room-item:hover{
+            color: #5cadff;
+            text-decoration: none;
+            border-bottom: 1px solid #5cadff;
+        }
+        .room-item.active{
+            background-color: #00c1de;
+            color: #FFF;
+        }
+        .room-item.active::after{
+            display: none;
+        }
+        .h-top nav a:hover{
+            color: #FFF;
+            text-decoration: none;
+        }
+        .room-item:first-child{
+            font-weight: 800;
+            color: #000;
+            padding-right: 20px;
+        }
+        .room-item:first-child::after{
+            display: none;
+        }
+        .room-item:first-child:hover{
+            color: #000;
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="templete" style="display: none;">
+    <div id="Regions">
+        <div class="place_box place_common" data-id="{Region}" data-zone="null" data-key="{Key}">
+            <p data-name>{RegionName}</p>
+            <form class="layui-form layui-form-pane1" action="">
+                <div class="layui-inline">
+                    <div class="layui-input-block">
+                        <select name="quiz" lay-verify="required" lay-verType="tips" lay-filter="area" data-callback="_initZone">
+                            <option value="0">随机分配</option>
+
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div class="showloading"><i class="iconfont icon-set fa-spin"></i><br><span>加载中</span></div>
+<div class="showError" style="display: none;"><i class="iconfont icon-x"></i><br><span>初始化</span></div>
+<div class="h-top">
+    <include file="Common/nav" />
+</div>
+<div class="content">
+    <div class="cal_title ">
+        <div class="cal_text clearfix">
+            <h5>腾讯云服务器</h5>
+        </div>
+    </div>
+    <div class="room-list">
+        <div class="room-item">品牌</div>
+        <foreach name="resAPI['servers']" item="vo" key="key">
+            <a class="room-item{$resAPI['GPC']['get']['room'] === $vo['flag'] ? ' active' : ''}" href="{:U('index',array('room'=>$vo['flag']))}">
+                {$vo.name}
+            </a>
+        </foreach>
+    </div>
+    <div class="cal_context">
+        <div>
+            <!-- Nav tabs -->
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="profile">
+                    <div class="fee tab_box clearfix hometab">
+                        <span class="name"><i class="iconfont icon-googleearth name_pic"></i>计费方式</span>
+                        <div class="tab_right">
+                            <a class="fee_cover hui_title feeway hui_logo" href="###">
+                                <span class="key_titles">包年包月</span>
+                                <img class="hui_img" src="__PUBLIC__/cloud/images/hui1.png" alt="">
+                                <div class="hui_box hui_box_spes">
+                                    <span>适用业务量稳定的应用场景，比按量付费方式节省大量成本。</span>
+                                </div>
+                            </a>
+
+
+                        </div>
+                    </div>
+                    <div class="place tab_box clearfix hometab">
+                        <span class="name"><i class="iconfont icon-position name_pic"></i>地域</span>
+                        <div class="tab_right clearfix">
+                            <div data-Regions></div>
+
+
+                            <p class="place_ps">
+                                不同地域的实例之间内网互不相通；选择靠近您客户的地域，可降低网络时延、提高您客户的访问速度，
+                                <a href="###">教我选择 ></a>
+                                <i class="iconfont quesicon2 icon-question"></i>
+                                <span class="ques2">
+                                        <span class="ques_text">
+                                            <b>地域：</b>
+                                            <span>地域指的是ECS实例所在的位置。</span>
+                                            <b>可用区：</b>
+                                            <span>可用区是指在同一地域内，电力和网络互相独立的物理区域。在同一地域内可用区与可用区之间内网互通，可用区之间能做到故障隔离。</span>
+                                            <span class="last">如果您的应用需要较高的容灾能力，建议您将云服务器 ECS 实例部署在同一地域的不同可用区内。如果您的应用在实例之间需要较低的网络时延，则建议您将ECS实例创建在相同的可用区内</span>
+                                        </span>
+                                    </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="example tab_box clearfix hometab">
+                        <span class="name"><i class="iconfont icon-buyecsstorage name_pic"></i>实例</span>
+                        <div class="tab_right">
+                            <p>
+                                <span>I/O优化实例</span>
+                                <i class="iconfont icon-question key2">
+                                    <i class="key_tips2 key_tips">
+                                        <i class="key_tip2 key_tip">
+                                            <i class="key_up">选择支持 I/O 优化的实例：</i>
+                                            <i class="key_down">挂载 SSD云盘或高效云盘时能够获得云盘的全部存储性能，因为 I/O 优化为实例与云盘之间提供更好的网络能力，可保证云盘存储性能的发挥。I/O 优化实例支持秘钥对。I/O 优化实例加专有网络支持CloudInit。</i>
+                                            <i class="key_up">对于不支持 I/O 优化的实例：</i>
+                                            <i class="key_down">挂载SSD云盘时，通常最高可获得1000左右的IOPS性能；挂载高效云盘时，通常最高可获得数百的IOPS 性能。</i>
+                                        </i>
+                                    </i>
+                                </i>
+                            </p>
+                            <p>
+                                <i>实例规格：<em><em class="exam_ecs"></em>(<em class="exam_he"></em>核<em class="exam_gb"></em>GB，<em class="exam_general">通用型 g5</em>)</em></i>
+                            </p>
+                            <!-- Button trigger modal -->
+                            <a href="###" data-toggle="modal" data-target="#myModals"><img src="__PUBLIC__/cloud/images/other.png">选择其他实例规则</a>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-callback="_initInstanceTypes">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header clearfix">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                    <div class="modal_title_box modal_title_box2 clearfix">
+                                        <span>vCPU</span>
+                                        <form class="layui-form layui-form-pane1" action="">
+                                            <div class="layui-inline title_box">
+                                                <div class="layui-input-block">
+                                                    <select name="quiz" lay-verify="required" lay-verType="tips"  lay-filter="area" data-callback="_initSearchType">
+                                                        <option value="">请选择CPU</option>
+                                                        <option value="1">1 vCPU</option>
+                                                        <option value="2">2 vCPU</option>
+                                                        <option value="4">4 vCPU</option>
+                                                        <option value="8">8 vCPU</option>
+                                                        <option value="12">12 vCPU</option>
+                                                        <option value="16">16 vCPU</option>
+                                                        <option value="24">24 vCPU</option>
+                                                        <option value="32">32 vCPU</option>
+                                                        <option value="54">54 vCPU</option>
+                                                        <option value="56">56 vCPU</option>
+                                                        <option value="64">64 vCPU</option>
+                                                        <option value="88">88 vCPU</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal_title_box clearfix">
+                                        <span>实例规格</span>
+                                        <input class="title_box" type="text" placeholder="如：ecs.sn2.large" />
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="body_text_loading"><i class="iconfont icon-set fa-spin"></i></div>
+                                    <div class="body_text">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th class="th1">规格族</th>
+                                                <th class="th2">规格</th>
+                                                <th class="th3">CPU</th>
+                                                <th class="th3">内存</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr index="0">
+                                                <td class="td1"><span index="0" class="td_pick td_spot"></span><span>通用型 g5 </span><i class="iconfont tdicon icon-question"></i></td>
+                                                <td class="td2">ecs.g5.large</td>
+                                                <td class="td3"><span>2</span> vCPU</td>
+                                                <td class="td4"><span>8</span> GB</td>
+
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer clearfix">
+                                    <p>
+                                        <span>当前选择实例：</span>
+                                        <i><i class="norms">esc.g5.2xlarge</i>（<i class="norms_he">2</i>核 <i class="norms_ne">8</i>GB,<i class="norms_sty">通用型1 g5</i>）</i>
+                                    </p>
+                                    <a class="con" href="###" data-dismiss="modal" aria-label="Close">确定</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="public tab_box clearfix hometab">
+                        <span class="name"><i class="iconfont icon-icon_signal name_pic"></i>公网宽带</span>
+                        <div class="tab_right">
+                            <a class="flows flow1 flow_active" href="###">按固定宽带</a>
+
+                            <i class="iconfont icon-question key3">
+                                <i class="key_tips key_tips3">
+                                    <i class="key_tip key_tip3">
+                                        <i class="key_up">按固定带宽的方式：</i>
+                                        <i class="key_down">需指定公网出方向的带宽的大小，如10Mbps，适用于业务场景对于网络带宽要求比较稳定的客户，费用较低</i>
+
+                                    </i>
+                                </i>
+                            </i>
+                            <div class="context context1">
+                                <p class="p1 pre_p">预付费模式，带宽费用合并在ECS实例中收取</p>
+                                <div class="net_slider clearfix">
+                                    <div id="slider-range-max" class="slider-range-maxs" data-callback="_initBindWidth"></div>
+                                    <span class="slider_nums clearfix">
+                                            <input type="text" id="amount" class="amounts" data-callback="_initBindWidth" value="0">
+                                            <em>Mbps</em>
+                                            <span class="turns clearfix">
+                                                <span class="flowturn flowup flowups"><i class="iconfont icon-triangle-up"></i></span>
+                                                <span class="flowturn flowdown"><i class="iconfont icon-triangle-down"></i></span>
+                                            </span>
+                                        </span>
+                                </div>
+                                <p class="pub_net_number1 pub_net_number1">
+                                    <span class="sp1">0M</span>
+                                    <span class="sp2">50M</span>
+                                    <span class="sp3">100M</span>
+                                    <span class="sp4">150M</span>
+                                    <span>200M</span>
+                                </p>
+                                <p class="p2 sys_p">系统会分配公网 IP 。若无需分配 IP 或 单独购买弹性公网 IP 访问公网，请选择带宽值 0M。</p>
+                                <p class="sys_nets">国际地域的带宽，不适合国内大陆地区访问。</p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="mirror tab_box clearfix hometab">
+                        <span class="name"><i class="iconfont icon-google-circles name_pic"></i>镜像</span>
+                        <div class="tab_right mir_album">
+                            <div class="mirror_tip">
+                                <p>
+                                    提供经过严格安全审核的千款优质镜像，一键部署云服务器，实现您建站、应用开发等需求。
+                                </p>
+                            </div>
+                            <a class="flows mirror_mir flow_active" href="###">公共镜像</a>
+
+                            <div class="mirror_pickes">
+                                <form class="layui-form layui-form-pane1" action="">
+                                    <div class="layui-inline mir_choices1 shape_line shape_lines">
+                                        <div class="layui-input-block">
+                                            <select name="quiz" lay-verify="required" lay-verType="tips" lay-filter="area" data-callback="_initOsType">
+                                                <option value="0">请选择操作系统类别</option>
+                                                <option value="CentOS">CentOS</option>
+                                                <option value="windows">Windows Server</option>
+                                                <option value="Ubuntu">Ubuntu</option>
+                                                <option value="openSUSE">openSUSE</option>
+                                                <option value="Debian">Debian</option>
+
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline mir_choices2 shape_line">
+                                        <div class="layui-input-block">
+                                            <select name="quiz" lay-verify="required" lay-verType="tips" lay-filter="area" data-callback="_initOs">
+                                                <option value="0">请选择版本</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="storage tab_box clearfix hometab">
+                        <span class="name"><i class="iconfont icon-yuncunchu name_pic"></i>存储</span>
+                        <div class="tab_right">
+                            <div class="clearfix">
+                                <span class="storage_title">系统盘：</span>
+                                <div class="clearfix">
+                                    <div class="sys_contains sys_contains1">
+                                        <p>容量范围：40-500</p>
+                                    </div>
+
+                                    <form class="layui-form layui-form-pane1" action="" data-SystemDisk>
+                                        <div class="layui-inline storage_form shape_line">
+                                            <div class="layui-input-block">
+                                                <select name="quiz" lay-verify="required" lay-verType="tips" lay-filter="disk" data-callback="_initDisk" data-tag="SystemDisk">
+                                                    <option value="CLOUD_BASIC">普通云硬盘</option>
+                                                    <option value="CLOUD_SSD">SSD云盘</option>
+                                                    <option value="LOCAL_BASIC">本地硬盘</option>
+                                                    <option value="LOCAL_SSD">本地 SSD 盘</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <input class="add_input" type="text" placeholder="40-500" value="50">
+    ·                            </div>
+                            </div>
+                            <div class="tabright_down">
+                                <span class="storage_title">数据盘：</span>
+                                <div class="add_storage clearfix">
+                                    <div class="storage_bars">
+                                        <div class="sys_contains sys_contains2">
+                                            <p>容量范围：20-32768</p>
+                                        </div>
+                                        <form class="layui-form layui-form-pane1" action="" data-Disk>
+                                            <div class="layui-inline storage_form shape_line">
+                                                <div class="layui-input-block">
+                                                    <select name="quiz2" lay-verify="required" lay-vertype="tips" lay-filter="disk" data-callback="_initDisk" data-tag="Disk">
+                                                        <option value="CLOUD_BASIC">普通云硬盘</option>
+                                                        <option value="CLOUD_SSD">SSD云盘</option>
+                                                        <option value="LOCAL_BASIC">本地硬盘</option>
+                                                        <option value="LOCAL_SSD">本地 SSD 盘</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <input class="add_input" type="text" placeholder="20-32768">
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="purchase_num tab_box clearfix hometab">
+                        <span class="name"><i class="iconfont icon-list name_pic name_pic1"></i>购买量：</span>
+                        <div class="tab_right clearfix purchase_spebox purchase_spebox2">
+
+                            <span class="pur_month pur_month2" index="1">1</span>
+                            <span class="pur_month pur_month2" index="2">2</span>
+                            <span class="pur_month pur_month2" index="3">3</span>
+                            <span class="pur_month pur_month2" index="4">4</span>
+                            <span class="pur_month pur_month2" index="5">5</span>
+                            <span class="pur_month pur_month2" index="6">6</span>
+                            <span class="pur_month pur_month2" index="7">7</span>
+                            <span class="pur_month pur_month2" index="8">8</span>
+                            <span class="pur_month pur_month2" index="9">9</span>
+                            <span class="other_time other_time2 pickyear purchase_cover" index="1">1年<img class="pur_img" src="__PUBLIC__/cloud/images/hui.png"></span>
+                            <span class="other_time other_time2 pickyear" index="2">2年<img class="pur_img" src="__PUBLIC__/cloud/images/hui.png"></span>
+                            <span class="other_time other_time2 pickyear" index="3">3年<img class="pur_img" src="__PUBLIC__/cloud/images/hui.png"></span>
+
+
+                            <div class="pur_numbox pur_numbox2 clearfix">
+                                <input type="text" value="1" />
+                                <i class="i">台</i>
+                                <em class="clearfix">
+                                    <i class="pur_top pur_top2 iconfont icon-triangle-up"></i>
+                                    <i class="pur_down pur_down2 iconfont icon-triangle-down" date-status="0"></i>
+                                </em>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="current_set clearfix hometab">
+                        <div class="cur_top clearfix">
+                            <b><i class="iconfont icon-set name_pic name_pic2"></i>当前配置</b>
+
+                        </div>
+                        <div class="cur_box cur_fir">
+                            <p>
+                                <span class="cur_name">计费方式：</span>
+                                <em class="cur_year">包年包月</em>
+                            </p>
+                            <p>
+                                <span class="cur_name">I/O优化：</span>
+                                <em>I/O优化实例</em>
+                            </p>
+                            <p>
+                                <span class="cur_name">购买量：</span>
+                                <em><i class="month month2">1</i> <i class="key_month">年</i> <i class="nums nums2">1</i> 台</em>
+                            </p>
+                        </div>
+                        <div class="cur_box">
+                            <p>
+                                <span class="cur_name">地域：</span>
+                                <em><em class="cur_pla">华北 1</em>（<em class="cur_pla_vice">随机分配</em>）</em>
+                            </p>
+                            <p>
+                                <span class="cur_name">网络：</span>
+                                <em>公网宽带<em class="cur_key_num">1</em>Mbps（专有网络）</em>
+                            </p>
+                        </div>
+                        <div class="cur_box">
+                            <p>
+                                <span class="cur_name">实例规格：</span>
+                                <em><em class="cur_ecs">ecs.g5.large</em>（<em class="cur_he">2</em>核 <em class="cur_gb">8</em>GB，<em class="cue_general">通用型 g5</em>）</em>
+                            </p>
+                            <p>
+                                <span class="cur_name">系统盘：</span>
+                                <em><em class="cur_high">高效云盘</em>（<em class="cur_sys_num">40</em> GB）</em>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bot">
+                        <div class="total_fee total_fee2 clearfix">
+                            <div class="fee_left clearfix">
+                                <span class="fee">配置费用：</span>
+                                <h3>￥<span></span></h3>
+
+                                <i class="iconfont gift icon-gift2"></i>
+                                <i class="fee_info"></i>
+                            </div>
+                            <div class="fee_right">
+                                <a class="fee_join" href="###">计算价格</a>
+                                <a class="fee_buy" href="###">立即购买</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common/webfooter" />
+
+</body>
+</html>
+
+<script type="text/javascript" src="__PUBLIC__/cloud/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/cloud/layui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/cloud/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/cloud/js/calculate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/cloud/js/jquery-ui.js"></script>
+
+<script>
+    var _buyObject={};
+
+    $( function () {
+        _buyObject.url = '//new.api.hlapi.com/Client';
+
+        _buyObject.room = 'qqyun';
+        _buyObject.Version = '2017-03-12';
+        _buyObject.SystemDisk={
+            type:$('[data-tag="SystemDisk"]>option:selected'),
+            size:50
+        };
+        $(".purchase_spebox2 span").click(function(){
+            $(".purchase_spebox2 span.purchase_cover").removeClass("purchase_cover");
+            var _this=$(this);
+            _this.addClass("purchase_cover");
+            var index = $(this).attr("index");
+            $('.month.month2').text(index);
+
+            if( _this.hasClass('pur_month') ){
+                $('.key_month').text('个月');
+                _buyObject.PriceUnit='Month';
+            }else{
+                $('.key_month').text('年');
+                _buyObject.PriceUnit='Year';
+            }
+            _buyObject.Period=index;
+
+
+        });
+        $(".purchase_spebox2 span:eq(0)").trigger('click');
+        _get({url:_buyObject.url+'/getRegions',data:{room:_buyObject.room}},function (data) {
+            var html=$('#Regions').html();
+
+            $('[data-Regions]').html('');
+            $.each( data.RegionSet,function (k,v) {
+                v.Key = v.Region.replace(/-/ig,'_');
+                $('[data-Regions]').append( _replace(html,v) );
+            } );
+            $(".place_box").off('click');
+            $(".place_box").click(function(){
+                var that=$(this);
+
+                if( _buyObject.Region && _buyObject.Region.data('id')==that.data('id') ){
+                    return false;
+                }
+
+                _buyObject.Region=that;
+                $(".place_box").removeClass("place_cover");
+                $(this).addClass("place_cover");
+                var region=that.data('id');
+                var zone = that.data('zone');
+
+
+                if( _buyObject.ImageId ){
+                    delete _buyObject.ImageId;
+                }
+                if( _buyObject.InstanceTypes ){
+                    delete _buyObject.InstanceTypes;
+                }
+                $('[data-callback="_initOsType"]').val('0');
+                $('[data-callback="_initOs"]').html('<option value="">请选择版本</option>')
+
+                $('.cur_pla').text( $(this).children('[data-name]').text() );
+
+
+
+                if( zone==null ) {
+
+
+                    _get({
+                            url: _buyObject.url + '/getZone',
+                            data: {room: _buyObject.room, region: region}
+                        },
+                        function (data) {
+                            that.find('select option').remove();
+                            $.each(data.ZoneSet, function (k, v) {
+                                that.find('select').append('<option value="'+k+'" data-value="' + v.Zone + '" data-json=\''+JSON.stringify(v)+'\'>' + v.ZoneName + '</option>');
+                            });
+                            that.data('zone', 'find');
+                            _renderForm();
+                            var callback = that.find('select').data('callback');
+                            if( callback ){
+                                window[callback]( that.find('select') );
+                            }
+
+                        });
+
+                }else{
+                   _renderForm();
+                }
+
+            });
+            $('[data-Regions]>div:eq(9)').trigger('click');
+
+        });
+
+        $('.modal').on('shown.bs.modal',function () {
+            var that=$(this);
+            var callback=that.data('callback');
+            if( callback ){
+                window[callback](that);
+            }
+
+        });
+
+        $('a.fee_join').on( 'click',function () {
+            var data=_Count();
+            if( !data ){
+                return false;
+            }
+            $('.showloading').show();
+            $.ajax({
+                url:'{:U("App/getmoneynew")}',
+                cache:false,
+                dataType:"json",
+                type:'post',
+                data:data,
+                success:function (data) {
+                    if( data.code==0 ){
+                        $('.total_fee .fee_left h3>span').html(data.price);
+                        console.log(data);
+                    }else{
+                        _showError( data.message );
+                    }
+
+                },
+                error:function (error) {
+                    _showError('网络错误，请重试');
+                },
+                complete:function () {
+                    $('.showloading').hide();
+                }
+                }
+            );
+            return false;
+        } );
+
+        $('a.fee_buy').on( 'click',function () {
+            var data=_Count();
+            if( !data ){
+                return false;
+            }
+            $('.showloading').show();
+            $.ajax({
+                    url:'{:U("ShopV3/buy")}',
+                    cache:false,
+                    dataType:"json",
+                    type:'post',
+                    data:data,
+                    success:function (data) {
+                        if( data.code==0 ){
+                            $('.total_fee .fee_left h3>span').html(data.price);
+                            $('a.fee_buy').off( 'click' );
+                            top.location.href = data.url;
+                            console.log(data);
+                        }else{
+                            $('.showloading').hide();
+                            _showError( data.message );
+                        }
+
+                    },
+                    error:function (error) {
+                        $('.showloading').hide();
+                        _showError('网络错误，请重试');
+                    }
+                }
+            );
+            return false;
+        } );
+
+    } );
+    /*******数据处理项目******/
+    function _renderForm(){
+        layui.use('form', function(){
+            var form = layui.form;
+            form.render();
+
+        });
+    }
+    var _Count=function () {
+        var _Config={};
+        _Config.Version = _buyObject.Version;
+        _Config.Room = _buyObject.room;
+        if( !_buyObject.Region ){
+            _showError('请选择地区');return false;
+        }
+        _Config.RegionId = _buyObject.Region.data('id');
+        if( !_buyObject.Zone ){
+            _showError('请选择可用区');return false;
+        }
+        _Config.zone = _buyObject.Zone.data('value');
+        var Amount = $('.pur_numbox.pur_numbox2 input').val();
+        if( Amount=='' || parseInt(Amount)<1 ){
+            _showError('请选择购买数量');return false;
+        }
+        _Config.Amount = Amount;
+        if( !_buyObject.PriceUnit || !_buyObject.Period ){
+            _showError('请选择购买时长');return false;
+        }
+        _Config.PriceUnit=_buyObject.PriceUnit;
+        _Config.Period=_buyObject.Period;
+        if( !_buyObject.SystemDisk ){
+            _showError('请选择系统硬盘');return false;
+        }
+        _Config.SystemDisk = {};
+        _Config.SystemDisk.Category = _buyObject.SystemDisk.type.val();
+        _Config.SystemDisk.Size = _buyObject.SystemDisk.size;
+        if( parseInt( _Config.SystemDisk.Size )<40 ){
+            _showError.html('系统硬盘太小');return false;
+        }
+        if( _buyObject.Disk && _buyObject.Disk!='' ){
+            _Config.DataDisk = {};
+            _Config.DataDisk.Category = _buyObject.Disk.type.val();
+            _Config.DataDisk.Size = _buyObject.Disk.size;
+        }
+
+
+        if( parseInt( $('#amount').val() )<1 ){
+
+            _showError('请选择带宽');return false;
+        }
+        _buyObject.BindWidth=parseInt( $('#amount').val() );
+        _Config.InternetMaxBandwidthOut=_buyObject.BindWidth;
+        if( !_buyObject.ImageId ){
+            _showError('请选择操作系统');return false;
+        }
+        _Config.ImageId=_buyObject.ImageId;
+        if( !_buyObject.InstanceTypes ){
+            $('.modal').modal('show');return false;
+        }
+        _Config.InstanceType=_buyObject.InstanceTypes;
+        _buyObject.Config = _Config;
+        console.log( _Config );
+        return _Config;
+    };
+    var _get=function (data,callback) {
+        $('.showloading').show();
+        if(!data) data={};
+        if(!data.data) data.data={};
+        data.data.Version = _buyObject.Version;
+        $.getJSON(data.url,data.data).done(function (data) {
+            callback(data);
+        }).complete(function () {
+            $('.showloading').hide();
+        }).fail(function (e) {
+            _showError('网络错误，请刷新重试',true);
+        });
+
+    };
+    var _replace=function (templete,data) {
+        var re = /\{([a-zA-Z0-9]+)\}/g;
+        while( result = re.exec(templete))
+        {
+            templete = templete.replace(result[0],data[result[1]]);
+
+        }
+        return templete;
+    };
+    var _loadOsList=function ( callback ) {
+//操作系统
+
+
+        _get( {
+            url:_buyObject.url+'/DescribeImages/',
+            data: {room: _buyObject.room, region: _buyObject.Region.data('id') }
+        },function (data) {
+
+            var Key=_buyObject.Region.data('key');
+            if( !_buyObject.OsList ){
+                _buyObject.OsList={};
+            }
+            if( !_buyObject.OsList[Key] ){
+                _buyObject.OsList[Key]=data;
+            }
+            if( callback ){
+                callback(data);
+            }
+        } )
+    };
+    var _BuyCallBack=function () {
+        if( _buyObject.Config ){
+            delete _buyObject.Config;
+        }
+        console.log(_buyObject);
+    };
+    var _initOsType=function (object) {
+
+        var type = object.val();
+        console.log(type);
+        var OsObject=$('[data-callback="_initOs"]');
+        OsObject.children('option').remove();
+        OsObject.append('<option value="0">请选择版本</option>');
+
+        var Key=_buyObject.Region.data('key');
+        if( !_buyObject.OsList ){
+            _buyObject.OsList={};
+        }
+        if( !_buyObject.OsList[Key] ){
+
+            _loadOsList(function () {
+                _initOsType(object);
+
+
+            });
+            return false;
+        }
+
+
+        $.each( _buyObject.OsList[Key].ImageSet,function (k,od) {
+            if( od.Platform.toLowerCase()==type.toLowerCase() ){
+                OsObject.append('<option value="'+od.ImageId+'">'+od.ImageName+'</option>');
+            }
+        } );
+        _renderForm();
+
+
+    };
+    var _initOs=function (object) {
+
+        _buyObject.ImageId=object.val();
+        _BuyCallBack();
+    };
+    var _initBindWidth=function (object) {
+        _buyObject.BindWidth=object;
+        _BuyCallBack();
+    };
+    var _initDisk=function (object) {
+        var dom = object.children('option:selected');
+        var tag=object.data('tag');
+        _buyObject[tag]={};
+        _buyObject[tag].type = dom;
+        _buyObject[tag].size = dom.closest('form').next('input.add_input').val();
+        _BuyCallBack();
+    };
+    var _initZone=function (object) {
+        var dom = object.children('option:selected');
+        _buyObject.Zone=dom;
+        _BuyCallBack();
+        $(".cur_pla_vice").text(dom.text());
+     //   $('[data-SystemDisk] select,[data-Disk] select').html( $('#Disk').html() );
+        /*
+        var json=dom.data('json');
+        $('[data-SystemDisk] select,[data-Disk] select').html( $('#Disk').html() );
+        $('[data-SystemDisk] select option,[data-Disk] select option').addClass('hide');
+        $.each( json.AvailableDiskCategories.DiskCategories,function (k,v) {
+            $('[data-SystemDisk] select option[value="'+v+'"],[ data-Disk] select option[value="'+v+'"]').removeClass('hide');
+        } );
+        $('[data-SystemDisk] select option.hide,[data-Disk] select option.hide').remove();
+        _renderForm();
+        $('[data-SystemDisk],[data-Disk]').each( function (item) {
+            var that=$(this).find('select');
+            var callback = that.data('callback');
+            if( callback ){
+                window[callback]( that );
+            }
+        } );
+        */
+
+    };
+    var _initInstanceTypes=function (that) {
+        $('.body_text_loading').show().next('.body_text').hide().children('table').children('tbody').html('');
+        if( !_buyObject.Region ){
+
+            $('.body_text_loading').hide().next('.body_text').show().children('table').children('tbody').html('<tr index="0"><td class="td1" colspan="4">请先选择地区</td></tr>');
+            return false;
+        }
+        if( !_buyObject.Zone ){
+
+            $('.body_text_loading').hide().next('.body_text').show().children('table').children('tbody').html('<tr index="0"><td class="td1" colspan="4">请先可用区</td></tr>');
+            return false;
+        }
+
+        $('.body_text>table>tbody').html('');
+
+        var zoneJson = _buyObject.Zone.data('value');
+        if( !_buyObject.InstanceTypeList ){
+            _buyObject.InstanceTypeList={};
+        }
+        if( !_buyObject.InstanceTypeList[ _buyObject.Region.data('key') ] ){
+            _get({
+                url: _buyObject.url + '/DescribeInstanceTypes',
+                data: {room: _buyObject.room, region: _buyObject.Region.data('id') }
+            },function (data) {
+                _buyObject.InstanceTypeList[ _buyObject.Region.data('key') ] = data;
+                _initInstanceTypes(that);
+            });
+            return false;
+        }
+
+        $.each( _buyObject.InstanceTypeList[ _buyObject.Region.data('key') ].InstanceTypeConfigSet,function (k,v) {
+            if( v.Zone==zoneJson ){
+                $('.body_text>table>tbody').append('<tr data-zone="'+v.Zone+'" data-cpu="'+v.CPU+'" name="'+v.InstanceType+'" data-result="false"><td class="td1"><span class="td_pick"></span><span>'+v.InstanceTypeFamilyCn +'</span><i class="iconfont tdicon icon-question"></i></td><td class="td2">'+v.InstanceType+'</td><td class="td3"><span>'+v.CPU+'</span> CPU</td><td class="td4"><span>'+v.Memory+'</span> GB</td></tr>');
+            }
+        });
+        $('.body_text_loading').hide().next('.body_text').show();
+        that.find('.title_box').off('blur');
+        that.find('.title_box').on('blur',function () {
+            var val=$(this).val();
+            if( val=='' ){
+                $('.body_text>table>tbody>tr').show();
+                return false;
+            }
+            that.find('tr').attr('data-result','false');
+            console.log( that.find('tr[name*="'+val+'"]').size() );
+            that.find('tr[name*="'+val+'"]').attr('data-result','true').show();
+            $('.body_text>table>tbody>tr[data-result="false"]').hide();
+
+
+
+        });
+
+
+        that.find('span.td_pick').off('click');
+        that.find('span.td_pick').on('click',function () {
+            that.find('span.td_pick.td_spot').removeClass('td_spot')
+            var _that = $(this);
+            _that.addClass('td_spot');
+
+            var normstext = _that.parents(".td1").siblings(".td2").text();
+            var norms_sty_text = _that.siblings("span").text();
+            var norms_he_text = _that.parents("td").siblings(".td3").find("span").text();
+            var norms_ne_text = _that.parents("td").siblings(".td4").find("span").text();
+            $(".norms").text(normstext);
+            $(".norms_sty").text(norms_sty_text);
+            $(".norms_he").text(norms_he_text );
+            $(".norms_ne").text(norms_ne_text );
+
+            $(".exam_ecs").text(normstext);
+            $(".exam_he").text(norms_he_text);
+            $(".exam_gb").text(norms_ne_text);
+            $(".exam_general").text(norms_sty_text);
+
+            $(".cur_ecs").text(normstext);
+            $(".cur_he").text(norms_he_text);
+            $(".cur_gb").text(norms_ne_text);
+            $(".cue_general").text(norms_sty_text)
+            console.log( normstext + norms_he_text + "--" + norms_ne_text + norms_sty_text)
+            _buyObject.InstanceTypes=_that.closest("tr").attr('name');
+            _BuyCallBack();
+        })
+
+
+    };
+    var _initSearchType=function (object) {
+        var val=object.val();
+        if( val=='' ){
+            $('.body_text>table>tbody>tr').show();
+            return false;
+        }
+        $('.body_text>table>tbody>tr').attr('data-result','false');
+        $('.body_text>table>tbody>tr[data-cpu="'+val+'"]').attr('data-result','true').show();
+        $('.body_text>table>tbody>tr[data-result="false"]').hide();
+    };
+    var _showError=function (message,close) {
+        if( !close ){
+            message +='<br><br>点此关闭';
+        }
+        $('.showError').show().find('span').html(message);
+        $('.showError').off('click');
+        if( !close ){
+            $('.showError').on('click',function () {
+                $(this).hide();
+            });
+
+        }
+    }
+
+</script>

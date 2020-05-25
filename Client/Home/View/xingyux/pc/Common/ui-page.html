@@ -1,0 +1,20 @@
+<div style="float:right">
+    第{$res['pagelink']['page']}/{$res['pagelink']['pagecount']}页
+	<a href="{$res['pagelink']['lastpage']}" class="next">上一页</a>
+	<a href="{$res['pagelink']['nextpage']}">下一页</a>
+    <label>直接跳第<input type="number" class="input-nextpage">页</label>
+    <label class="ui-button ui-widget ui-button-icon-only nextpage-button" style="width:20px;height:20px;margin-left:10px;margin-right:50px; overflow:hidden; clear:both;">
+        <i class="ui-button-icon ui-icon ui-icon-arrowreturnthick-1-e"></i>
+    </label>
+</div>
+<script>
+    $(function () {
+        var _pageurl = "{$res['pagelink']['pageurl']}";
+        $("label.nextpage-button").click(function () {
+            var page = $("input.input-nextpage").val();
+            if (page != "") {
+                window.location.href = _pageurl.replace(/pagenumtag/ig, page);
+            }
+        })
+    })
+</script>

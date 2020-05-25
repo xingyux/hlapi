@@ -1,0 +1,88 @@
+<empty name="ajax"><!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>信任地区管理-{$sitename}</title>
+<include file="Common/head" />
+<link href="//cache-code-ui.html5ui.org/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="//cache-code-ui.html5ui.org/tablecloth/tablecloth.js"></script>
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+        	<p class="posion">
+			
+			<a href="{:U('index')}"><button type="button" class="btn_css3">登录记录</button></a>
+			信任地区管理
+			</p>
+         </empty>
+            <div class="table">
+            	<table>
+                	<tr>
+                    	
+                        <th>地区</th>
+						
+                        <th>是否信任</th>
+						<th>操作</th>
+                        
+                        
+                    </tr>
+                    <foreach name="res['list']" item="vo" key="key">
+                         <tr>
+                    	
+                        <td>{$vo.addr}  </th>
+                        <td><empty name="vo.islogin">未信任<else />已信任</empty></td>
+                        <td><a href="{:U('addr',array('addrname'=>$vo['addr']))}"><empty name="vo.islogin">设为信任<else />取消信任</empty></a></td>
+                       </tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<empty name="ajax">
+            <div class="table_foot clear">
+            
+                 <include file="Common/ui-page" />
+            </div>
+        </div>
+    </section>
+   
+
+	
+</body>
+</html>
+</empty>

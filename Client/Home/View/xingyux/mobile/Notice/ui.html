@@ -1,0 +1,196 @@
+	<div id="dialog_dialog" style="display: none"></div>
+	
+	
+<script id="notice_dialog_tmpl" type="text/x-jquery-tmpl">
+
+			<form id="form" action="?" method="post" role="form">
+
+			<input type="hidden" name="notice-id" value="0">
+	
+			
+<table>
+                	
+                         <tr>
+                    	<td>标题</td><td><input type="text" name="notice-title" value="" placeholder="标题" class="form-control"></td></tr>
+						<tr><td>内容</td><td><div class="form-group">
+
+    <textarea class="form-control" rows="3" name="notice-content" placeholder="内容" style="height:200px;"></textarea>
+  </div></td></tr>
+                       
+                       <tr><td>阅读权限</td> <td>
+<div>
+
+	<label class="checkbox-inline">
+		<input type="radio" name="notice-islook" id="title" value="0" checked> 代理/会员
+	</label>
+	<label class="checkbox-inline">
+		<input type="radio" name="notice-islook" id="optionsRadios3" value="1"> 代理
+	</label>
+		<label class="checkbox-inline">
+		<input type="radio" name="notice-islook" id="optionsRadios3" value="2"> 会员
+	</label>
+</div><input type="hidden" name="submit" value="add">		</td></tr>
+                        <tr><td></td><td>
+						
+						<div class="alert alert-warning" style="display:none;" id="btnn-check-pay-alert">
+	<a href="#" class="close">
+		&times;
+	</a>
+	<strong id="errtitle"></strong><span id="errmsg"></span>
+</div>		                        
+				
+						</td></tr>
+						
+                    
+                </table>
+
+</form>
+
+</div>
+</script>	
+	<script id="noticelook_dialog_tmpl" type="text/x-jquery-tmpl">
+	<div></div>
+</script>	
+
+<script>
+
+$(function(){
+
+$("a.notice-info").click(function(){
+var title=decodeURIComponent($(this).attr("data-title"));
+var content=decodeURIComponent($(this).attr("data-content"));
+content=content.replace(/\+/ig," ");
+var time=$(this).attr("data-time");
+
+
+
+var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#noticelook_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+
+
+		dialogObj.find("div").html("<h1 class=\"text-center\">"+title+"</h1><h3>发布时间："+time+"</h3><pre style='white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;'>"+content+"</pre>");
+		
+		dialogObj.dialog({
+			title: "阅读公告",
+			width: 600,
+			height:400,
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		
+		dialogObj.dialog( "option", "buttons", {"关闭":function(){dialogObj.dialog("close");}});	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		return false;
+
+});
+
+	$("a.add-notice").click(function(){
+
+$("#btnn-check-pay-alert .close").unbind("click");
+$("#btnn-check-pay-alert .close").click(function(){
+	$("#btnn-check-pay-alert").hide();
+	return false;
+});	
+	
+var dialogObj=$("#dialog_dialog");dialogObj.empty();$("#notice_dialog_tmpl").tmpl(null).appendTo(dialogObj);
+
+var title=decodeURIComponent($(this).attr("data-title"));
+var content=decodeURIComponent($(this).attr("data-content"));
+content=content.replace(/\+/ig," ");
+var time=$(this).attr("data-time");
+var id=parseInt($(this).data("id")||0);
+var islook = parseInt($(this).data("islook")||0);
+var dialogObjAdd = "发布";
+if(id>0){
+	dialogObj.find("[name='notice-title']").val(title);
+	dialogObj.find("[name='notice-content']").val(content);
+	dialogObj.find("[name='notice-islook'][value='"+islook+"']").prop("checked",true);
+	dialogObj.find("[name='notice-id']").val(id);
+	dialogObjAdd = "修改";
+}
+
+		dialogObj.find("form").submit(function(){
+		
+	$("#errtitle").html("声明：");
+	$("#errmsg").html("正在提交");
+	$("#btnn-check-pay-alert").show();		
+		
+		var object=$(this).serializeArray();
+		object[object.length]={"json":1};
+		getPost(
+		window.location.href,
+		object,
+		function(data){
+			if(data.code==0){
+				$("#errtitle").html("成功：");
+		$("#errmsg").html("提交成功");
+		window.location.reload()
+			}else{
+				$("#errtitle").html("错误：");
+		$("#errmsg").html(data.message);		
+			}
+		},"","json",function(e){
+		
+		
+			$("#errtitle").html("错误：");
+		$("#errmsg").html("未知错误");
+		
+		}
+		
+		);
+		return false;
+		});
+	
+		dialogObj.dialog({
+			title: "发布公告",
+			width: 400,
+
+			resizable: false,
+			modal:true,
+			autoOpen: true,
+			close:function(){
+				if(currentAjax) {currentAjax.abort();}
+			}
+		});
+		var buttons={};
+		buttons[dialogObjAdd]=function(){dialogObj.find("form").submit();};
+		buttons["关闭"]=function(){dialogObj.dialog("close");};
+		dialogObj.dialog( "option", "buttons", buttons);	
+		dialogObj.dialog( "option", "position", { my: "center top+100", at: "center top", of: window } );	
+		return false;	
+
+
+});
+
+$(".delnotice").on( "click" , function(){
+	var id=$(this).data("id");
+	if(!confirm('您确认要删除此条公告么？')){return false;}
+	var object={"id":id,"submit":"del","json":1};
+	getPost(
+		window.location.href,
+		object,
+		function(data){
+			if(data.code==0){
+				
+		alert("删除成功");
+		window.location.reload()
+			}else{
+				
+		alert(data.message);		
+			}
+		},"","json",function(e){
+		
+		
+			
+		alert("未知错误");
+		
+		}
+		
+		);
+} )
+
+})
+</script>

@@ -1,0 +1,147 @@
+<div class="menu">
+            <label class="menu-switch" id="menu-switch-left-slider"></label>
+        	<ul>
+                <li class="active">
+                    <div>
+                        <a href="{:U('User/index')}"><i class="icon iconfont">&#xe666;</i><span>后台主页</span></a>
+                    </div>
+                </li>
+                <notempty name="checkWebUser">
+                <li>
+                    <div>
+                        <i class="icon iconfont">&#xe666;</i><span>网站管理</span>
+                        <i class="icon iconfont" style=" margin-left:35px;">&#xe604;</i>
+                    </div>
+                    <p>
+                        <a href="{:U('WebsiteSet/index')}">网站设置</a>
+
+                        <a href="{:U('Templete/index')}">模版管理</a>
+                        <a href="{:U('Plugin/index')}">插件管理</a>
+                    </p>
+                </li>
+
+
+                </notempty>
+			     <li>
+            <div>
+            <a href="{:U('Product/index')}"><i class="icon iconfont">&#xe666;</i><span>产品管理</span></a>
+            </div>
+        </li>               
+         <li>
+            <div>
+                <a href="{:U('Cronlist/index')}"><i class="icon iconfont">&#xe644;</i><span>任务管理</span></a>
+            </div>
+        </li>               
+         <li>
+            <div>
+                <a href="{:U('Paid/lists')}"><i class="icon iconfont">&#xe644;</i><span>商品代付</span></a>
+            </div>
+        </li>       			
+				
+                 <li>
+                	<div>
+                		<a href="{:U('DomainUser/index')}"><i class="icon iconfont">&#xe644;</i><span>域名注册信息</span></a>
+                    </div>
+                </li>               
+     			<li>
+                	<div>
+					<a href="{:U('Product/order')}"><i class="icon iconfont">&#xe666;</i><span>订单管理</span></a>
+                
+                    </div>
+                
+                </li>		
+                <li>
+                	<div>
+                		<i class="icon iconfont">&#xe60a;</i><span>产品购买</span>
+                        <i class="icon iconfont" style=" margin-left:35px;">&#xe604;</i>
+                    </div>
+                    <p>
+					<foreach name="nav" item="navValue" key="navKey">
+                    	<a href="{:U($navKey.'/index')}">{$navValue}</a>
+					</foreach>	
+                      
+                    </p>
+                </li>
+				
+                <li>
+                	<div>
+                		<a href="{:U('Notice/index')}"><i class="icon iconfont">&#xe639;</i><span>后台公告</span></a>
+                    </div>
+                </li>
+				</notempty>
+				<notempty name="checkWebUser">
+                <li>
+                	<div>
+                		<a href="{:U('News/index')}"><i class="icon iconfont">&#xe639;</i><span>新闻动态</span></a>
+                    </div>
+                </li>	
+			    </notempty>
+				<notempty name="checkAgent">
+                <li>
+                	<div>
+                		<i class="icon iconfont">&#xe722;</i><span>代理商管理</span>
+						<i class="icon iconfont" style=" margin-left:35px;">&#xe604;</i>
+                    </div>
+                    <p>
+					
+                    	<a href="{:U('pricesetting/index')}">价格产品设置</a>
+						<a href="{:U('Install/update')}">批量同步产品</a>
+                        <a href="{:U('pricesetting/pricetype')}">代理级别设置</a>
+                        <a href="{:U('UserList/index')}">下级会员列表</a>
+                        
+                        <a href="{:U('dictionary/index')}">字典管理</a>
+                    </p>					
+                </li>
+				</notempty>
+                <li>
+                	<div>
+                		<i class="icon iconfont">&#xe600;</i><span>财务管理</span>
+                        <i class="icon iconfont" style=" margin-left:35px;">&#xe604;</i>
+                    </div>
+                    <p>
+                    	<a href="{:U('Money/index')}">财务信息</a>
+						<a href="{:U('Money/paylog')}">充值记录</a>
+                        <a href="{:U('Money/pay')}" target="_bank">账户充值</a>
+                    </p>
+                </li>
+
+                <li>
+                    <div>
+                        <a href="{:U('Paid/lists')}"><i class="icon iconfont">&#xe6f2;</i><span>商品代付</span></a>
+                    </div>
+                </li>
+
+                <li>
+                	<div>
+                		<a href="#"><i class="icon iconfont">&#xe6f2;</i><span>软文发布</span></a>
+                    </div>
+                </li>
+                 <li>
+                	<div>
+                		<i class="icon iconfont">&#xe613;</i><span>账户管理</span>
+                        <i class="icon iconfont" style=" margin-left:35px;">&#xe604;</i>
+                    </div>
+                    <p>
+                    	
+                        <a href="{:U('LoginLog/index')}">登录记录</a>
+                    </p>
+                </li>                
+                <li>
+                	<div>
+                		<a href="{:U('User/logout')}"><i class="icon iconfont">&#xe60d;</i><span>安全退出</span></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+		<link href="__PUBLIC__/bootstrap-nav.css" rel="stylesheet" type="text/css" media="screen" />
+		<include file="User/feedback" />
+		<include file="User/leftcon" />
+        <script>
+            document.getElementById('menu-switch-left-slider').onclick=function(){
+                this.classList.toggle('open');
+                if(this.classList.contains('open'))
+                    this.parentNode.style.width='180px';
+                else
+                    this.parentNode.style.width='50px';
+            }
+        </script>

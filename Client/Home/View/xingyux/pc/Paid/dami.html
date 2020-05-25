@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>产品管理-{$sitename}</title>
+    <include file="Common/head"/>
+    <link href="__RESOURE__/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="__PUBLIC__/home/css/style.css">
+    <link rel="stylesheet" href="__PUBLIC__/home/css/css/iconfont.css">
+    <script type="text/javascript" src="__RESOURE__/tablecloth/tablecloth.js"></script>
+
+    <script>
+        $(function () {
+
+
+            $('.menu').css('minHeight', $('.content').height() + 20);
+            $(function () {
+                $('.nav li').hover(
+                        function () {
+                            $(this).find('.dropmenu').stop().slideDown()
+
+                        },
+                        function () {
+                            $(this).find('.dropmenu').stop().slideUp('fast')
+                        }
+                )
+
+            })
+            $('.menu li div').click(function () {
+                $(this).parents('ul').find('li').removeClass('active')
+                $(this).parent().addClass('active')
+                $(this).parents('ul').find('p').slideUp()
+                if ($(this).parent().find('p').length) {
+
+                    $(this).parent().find('p').slideDown()
+                }
+            })
+
+        })
+
+
+    </script>
+</head>
+
+<body>
+<include file="User/nav"/>
+
+<section class="main clear">
+    <include file="Common/menu"/>
+
+    <script>
+        $(function(){
+            $('.nav li').hover(
+                    function(){
+                        $(this).find('.dropmenu').stop().slideDown()
+
+                    },
+                    function(){
+                        $(this).find('.dropmenu').stop().slideUp('fast')
+                    }
+            )
+        })
+    </script>
+    <div class="content">
+        <div class="df_main">
+            <div class="df_main_wrap">
+                <div class="df_notice">
+                    <h3>注意事项&nbsp;:</h3>
+                    <p>
+
+                    </p>
+                </div>
+                <div class="df_flow">
+                    <h3>大米云购买流程</h3>
+                    <ul>
+                        <li>
+                            <span class="li_h">01</span>
+                            <div>
+                                <h4>注册与登陆（新客户）</h4>
+                                <a href="https://dami.ksyun.com/" target="_bank">点击前往https://dami.ksyun.com/</a>
+                                <p>注册或登录帐号</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="li_h">02</span>
+                            <div>
+                                <h4>绑定账号（新客户）</h4>
+                                右上角显示的帐号名
+                                <p>在下方提交显示的帐号名，然后等待官方的激活邮件。</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="li_h">03</span>
+                            <div>
+                                <h4>申请代付</h4>
+                                <a href="https://dami.ksyun.com/" target="_bank">前往金山大米云挑选产品</a>
+                                <p>选择好配置之后点击购买，然后选择支付，然后在右上角帐号名，点击【费用中心】，再点【订单管理】找到订单号。</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="li_h">04</span>
+                            <div>
+                                <h4>提交订单</h4>
+                                在下面输入帐号ID和订单号
+                                <p>提交订单申请代付，只要在账户中准备好足够的款项，即可付款成功。</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <br>
+
+                    <style>
+                        .paid{
+                            text-align: center;
+                        }
+                        .paid form p{
+                            font-size: 20px;
+                        }
+                        .paid form input,.paid form select{
+                            font-family: "Microsoft YaHei";
+                            border: 1px solid #EEEEEE;
+                            height: 50px;
+                            width: 60%;
+                            border-radius: 4px;
+                            font-size: 20px;
+                            padding: 0 10px;
+                        }
+
+                        .paid form .sub{
+                            font-family: "Microsoft YaHei";
+                            isplay: block;
+                            margin: 0 auto;
+                            width: 240px;
+                            height: 44px;
+                            background: #d9534f;
+                            color: #fff;
+                            text-align: center;
+                            line-height: 44px;
+                            border-radius: 4px;
+                            font-size: 20px;
+                        }
+                    </style>
+
+                    <div class="paid">
+                        <form id="form" action="{:U('bind')}" method="post" role="form">
+
+
+                            <input type="hidden" readonly name="paidinfo" value="大米云">
+
+                            <table>
+
+                                <tr>
+                                    <td>申请关联帐号</td><td><input type="text" name="notice-title" value="" placeholder="金山大米云右上角显示的帐号名" class="form-control"></td></tr>
+
+
+                            </table>
+
+                            <p><input type="hidden" name="paid_version" value="201700703">
+                                <input type="submit" class="sub" value="立即申请关联">
+                            </p>
+                        </form>
+                        <form method="post" action="{:U('paid/add')}">
+                            <p>
+                                服务商：<input type="text" readonly name="server_name" value="大米云">
+                            </p>
+                            <br>
+                            <p>
+                                订单号（必填）：<input type="text" name="paid_sn">
+                            </p>
+                            <p>然后在右上角帐号名，点击【费用中心】，再点【订单管理】找到订单号。</p>
+                            <br>
+                            <p>
+                                会员ID号（必填）：<input type="text" name="paid_qq">
+                            </p>
+                            <p>会员ID请点右上角帐号名，然后选择帐号中心，在显示的页面中【您好，帐号】名下有帐号ID</p>
+                            <br>
+                            <p><input type="hidden" name="paid_version" value="201700703">
+                                <input type="submit" class="sub" value="立即代付">
+                            </p>
+                        </form>
+                    </div>
+
+                    <br>
+
+    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+<include file="ui_renew"/>
+<include file="ui_mark"/>
+<include file="ui_info"/>
+</body>
+</html>

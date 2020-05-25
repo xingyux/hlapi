@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<include file="Common/head" />
+<script src="__PUBLIC__/user/js/shop_car.js"></script>
+<title>产品购买-{$sitename}</title>
+<script>
+
+$(function(){
+	$('.nav li').hover(
+		function(){
+			$(this).find('.dropmenu').stop().slideDown()
+
+		},
+		function(){
+			$(this).find('.dropmenu').stop().slideUp('fast')
+	    }
+    )
+	
+})
+
+</script>
+</head>
+
+<body>
+<include file="Common/nav" />
+<section class="shopping_lc">
+	<div class="shopping_lc_wrap">
+    	<img src="__PUBLIC__/user/images/shopping_lc1.png">
+    </div>
+</section>
+<section class="shopping_main">
+	<div class="shopping_main_wrap">
+    	<h2>我的购物车</h2>
+        <table>
+        	<tr>
+            	<th class="product_all">
+                	产品名称
+                </th>
+                <th class="model">
+                	域名
+                </th>
+              
+		
+			
+		
+                <th class="time">
+                	时长
+                    
+                </th>
+                <th>
+                	数量
+                </th>
+                <th>
+                	价格（元）
+                </th>
+                
+            </tr>
+        </table>
+		<form class="form-horizontal" role="form" action="" method="post">
+        <table>
+		<foreach name="res['list']" item="vo" key="key">
+            <tr>
+				<td class="product_name">
+				<input type="hidden" class="" name="domain_choose[{$key}]" value="{$vo['pro']}">
+                	<input type="checkbox" class="choose" name="domain[{$key}]" value="{$vo['domain']}"><span>{$vo['name']}</span>
+                </td>
+            	<td class="product_name">
+                	<span>{$vo['name']}<br>{$vo['productname']}</span>
+                </td>
+                <td class="model">
+                	
+					
+                    	{$vo.domain}
+					
+                
+                    
+                </td>
+                
+				
+				
+	
+			
+                <td class="time">
+					{$vo.times}<input type="hidden" value="1" class="num">
+                </td>
+                <td class="product_num">
+
+                       
+                </td>
+                <td>
+                	￥：<span class="price" id="paypice">{$vo.price}</span>
+                </td>
+                
+            </tr></foreach>
+        </table>
+        
+    	<div class="shopping_l">
+                <label>
+                    <input type="checkbox"  class="all choose">全选
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<select class="buy_domain_user" name="buy_domain_user">
+					<foreach name="res['domain_user']" item="vo" key="key">
+                        <option value="{$vo['id']}">{$vo["sf"]}{$vo["chengshi"]}{$vo["suoyouren"]}</option>
+                     </foreach>
+					</select>	<a href="{:U('DomainUser/index')}" target="_bank">添加注册人</a>
+                </label>
+                
+            </div>
+        
+            <div class="shopping_r">
+                <span>总价：<b class="total" id="totalypice">￥0.00</b></span>
+                <input type="button" value="去结算" class="submit busubmit" >				<input type="button" value="取消购买" style="width:190px; text-align:center; height:50px; background:#ccc; color:#fff; font-size:22px; position:relative; top:-1px; right:-1px; " onclick="window.history.go(-1);">
+				<input type="hidden" value="{$mt_rand}" name="mt_rand">
+            </div>
+			<input type="hidden" value="1" name="buy_choose">
+			</form>
+        </div>
+    </div>
+</section>
+
+<div id="dialog-confirm" title="您是否确认购买?" style="display:none;">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>您是否确认购买所选择的配置?</p>
+</div>
+ <script>
+  $( function() {
+  
+  $(".busubmit").click(function(){
+  
+     $( "#dialog-confirm" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        "确认购买": function() {
+          $( ".form-horizontal" ).submit();
+        },
+        "退出": function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    }); 
+  
+  })
+  
+
+  } );
+  </script>
+
+<include file="Common/webfooter" />
+</body>
+</html>

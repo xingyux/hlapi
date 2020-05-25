@@ -1,0 +1,21 @@
+<footer class="bottom">
+	<label class="btn">
+		<i class="iconfont">&#xe61e;</i>
+		<input type="checkbox">
+		<ul class="con">
+            <volist name=":getWebsiteList()" id="set">
+	            <li class="field">{$set->title}</li>
+	            <li>
+	            	<php>foreach($set->child as $s){</php>
+                        <a href="{$s->value}">{$s->title}</a>
+                    <php>}</php>
+                    <php>if($set->title=='联系我们'){</php>
+                    	<i class="icon iconfont">&#xe605;</i>: {:getWebsiteSet('telephone')}
+                        <i class="icon iconfont">&#xe741;</i>: {:getWebsiteSet('email')}
+                    <php>}</php>
+	            </li>
+            </volist>
+		</ul>
+	</label>
+	<div class="text">{:getWebsiteSet('copyright')}</div>
+</footer>

@@ -1,0 +1,42 @@
+<div class="conditions">
+    <table>
+        <tr>
+            <th>标签：</th>
+            <td>
+                <a href="{:U('index',array_merge($_GET,array('page'=>1,'address'=>null)))}">
+                    <span <empty name="_GET['address']"> class="active"</empty>>全部</span>
+                </a>
+                <volist name="DictionaryCache['address']" id="vo">
+                    <a href="{:U('index',array_merge($_GET,array('page'=>1,'address'=>$vo)))}">
+                        <span <eq name="_GET['address']" value="$vo"> class="active"</eq>>{$vo}</span>
+                    </a>
+                </volist>
+            </td>
+        </tr>
+        <tr>
+            <th>CPU核心：</th>
+            <td>
+                <a href="{:U('index',array_merge($_GET,array('page'=>1,'cpu'=>null)))}">
+                    <span <empty name="_GET['cpu']"> class="active"</empty>>全部</span>
+                </a>
+                <volist name="DictionaryCache['cpu']" id="vo">
+                    <a href="{:U('index',array_merge($_GET,array('page'=>1,'cpu'=>$vo)))}">
+                        <span <eq name="_GET['cpu']" value="$vo"> class="active"</eq>>{$vo}</span></a>
+                </volist>
+            </td>
+        </tr>
+        <tr>
+            <th>内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存：</th>
+            <td>
+                <a href="{:U('index',array_merge($_GET,array('page'=>1,'ram'=>null)))}">
+                    <span <empty name="_GET['ram']"> class="active"</empty>>全部</span>
+                </a>
+                <volist name="DictionaryCache['ram']" id="vo">
+                    <a href="{:U('index',array_merge($_GET,array('page'=>1,'ram'=>$vo)))}">
+                        <span <eq name="_GET['ram']" value="$vo"> class="active"</eq>>{$vo}</span>
+                    </a>
+                </volist>
+            </td>
+        </tr>
+    </table>
+</div>

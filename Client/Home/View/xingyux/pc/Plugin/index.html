@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>插件管理-{$sitename}</title>
+<include file="Common/head" />
+<link href="//cache-code-ui.html5ui.org/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="//cache-code-ui.html5ui.org/tablecloth/tablecloth.js"></script>
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script><style>
+  .ui-tooltip, .arrow:after {
+    background: black;
+    border: 2px solid white;
+  }
+  .ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    font: bold 14px "Helvetica Neue", Sans-Serif;
+    text-transform: uppercase;
+    box-shadow: 0 0 7px black;
+  }
+  .arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+  }
+  .arrow.top {
+    top: -16px;
+    bottom: auto;
+  }
+  .arrow.left {
+    left: 20%;
+  }
+  .arrow:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -20px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 6px 5px 9px -9px black;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .arrow.top:after {
+    bottom: -20px;
+    top: auto;
+  }
+  </style>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+		        			<div class="bootstrap">
+		
+        <ul  class="nav nav-pills">
+		<li class=""><a>插件管理</a></li>
+          <li class="active"><a>插件管理</a></li>
+		  <li><a href="{:U('myplugin')}" >我的插件</a></li>
+
+        </ul>	
+		
+	</div>
+        	
+       
+            <div class="table">
+			<br><br>第一套模版安装说明：在Client\Home\View\Index\index.html和Common/webfoot.html底部 &lt;/body&gt;的上方增加 &lt;include file="PluginTpl/plugin" /&gt;，如果已存在无须增加。<br><br>
+            	<table>
+                	<tr>
+                    	<th>编号</th>
+						<th>插件名称</th>
+						<th>应用目录</th>
+						<th>更新时间</th>
+                        
+                        <th>操作</th>
+                      
+                    </tr>
+                    <foreach name="res['Plugin']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						
+                        <td>{$vo.name}</td>
+						<td>{$vo.view}</td>
+						<td>{$vo.updatetime|date='Y-m-d H:i',###}</td>
+                   
+                        <td><a href="{:U('install',array('pluginid'=>$vo['id']))}" target="_bank">安装</a></td>
+                        </tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	
+            <div class="table_foot clear">
+            
+               
+            </div>
+        </div>
+    </section>
+   
+
+	
+</body>
+</html>

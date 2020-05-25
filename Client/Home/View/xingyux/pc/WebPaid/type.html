@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$ThisType.name}代付-{$sitename}</title>
+    <link href="__PUBLIC__/web/css/style.css" type="text/css" rel="stylesheet">
+    <link href="__PUBLIC__/web/css/iconfont.css" type="text/css" rel="stylesheet">
+    <link href="__PUBLIC__/web/css/page.css" type="text/css" rel="stylesheet">
+    <script src="__RESOURE__/jQuery/jquery-1.9.1.min.js"></script>
+    <script>
+        $(function(){
+            $('.nav li').hover(
+                function(){
+                    $(this).find('.dropmenu').stop().slideDown()
+
+                },
+                function(){
+                    $(this).find('.dropmenu').stop().slideUp('fast')
+                }
+            )
+            $(window).scroll(function(){
+                var scollT=$(this).scrollTop();
+                if(scollT>$('.nav').height()){
+                    $('.nav').addClass('small')
+                    $('nav').addClass('fix');
+                    $('.dropmenu').addClass('small_dropmenu')
+                }else{
+                    $('.nav').removeClass('small')
+                    $('nav').removeClass('fix');
+                    $('.dropmenu').removeClass('small_dropmenu')
+                }
+            })
+            /*页面页脚居中*/
+            $('.pageBox').css('width',$('.pageBox>ul').width()+$('.pageBox>p').width())
+
+
+            /*条件选择*/
+
+            $('.conditions span').click(function(){
+                $(this).addClass('active').siblings().removeClass('active');
+            })
+        })
+    </script>
+    <style>
+        #vps p{font-size: 16px;line-height: 25px;}
+        #pl_xz_cx a{margin: 20px;width: unset;}
+        .paidtype a{width: auto; padding: 10px 30px;margin-right: 20px; background-color: #0aa1f0; color:#fff;display: inline-table;}
+        .paidtype a.active{
+            background-color: #0b223a;
+        }
+    </style>
+</head>
+
+<body>
+<include file="Common/nav" />
+
+<section class="asdl_main">
+    <div class="asdl_main_wrap">
+        <p class="posion">您当前的位置:<a href="{:U('index')}">首页</a> ><a href="{:U('Vps')}">产品中心</a> >官方代付>{$ThisType.name}代付</p>
+
+        <div class="paidtype">
+            <foreach name="Type" item="vo" key="vk">
+<a href="{:U('' , ['type'=>$vk ] )}" class="{$vo.active}">{$vo.name}</a>
+            </foreach>
+        </div>
+        <div class=" clear" id="pl_xz_cx">
+            <a href="{:U('Paid/' . $sType )}">立即申请{$ThisType.name}代付</a>
+
+        </div>
+        <div id="vps" style="font-size: 14px;">
+            <block name="body"></block>
+        </div>
+    </div>
+    <div class=" clear" id="pl_xz_cx">
+        <a href="{:U('Paid/' . $sType )}">立即申请{$ThisType.name}代付</a>
+
+    </div>
+</section>
+<include file="Common/webfooter" />
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>充值管理-{$sitename}</title>
+<include file="Common/head" />
+<link href="//cache-code-ui.html5ui.org/tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="//cache-code-ui.html5ui.org/tablecloth/tablecloth.js"></script>
+<script>
+$(function(){
+	$('.menu').css('minHeight',$('.content').height()+20);
+	$(function(){
+		$('.nav li').hover(
+			function(){
+				$(this).find('.dropmenu').stop().slideDown()
+	
+			},
+			function(){
+				$(this).find('.dropmenu').stop().slideUp('fast')
+			}
+		)
+		
+	})
+	$('.menu li div').click(function(){
+		$(this).parents('ul').find('li').removeClass('active')
+		$(this).parent().addClass('active')
+		$(this).parents('ul').find('p').slideUp()
+		if($(this).parent().find('p').length){
+			
+			$(this).parent().find('p').slideDown()
+		}
+	})
+	
+})
+
+
+
+</script>
+</head>
+
+<body>
+	<include file="User/nav" />
+	
+    <section class="main clear">
+    <include file="Common/menu" />
+        <div class="content">
+		        			<div class="bootstrap">
+		
+        <ul  class="nav nav-pills">
+		<li class=""><a>财务信息</a></li>
+          <li><a href="{:U('index')}">财务信息</a></li>
+		  <li class="active"><a >充值记录</a></li>
+		  <li><a href="{:U('buy')}" >消费记录</a></li>
+		  <li><a href="{:U('refun')}" >退款记录</a></li>		  
+		  <li><a href="{:U('pay')}"  target="_bank">在线充值</a></li>
+        </ul>	
+		
+	</div><form id="form" action="{:U('Search/index')}" method="post">
+      
+            <div class="table">
+            	<table>
+                	<tr>
+                    	<th>编号</th>
+						<th>操作时间</th>
+                        <th>金额</th>
+                        <th>充值方式</th>
+                        <th>官方订单号</th>
+                        <th>充值成功时间</th>
+						<th>充值状态</th>
+						<th>备注</th>
+                    </tr>
+                    <foreach name="res['Log']" item="vo">
+                         <tr>
+                    	<td>{$vo.id} </td>
+						<td>{$vo.tim|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.money}</td>
+                        <td>{$vo.paytype}  </th>
+                        <td>{$vo.order}</td>
+						<td>{$vo.succtim|date='Y-m-d H:i',###}</td>
+                        <td>		<if condition="$vo['state'] eq 1">
+								<span class="label label-sm label-success">等待支付</span>
+							<elseif condition="$vo['state'] eq 2" />
+								<span class="label label-sm label-warning">成功</span>
+							<else /> 
+								<span class="label label-sm label-warning">失败</span>
+								
+							</if></td><td>{$vo.info}</td>
+                        </tr>
+						</foreach>
+						
+                    
+                </table>
+            </div>
+	<script>
+    	$(function(){
+			$('.all').click(function(){
+				console.log($(this).attr('checked'))
+				$('.table input:checkbox').attr('checked',this.checked);
+			})
+			$('.mark').mouseover(function(){
+				$('.table').find('.tip').css('display','none')
+				$(this).find('.tip').css('display','block')
+				$(this).find('.close').click(function(){
+					$(this).parent().css('display','none')
+				})
+			})	
+			
+		})
+    </script>
+            <div class="table_foot clear">
+            
+                 <include file="Common/ui-page" />
+            </div>
+        </div>
+    </section>
+   
+
+	
+</body>
+</html>
