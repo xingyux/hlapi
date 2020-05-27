@@ -78,8 +78,7 @@
                             {$vo.title}
                         </h4>
                         <p class="list-group-item-text">
-                            [{$vo.tim|date='Y-m-d
-                            H:i',###}]{$vo.content|htmlspecialchars_decode|strip_tags|mb_substr=0,50,"UTF-8"}
+                            [{$vo.tim|date='Y-m-d H:i',###}]{$vo.content|htmlspecialchars_decode|strip_tags|mb_substr=0,50,"UTF-8"}
                         </p>
                     </a>
                 </foreach>
@@ -93,6 +92,9 @@
             </div>
         </section>
     </section>
+    <div style="padding: 10px 0;text-align: center;">
+        <h3>更多详细建站资讯/技术文章，请访问<span style="background: #03a1e5;padding: 5px;margin: 5px;color: #fff;border-radius: 5px;cursor: pointer;" onclick="javascript:window.open('http://blog.xingyux.com/JianZhanZiXun.html');">星宇博客</span>。</h3>
+    </div>
 </notempty>
 <include file="Common/webfooter"/>
 </body>

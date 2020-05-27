@@ -1293,19 +1293,12 @@ footer {
     text-align: center;
 }
 
-.page ul {
-    float: left;
-    border-radius: 3px;
-    color: #fff;
-    font-size: 16px;
-    display: inline-block
-}
-
 .page {
 }
 
 .pageBox {
     width: 100%;
+    margin: auto;
 }
 
 .pageBox ul {

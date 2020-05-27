@@ -39,7 +39,7 @@
                 num = num % 3;
                 $('.rw_banner_wrap ol li').eq(num).addClass('active').siblings().removeClass('active');
                 $('.rw_banner_wrap ul li').eq(num).show().siblings().hide();
-            }, 5000);
+            }, 7000);
             $('.rw_banner_wrap').mouseover(function () {
                 clearInterval(timer);
             });
@@ -49,7 +49,7 @@
                     num = num % 3;
                     $('.rw_banner_wrap ol li').eq(num).addClass('active').siblings().removeClass('active');
                     $('.rw_banner_wrap ul li').eq(num).show().siblings().hide();
-                }, 5000)
+                }, 7000)
             });
             $('.rw_if li:not(".active")').click(function () {
                 $(this).css({
@@ -67,30 +67,46 @@
 <section class="rw_banner" style="margin-bottom:0">
     <div class="rw_banner_wrap">
         <ul class=" clear">
-            <li style="display:block">
+            <li style="display:block" alt="VPS">
+                <img src="__PUBLIC__/web/images/rw_bg.png" class="rw_banner1">
+                <img src="__PUBLIC__/web/images/rw_box2.png" class="rw_banner2">
+                <img src="__PUBLIC__/web/images/font2.png" class="rw_banner3">
+                <!--<img src="__PUBLIC__/web/images/font_index.png" class="rw_banner4">-->
+                <a href="#" class="rw_banner5"><img src="__PUBLIC__/web/images/look.png"></a>
+            </li>
+            <li style="display:none" alt="ADSL">
+                <img src="__PUBLIC__/web/images/rw_bg.png" class="rw_banner1">
+                <img src="__PUBLIC__/web/images/rw_box3.png" class="rw_banner2">
+                <img src="__PUBLIC__/web/images/font3.png" class="rw_banner3">
+                <!--<img src="__PUBLIC__/web/images/font_index.png" class="rw_banner4">-->
+                <a href="#" class="rw_banner5"><img src="__PUBLIC__/web/images/look.png"></a>
+            </li>
+            <li style="display:none" alt="弹性云">
+                <img src="__PUBLIC__/web/images/rw_bg.png" class="rw_banner1">
+                <img src="__PUBLIC__/web/images/rw_box4.png" class="rw_banner2">
+                <img src="__PUBLIC__/web/images/font4.png" class="rw_banner3">
+                <!--<img src="__PUBLIC__/web/images/font_index.png" class="rw_banner4">-->
+                <a href="#" class="rw_banner5"><img src="__PUBLIC__/web/images/look.png"></a>
+            </li>
+            <li style="display:none" alt="服务器">
+                <img src="__PUBLIC__/web/images/rw_bg.png" class="rw_banner1">
+                <img src="__PUBLIC__/web/images/rw_box5.png" class="rw_banner2">
+                <img src="__PUBLIC__/web/images/font5.png" class="rw_banner3">
+                <!--<img src="__PUBLIC__/web/images/font_index.png" class="rw_banner4">-->
+                <a href="#" class="rw_banner5"><img src="__PUBLIC__/web/images/look.png"></a>
+            </li>
+            <li style="display:none" alt="聚合IDC">
                 <img src="__PUBLIC__/web/images/rw_bg.png" class="rw_banner1">
                 <img src="__PUBLIC__/web/images/rw_box.png" class="rw_banner2">
                 <img src="__PUBLIC__/web/images/font1.png" class="rw_banner3">
                 <!--<img src="__PUBLIC__/web/images/font_index.png" class="rw_banner4">-->
                 <a href="#" class="rw_banner5"><img src="__PUBLIC__/web/images/look.png"></a>
             </li>
-            <li style="display:none">
-                <img src="__PUBLIC__/web/images/rw_bg.png" class="rw_banner1">
-                <img src="__PUBLIC__/web/images/rw_box_two.png" class="rw_banner2">
-                <img src="__PUBLIC__/web/images/font2.png" class="rw_banner3">
-                <!--<img src="__PUBLIC__/web/images/font_index.png" class="rw_banner4">-->
-                <a href="#" class="rw_banner5"><img src="__PUBLIC__/web/images/look.png"></a>
-            </li>
-            <li style="display:none">
-                <img src="__PUBLIC__/web/images/rw_bg.png" class="rw_banner1">
-                <img src="__PUBLIC__/web/images/rw_box.png" class="rw_banner2">
-                <img src="__PUBLIC__/web/images/font3.png" class="rw_banner3">
-                <!--<img src="__PUBLIC__/web/images/font_index.png" class="rw_banner4">-->
-                <a href="#" class="rw_banner5"><img src="__PUBLIC__/web/images/look.png"></a>
-            </li>
         </ul>
         <ol class="clear">
             <li class="active"></li>
+            <li></li>
+            <li></li>
             <li></li>
             <li></li>
         </ol>
